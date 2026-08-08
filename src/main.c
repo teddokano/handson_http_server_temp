@@ -206,7 +206,7 @@ static int read_temperature_c(double *temp_c)
 	"if(!r.ok)throw new Error(r.status);" \
 	"const t=await r.json();" \
 	"document.getElementById(\"temp\").innerHTML=" \
-	"(t===null?\"Sensor error\":\"Temperature: \"+t.toFixed(1)+\"&deg;C\");" \
+	"(t===null?\"Sensor error\":\"Temperature: \"+t.toFixed(3)+\"&deg;C\");" \
 	"}catch(e){console.error(e.message);}" \
 	"}" \
 	"setInterval(fetchTemp,1000);" \
@@ -228,7 +228,7 @@ static int temperature_handler(struct http_client_ctx *client, enum http_transac
 		if (read_temperature_c(&temp_c) < 0) {
 			snprintf(msg_buf, sizeof(msg_buf), "Sensor error");
 		} else {
-			snprintf(msg_buf, sizeof(msg_buf), "Temperature: %.1f&deg;C", temp_c);
+			snprintf(msg_buf, sizeof(msg_buf), "Temperature: %.3f&deg;C", temp_c);
 		}
 
 		ret = snprintf(body_buf, sizeof(body_buf), TEMPERATURE_PAGE_FMT, msg_buf);
@@ -267,7 +267,7 @@ static int temperature_json_handler(struct http_client_ctx *client, enum http_tr
 		if (read_temperature_c(&temp_c) < 0) {
 			ret = snprintf(body_buf, sizeof(body_buf), "null");
 		} else {
-			ret = snprintf(body_buf, sizeof(body_buf), "%.1f", temp_c);
+			ret = snprintf(body_buf, sizeof(body_buf), "%.3f", temp_c);
 		}
 		if (ret < 0) {
 			LOG_ERR("Failed to snprintf response body, err %d", ret);
