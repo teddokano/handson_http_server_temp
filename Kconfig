@@ -1,0 +1,64 @@
+# Config options for the HTTP server handson sample application
+#
+# ベース: zephyr/samples/net/sockets/http_server/Kconfig
+# (USB device stack next 用ブロックは frdm_mcxn947 が Ethernet 内蔵のため未使用)
+
+# Copyright (c) 2023, Emna Rekik
+# SPDX-License-Identifier: Apache-2.0
+
+mainmenu "HTTP server handson application"
+
+config NET_SAMPLE_HTTP_SERVICE
+	bool "Enable http service"
+	default y
+
+config NET_SAMPLE_HTTP_SERVER_SERVICE_PORT
+	int "Port number for http service"
+	default 80
+	depends on NET_SAMPLE_HTTP_SERVICE
+
+config NET_SAMPLE_HTTPS_SERVICE
+	bool "Enable https service"
+	depends on NET_SOCKETS_SOCKOPT_TLS || TLS_CREDENTIALS
+	default y if HTTP_SERVER_VERSION_3
+	select PSA_CRYPTO
+
+if NET_SAMPLE_HTTPS_SERVICE
+
+config NET_SAMPLE_HTTPS_SERVER_SERVICE_PORT
+	int "Port number for https service"
+	default 443
+	depends on NET_SAMPLE_HTTPS_SERVICE
+
+config NET_SAMPLE_HTTPS_USE_ALPN
+	bool "Allow HTTP2 & HTTP3 connectivity with web browsers by using ALPN"
+	select MBEDTLS_SSL_ALPN
+	select HTTP_SERVER_TLS_USE_ALPN
+	default y if HTTP_SERVER_VERSION_3
+
+endif # NET_SAMPLE_HTTPS_SERVICE
+
+config NET_SAMPLE_PSK_HEADER_FILE
+	string "Header file containing PSK"
+	default "dummy_psk.h"
+	depends on MBEDTLS_KEY_EXCHANGE_PSK_ENABLED
+	help
+	  Name of a header file containing a
+	  pre-shared key.
+
+config NET_SAMPLE_WEBSOCKET_SERVICE
+	bool "Enable websocket service"
+	default y if HTTP_SERVER_WEBSOCKET
+
+config NET_SAMPLE_NUM_WEBSOCKET_HANDLERS
+	int "How many websocket connections to serve at the same time"
+	depends on NET_SAMPLE_WEBSOCKET_SERVICE
+	default 1
+
+config NET_SAMPLE_WEBSOCKET_STATS_INTERVAL
+	int "Interval in milliseconds to send network stats over websocket"
+	depends on NET_SAMPLE_WEBSOCKET_SERVICE
+	default 200
+
+source "samples/net/common/Kconfig"
+source "Kconfig.zephyr"
