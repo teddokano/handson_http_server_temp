@@ -115,10 +115,18 @@ if ($sdkFound) { Add-Result 'OK' 'Zephyr SDK' $sdkFound }
 else { Add-Result '注意' 'Zephyr SDK' '見つかりません（-Build で実際にビルドできるか確認してください）' }
 
 # ---------------------------------------------------------------- コマンド
-foreach ($cmd in 'git', 'cmake', 'ninja', 'code') {
+foreach ($cmd in 'git', 'cmake', 'ninja', 'code', 'ccache') {
     $c = Get-Command $cmd -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($c) { Add-Result 'OK' "コマンド: $cmd" $c.Source }
+    elseif ($cmd -eq 'ccache') { Add-Result 'NG' "コマンド: $cmd" 'PATH にありません（winget install --id Ccache.Ccache -e．ないとビルドが数倍遅くなります）' }
     else { Add-Result 'NG' "コマンド: $cmd" 'PATH にありません' }
+}
+
+if (Get-Command ccache -ErrorAction SilentlyContinue) {
+    $ccStats = (& ccache -s 2>&1 | Out-String)
+    $sizeLine = ($ccStats -split "`r?`n" | Where-Object { $_ -match '(?i)cache size' } | Select-Object -First 1)
+    if ($sizeLine) { $sizeLine = $sizeLine.Trim() } else { $sizeLine = '（ccache -s で確認）' }
+    Add-Result '情報' 'ccacheのキャッシュ' "$sizeLine （prewarm_ccache.ps1 で準備．空に近ければ未準備）"
 }
 
 $ls = Get-Command 'LinkServer' -ErrorAction SilentlyContinue | Select-Object -First 1
@@ -132,12 +140,31 @@ if ($ls) {
 }
 
 # ---------------------------------------------------------------- Tera Term
-$ttExe = @(
-    "${env:ProgramFiles(x86)}\teraterm5\ttermpro.exe",
-    "$env:ProgramFiles\teraterm5\ttermpro.exe",
-    "${env:ProgramFiles(x86)}\teraterm\ttermpro.exe",
-    "$env:ProgramFiles\teraterm\ttermpro.exe"
-) | Where-Object { $_ -and (Test-Path $_) } | Select-Object -First 1
+# 「すべてのユーザー」向けのインストール（Program Files）と，
+# 「自分だけ」向けのインストール（%LOCALAPPDATA%\Programs）の両方を探す
+$ttCandidates = @()
+foreach ($base in @("${env:ProgramFiles(x86)}", "$env:ProgramFiles", (Join-Path "$env:LOCALAPPDATA" 'Programs'))) {
+    if ($base) {
+        foreach ($name in 'teraterm5', 'teraterm') {
+            $ttCandidates += (Join-Path (Join-Path $base $name) 'ttermpro.exe')
+        }
+    }
+}
+$ttExe = $ttCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+
+# 上で見つからなければ，「アプリと機能」に登録されているインストール先を調べる
+if (-not $ttExe) {
+    $uninstallKeys = @(
+        'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
+        'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
+        'HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*'
+    )
+    $ttExe = Get-ItemProperty $uninstallKeys -ErrorAction SilentlyContinue |
+        Where-Object { $_.DisplayName -like 'Tera Term*' -and $_.InstallLocation } |
+        ForEach-Object { Join-Path $_.InstallLocation 'ttermpro.exe' } |
+        Where-Object { Test-Path $_ } |
+        Select-Object -First 1
+}
 if ($ttExe) { Add-Result 'OK' 'Tera Term' $ttExe }
 else { Add-Result 'NG' 'Tera Term' '見つかりません' }
 
@@ -277,6 +304,8 @@ if ($ng -eq 0 -and $warn -eq 0) {
     Write-Host '=== すべてOKです ===' -ForegroundColor Green
 } else {
     Write-Host ("=== NG: {0} 件 / 注意: {1} 件 ===" -f $ng, $warn) -ForegroundColor $(if ($ng) { 'Red' } else { 'Yellow' })
-    $results | Where-Object { $_.Status -in 'NG', '注意' } | Format-Table -AutoSize -Wrap | Out-String | Write-Host
+    $results | Where-Object { $_.Status -in 'NG', '注意' } | ForEach-Object {
+        Write-Host ("  [{0}] {1}: {2}" -f $_.Status, $_.Item, $_.Detail) -ForegroundColor $(if ($_.Status -eq 'NG') { 'Red' } else { 'Yellow' })
+    }
 }
 if ($ng) { exit 1 } else { exit 0 }

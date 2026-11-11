@@ -83,7 +83,9 @@ if (Test-Path $Seed) {
     }
     # seed 内の git リポジトリが変更されていないか念のため確認
     Get-ChildItem $handson -Directory | Where-Object { Test-Path (Join-Path $_.FullName '.git') } | ForEach-Object {
+        $ErrorActionPreference = 'Continue'
         $st = (& git -C $_.FullName status --porcelain 2>&1 | Out-String).Trim()
+        $ErrorActionPreference = 'Stop'
         if ($st) { Write-Host "[注意] $($_.Name) に未コミットの変更があります（seed 自体が変更されている可能性）:`n$st" -ForegroundColor Yellow }
     }
 }
