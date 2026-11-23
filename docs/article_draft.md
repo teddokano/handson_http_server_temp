@@ -629,6 +629,8 @@ static const struct device *const temp_dev = DEVICE_DT_GET(DT_ALIAS(ambient_temp
 
 コードを一行も書かずに，「デバイスツリーの定義を変えるだけで別のハードウェア構成に対応できる」というのがここでの見どころです．たとえば同じセンサーをI2C接続のボードに載せ替えたり，別の温度センサーIC（対応ドライバがある前提）に変更したりする場合でも，変更するのは基本的に`boards/*.overlay`の中だけで，`main.c`の`DEVICE_DT_GET(DT_ALIAS(ambient_temp0))`という1行はそのまま使い回せます．
 
+![](img/fig_c5_devicetree_kconfig.png)
+
 > **コラム: デバイスツリーの実体はどこにあるのか**
 > 1. `main.c`にはアプリケーションのロジック（センサーを読んで表示するという処理）だけが書かれ，ハードウェアの接続情報はデバイスツリーに切り出されています．FRDM-MCXN947のボード自体が持つデバイスツリーの本体は，Zephyr本体側の`zephyr/boards/nxp/frdm_mcxn947/frdm_mcxn947_mcxn947_cpu0.dts`（および共通定義の`frdm_mcxn947.dtsi`）です．ここにはボードに標準搭載されたペリフェラル一式が定義されています．
 > 2. とはいえ，このボード本体のデバイスツリーファイルを直接書き換えることはしません．Zephyrでは，アプリケーション側（`samples/sensor/thermometer/boards/frdm_mcxn947_mcxn947_cpu0.overlay`，5章で使うこのハンズオン用リポジトリでは`boards/frdm_mcxn947_mcxn947_cpu0.overlay`）に，ボード本体の定義へ**追記・上書きするための差分ファイル**である「デバイスツリーオーバーレイ」（`*.overlay`）を置く，という作法を取ります．本文中に示した`p3t1755`ノードの定義も，このオーバーレイファイルの中身です．ボード本体の定義はそのままに，アプリケーションごとに必要な差分だけを重ねられるのが利点です．
@@ -692,6 +694,8 @@ CONFIG_NET_CONFIG_MY_IPV4_GW="192.168.1.1"
 > - すぐ近くにある`CONFIG_NET_CONFIG_PEER_IPV4_ADDR`の行は，似ていますが別の設定です．今回は書き換えなくて構いません．
 > - 値を囲む`"`（ダブルクォーテーション）は消さないでください．
 > - 編集したら，**`Ctrl`+`S`で保存**します．VSCodeのタブのファイル名の横に`●`が付いている間は，まだ保存されていません．保存し忘れると，元のIPアドレスのままビルドされてしまいます．
+
+![](img/prj_conf_edit.png)
 
 > **コラム: Gatewayの設定について**
 > Gateway（`CONFIG_NET_CONFIG_MY_IPV4_GW`）は，ルーターを経由しない通信では本来必須ではありません．今回はPCとボードをEthernetケーブルで直結し，同じ`192.168.1.0/24`のサブネットに両方を置くので，通信はすべて同一リンク内のARPで解決され，Gatewayを経由するルーティングは発生しないためです．
@@ -817,6 +821,8 @@ static int temperature_json_handler(struct http_client_ctx *client, enum http_tr
 （抜粋）
 
 追加したのは，この2つのハンドラ関数（センサーの読み取り部分は共通の関数にまとめています）と，それぞれを`/temperature`・`/temperature.json`というパスに紐づける`HTTP_RESOURCE_DEFINE()`の2行だけです．他の部分（LED制御，`/uptime`，静的ページ配信）は元のサンプルのまま変更していません．
+
+![](img/fig_c6_http_flow.png)
 
 <a id="5-2"></a>
 ### 5.2 実際にブラウザで表示してみる
