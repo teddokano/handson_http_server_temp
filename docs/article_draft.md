@@ -29,6 +29,8 @@ https://community.nxp.com/t5/NXP-Tech-Blog/MCUXpresso-for-VSCとSDKのインス�
 
 # Zephyrデビュー会 〜FRDM-MCXN947でつまずかず動かす90分〜
 
+![](img/title.png)
+
 ## 目次
 
 - [0. この記事は？](#chapter0)
@@ -641,7 +643,7 @@ static const struct device *const temp_dev = DEVICE_DT_GET(DT_ALIAS(ambient_temp
 
 この章では，ボード単体で完結していたこれまでの内容から一歩進めて，PCとボードをEthernetケーブルで接続し，ボード上で動くHTTP Serverにブラウザからアクセスします．具体的には，Zephyr公式サンプル`samples/net/sockets/http_server`をそのままビルド・書き込みし，ブラウザからLEDを点灯/消灯したり，シンプルなエンドポイントの応答を確認したりします．ここで体験する「ブラウザからボードにアクセスする」という仕組みを土台にして，5章では温度センサーの値をブラウザで見られるように拡張します．
 
-【実験を行うPCと基板の接続図を追加】
+![](img/pc_and_board_connection.png)
 
 FRDM-MCXN947でHTTP Serverサンプルを動かす手順自体は，単発のブログ記事としてすでに公開されています．PC側のネットワーク設定や，固定IPの代わりにDHCPを使う場合の手順など，より詳しい内容はそちらも参照してください．
 
@@ -1050,6 +1052,10 @@ ipconfig
 
 > **ご自身のPCで試している場合: PC側の固定IPの設定**
 > Windowsの「設定」→「ネットワークとインターネット」→「イーサネット」を開き，「IP割り当て」の「編集」から「手動」を選びます．IPv4をオンにして，IPアドレスに`192.168.1.10`，サブネットマスクに`255.255.255.0`を入力して保存します（ゲートウェイは空欄で構いません）．詳しくは4章の冒頭で紹介したHTTP Serverのブログ記事も参照してください．
+> 
+> ![](img/ip_address_setting.png)
+
+
 
 <a id="A-7"></a>
 ### A.7 どうしても直らないときのリセット手順
