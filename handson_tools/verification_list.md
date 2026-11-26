@@ -12,6 +12,7 @@
 - blinkyの`SLEEP_TIME_MS 1000`，`DT_ALIAS(led0)`，シリアル出力`LED state: ON/OFF`
 - blinkyの`boards/`にFRDM-MCXN947用のoverlayがないこと
 - FRDM-MCXN947のdtsiで`led0 = &red_led`（GPIO0の10番ピン）
+- 2.4節に全文を載せたblinkyの`src/main.c`（Zephyr mainの`samples/basic/blinky/src/main.c`．最終変更は2023-09-25なので，会場PCのv4.5.0-rc3でも同じ内容）
 - 図C8（2.4節）の内容（Zephyr main 2026-11-03で確認）: blinkyの`prj.conf`は`CONFIG_GPIO=y`の1行．`red_led`は`frdm_mcxn947.dtsi`では`status = "disabled"`で，`frdm_mcxn947_mcxn947_cpu0.dtsi`の`&red_led { status = "okay"; }`で有効になる．`gpio0`は`nxp_mcxnx4x_common.dtsi`で`compatible = "nxp,kinetis-gpio"`．ドライバは`drivers/gpio/gpio_mcux.c`で，`CONFIG_GPIO_MCUX`は`DT_HAS_NXP_KINETIS_GPIO_ENABLED`のとき`default y`
 - thermometerの出力`Thermometer Example (%s)`，`Temperature device is %p, name is %s`，`Temperature is %0.1lf°C`
 - thermometerの`boards/`に`frdm_mcxn947_mcxn947_cpu0.overlay`があること
@@ -30,7 +31,7 @@
 | 2 | 2.1節（コマンド例2.1-2） | `zinit thermometer` | `zinit`を実行したあと，プロンプトに`(.venv)`が付き，`west build`が使えるか．関数の中から`Activate.ps1`を読み込む形にしているので，Windows PowerShell 5.1の実機で確認が必要です．VSCodeのターミナルでも確認してください |
 | 3 | 2.2節の手順2（394行付近） | `MCU-Link VCom Port` | ~~Tera Termの「新しい接続」のポート一覧で，基板がどう表示されるか．`venue_check.ps1`は，デバイス名に`MCU-Link`を含むCOMポートを探しています．名前が違えば，記事とスクリプトの両方を直してください~~ → **確認済み（スクリーンショット）: `COM6: MCU-Link VCom Port (COM6)`．名前は記事どおり．番号はPCによって異なる** |
 | 4 | 2.2節の手順3（396行付近） | `現在の接続を再設定` | ~~Tera Termのシリアルポート設定画面のボタン名．会場PCのTera Termのバージョンで確認してください~~ → **確認済み（スクリーンショット）: Tera Term 5では「Tera Term: その他の設定」の「シリアルポート」タブで，ボタンは「OK」．記事に反映済み** |
-| 5 | 2.2節の手順4（398行付近） | `漢字（受信）` | Tera Termの「設定」→「端末」での，受信の文字コードの項目名と選択肢．UTF-8にしたとき，3章の`°C`が正しく表示されるか |
+| 5 | 2.2節の手順4（398行付近） | `漢字（受信）` | ~~Tera Termの「設定」→「端末」での，受信の文字コードの項目名と選択肢．UTF-8にしたとき，3章の`°C`が正しく表示されるか~~ → **確認済み（筆者）: Tera Term 5では「設定」→「その他の設定」の「エンコーディング」タブで受信の文字コードを設定する．記事に反映済み（項目名の細部は撮影時に確認）** |
 | 6 | `venue_check.ps1` | `KanjiReceive` | ~~Tera Termの設定ファイル（`TERATERM.INI`）での受信文字コードのキー名と値，ファイルの置き場所（`%APPDATA%\teraterm5\`など）．違っていると，スクリプトが毎回「注意」を出します~~ → **不要: `TERATERM.INI`は配らないことにし，`venue_check.ps1`の設定ファイルの確認も削除した** |
 | 7 | 4.1節（728行付近） | `基板側のコネクタのLED` | FRDM-MCXN947のEthernetコネクタに，リンク状態を示すLEDがあるか．なければこの確認項目を削除してください |
 | 8 | 4.1節（730行付近） | `IPアドレスの表示が出ているか` | 4章のhttp_serverサンプルが，起動時にシリアルにIPアドレスなどを表示するか．表示しなければ，この確認項目を書き換えてください　※`page_view.png`の背景のTera Termには`<dbg>`のログと`uart:~$`しか見えない．IPアドレスが出なければ，この項目を「ログが流れているか」に書き換える |
@@ -62,7 +63,7 @@
 | 29 | 付録A.5（992・996行付近） | `新しい接続`，`接続断` | Tera Termのメニュー名（「ファイル」→「新しい接続」「接続断」） |
 | 38 | 2.1節 | `PS C:\WINDOWS\system32>` | PowerShellの開始フォルダ．スクリーンショットでは，管理者でない起動でも`C:\WINDOWS\system32`で開いた例（`powershell_launched.png`）と，`C:\Users\Owner`で開いた例（`activated.png`）がある．記事は「どこで開いても`cd`で移動するので問題ない」に変更済み．会場PCでスタートメニューから開いたときの実際の場所を確認 |
 | 39 | 2.2節の手順3 | `スピード` | ~~`teraterm_baud.png`ではスピードの初期値が`9600`だった．`TERATERM.INI`（115200，`ComPort=3`）が読まれていない可能性．会場PCでINIのコピー先と，COMポート番号（スクリーンショットでは`COM6`）を確認~~ → **対応済み: `TERATERM.INI`は会場PCで読まれていなかった．配るのをやめ，`setup_venue.ps1`のコピーを削除した．初期状態のまま`°C`が正しく表示されることを会場PCで確認済み．ボーレートは受講者が手順3で設定する** |
-| 40 | 2.2節の手順4 | `Tera Term 5での画面名・項目名を確認` | Tera Term 5で受信の文字コードを設定する画面（「設定」→「端末」か，「その他の設定」の「エンコーディング」タブか）と項目名 |
+| 40 | 2.2節の手順4 | `Tera Term 5での画面名・項目名を確認` | ~~Tera Term 5で受信の文字コードを設定する画面（「設定」→「端末」か，「その他の設定」の「エンコーディング」タブか）と項目名~~ → **確認済み（筆者）: 「エンコーディング」タブ．記事に反映済み** |
 | 41 | 4.1節 | `MCU-Link firmware update` | `west flash`で出るMCU-Linkのファームウェアが古いというINFO（スクリーンショットではV3.128，付属は3.174）．会場の基板のファームウェアを更新するか，記事の「気にせず進めてください」のままにするか決める |
 | 42 | 4.2節 | `<dbg>` | http_serverを書き込んだあと，Tera Termに`<dbg>`のログと`uart:~$`が出ること（`page_view.png`の背景で確認）．ログがいつから流れるか（ブラウザでページを開く前から出るか）を確認 |
 | 43 | 2.2節，3.2節，付録F | `v4.x.x` | スクリーンショットのZephyrは`v4.5.0-rc3-33-g0436e9d188e0`（正式版でない）．会場PCで使う版を決めて，出力例を確定 |

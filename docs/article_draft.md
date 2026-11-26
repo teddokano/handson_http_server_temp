@@ -111,6 +111,8 @@ https://community.nxp.com/t5/NXP-Tech-Blog/MCUXpresso-for-VSCとSDKのインス�
 
 NXPのFRDM-MCXN947ボードを使って，LEDの点滅から温度センサーの読み取り，さらにブラウザ経由でセンサー値を表示するところまでを，実際に手を動かして体験します．ゴールは「Zephyrで簡単にアプリが動かせる」という成功体験を持ち帰ってもらうことです．難しい設定やコーディングは，この記事の中では最小限に留めます．
 
+この記事では，あえて**コマンドライン**で作業します．NXPのMCUXpresso for VS Codeのように，ボタン操作でビルドや書き込みができる便利なツールもありますが，ここではZephyrが標準で用意している`west`コマンドを直接使います．特定のベンダーのツールに依存しない，ニュートラルな素のZephyrを体験してもらうためです．ここで体験する手順は，NXP以外のメーカーのボードでも，ボード名を変えるだけでそのまま使えます．
+
 今日の流れは，図0.2-1のとおりです．2章で開発の手順に慣れ，3章と4章でそれぞれ別の機能を動かし，5章でその2つを組み合わせます．
 
 ![図0.2-1 今日の流れ](img/fig_flow_overview.png)
@@ -140,7 +142,9 @@ NXPのFRDM-MCXN947ボードを使って，LEDの点滅から温度センサー�
 > **ご自身のPCで再現する方へ**
 > 会場PCと同じ状態にするには，上のソフトウェアをインストールしておく必要があります．特に**LinkServer**は見落としがちです．インストールされていない（またはPATHが通っていない）と，ビルドまではできても`west flash`で書き込めません．また，4章ではPCのEthernetポートを使うので，Ethernetポートのないノートパソコンでは，USB-Ethernetアダプタを用意してください．
 >
-> 【開発ツールのインストール方法を紹介したブログ記事へのリンクを挿入】
+> インストール方法は，次のどちらかを参考にしてください．
+> - **公式ガイド**: [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html)（英語）．この記事の前提（`~/zephyrproject`にワークスペースとPython仮想環境`.venv`を作る構成）と同じ手順です．LinkServerは，別にインストールしてください．
+> - **NXPのツールを使った手軽な方法**: [[Zephyr® シリーズ] 第２回 はじめてのビルドと実機動作（NXP Tech Blog，日本語）](https://community.nxp.com/t5/NXP-Tech-Blog/Zephyr-シリーズ-第２回-はじめてのビルドと実機動作-日本語ブログ/ba-p/2189007)．MCUXpresso for VS CodeとMCUXpresso Installerで，Zephyrの開発環境とLinkServerをまとめてインストールできます．ただし，この方法ではPython仮想環境（Windowsでは`C:\Users\<ユーザー名>\.mcuxpressotools\`の下）やZephyrのフォルダの場所が，この記事と異なります．コマンド例2.1-1などのフォルダの場所は，ご自身の環境に合わせて読み替えてください．
 
 <a id="0-4"></a>
 ### 0.4 進め方と所要時間の目安
@@ -176,7 +180,7 @@ NXPのFRDM-MCXN947ボードを使って，LEDの点滅から温度センサー�
 2章から5章の各節は，次の順に並んでいます．会場では，まず手順を最後まで進め，「✔ ここまでできればOK」を確かめてから，解説を聞いてください．
 
 1. **この節でやること**（1行）
-2. **手順**（コマンド例）
+2. **手順**（コマンド例．長い節は「ステップ1」「ステップ2」…に分けています）
 3. **✔ ここまでできればOK**（成功したときの画面や表示）
 4. **うまくいかないときは**（よくあるつまずきと対処）
 5. **解説・コラム**
@@ -265,9 +269,9 @@ FRDM-MCXN947は，NXPのMCX N947マイコンを搭載した評価ボードです
 
 この節では，PowerShellを開いて，Zephyrのコマンド（west）が使える状態になっていることを確認します．
 
-会場のPCには，west・Zephyr SDKを含む開発環境を，公式のGetting Startedガイドの手順でセットアップしてあります．皆さんが環境構築で手間取る必要はありません．MCUXpresso for VSCも使える状態ですが，このセミナーではあえてコマンドラインで操作します．特定のチップベンダーに依存せず，どのボードでも共通の手順で扱えるからです．
+会場のPCには，west・Zephyr SDKを含む開発環境を，公式のGetting Startedガイドの手順でセットアップしてあります．皆さんが環境構築で手間取る必要はありません．MCUXpresso for VSCも使える状態ですが，0.2節で書いたとおり，このセミナーではあえてコマンドラインで操作します．
 
-**1. PowerShellを開く**
+**ステップ1: PowerShellを開く**
 
 スタートメニューで「PowerShell」と入力し，「Windows PowerShell」を起動してください（図2.1-1）．このとき，「管理者として実行」は**選ばないでください**．このセミナーの手順に管理者の権限は必要なく，管理者として起動すると，コマンドを間違えたときの影響がPC全体に及ぶおそれがあるためです．管理者として起動したかどうかは，ウィンドウのタブ（またはタイトル）の先頭に「管理者:」と付いているかで見分けられます．
 
@@ -281,7 +285,7 @@ PowerShellは，起動のしかたによって最初にいるフォルダ（カ�
 
 **図2.1-2** 起動したPowerShell（`C:\WINDOWS\system32`で開いた例）
 
-**2. westを使える状態にする**
+**ステップ2: westを使える状態にする**
 
 westを使う前に，Zephyr用のPython仮想環境（Zephyrのツールをまとめて入れてある，独立したPythonの環境）を有効化し，Zephyr本体の場所を環境変数`ZEPHYR_BASE`に設定します．次のコマンド例をコピーして，PowerShellに貼り付けて実行してください．
 
@@ -389,9 +393,7 @@ zinit thermometer
 > 保存したら，PowerShellのウィンドウを開き直すと`zinit`が使えるようになります．プロファイルの実行にも，この節の解説で説明した実行ポリシーの設定（`RemoteSigned`）が必要です．なお，プロファイルに日本語を書く場合は，文字コードに注意が必要です（Windows PowerShellは，BOMなしのUTF-8のファイルに含まれる日本語を正しく読めません）．上の内容は英数字だけなので，そのまま保存して構いません．
 
 > **ご自身のPCで試す場合: 環境のセットアップ**
-> 今回は会場PCに環境構築済みの状態で臨んでいただいていますが，ご自身のPCでも同じ環境を用意できます．
-> - 公式ガイド: [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html)
-> - NXPのツールを使った簡単セットアップ: [Zephyrシリーズ 第２回 はじめてのビルドと実機動作（NXP Tech Blog，日本語）](https://community.nxp.com/t5/NXP-Tech-Blog/Zephyr-シリーズ-第２回-はじめてのビルドと実機動作-日本語ブログ/ba-p/2189007)
+> 今回は会場PCに環境構築済みの状態で臨んでいただいていますが，ご自身のPCでも同じ環境を用意できます．インストール方法は，[0.3節](#0-3)の「ご自身のPCで再現する方へ」を参照してください．
 
 <a id="2-2"></a>
 ### 2.2 Hello Worldサンプルを実行してみる
@@ -404,7 +406,7 @@ zinit thermometer
 
 **図2.2-1** サンプルを作業用フォルダにコピーして使う
 
-**1. サンプルを作業用フォルダにコピーする**
+**ステップ1: サンプルを作業用フォルダにコピーする**
 
 `hello_world`サンプルを作業用フォルダにコピーし，そのフォルダに移動します．
 
@@ -417,7 +419,7 @@ cd ~\handson\hello_world
 
 実行後，プロンプトが`PS C:\Users\<ユーザー名>\handson\hello_world>`になっていれば移動できています．念のため`ls`を実行すると，`src`・`CMakeLists.txt`・`prj.conf`などが並んでいるはずです．
 
-**2. ビルドする**
+**ステップ2: ビルドする**
 
 > **注意: 最後の` .`を忘れずに**
 > 行末の` .`（スペースとピリオド）は「カレントディレクトリにあるアプリケーションをビルドする」という意味です．コピーの際に切れやすいので，貼り付けた後に確認してください．`-b`の後ろのボード名も，`/`と`//`を含めて1文字でも違うとエラーになります．手で打ち直さず，コピーしてください．
@@ -447,11 +449,11 @@ Generated files: （後略）
 
 エラーの場合は，そのメッセージが表示されます．Zephyrのエラーメッセージは大量になることが多く，最初は追うのが大変です．まずは**最初に出てくる`error`**の行を探すのがコツです．メッセージを注意深く読むか，AIの力を借りて把握するとよいでしょう．よくあるエラーと対処法は[A.3 ビルドのエラー](#A-3)にまとめています．
 
-**3. 書き込みの準備をする**
+**ステップ3: 書き込みの準備をする**
 
 書き込みの前に，次の2つを準備します．
 
-**3-1. PCとボードをUSBケーブルでつなぐ**
+**(1) PCとボードをUSBケーブルでつなぐ**
 
 図1.3-1の①（デバッグ用USBコネクタ，MCU-Link側）とPCを，USBケーブルでつなぎます（図2.2-2）．ボードのLEDが点灯して，電源が入ったことが分かります．充電専用のUSBケーブルでは通信できないので，データ通信に対応したケーブルを使ってください．
 
@@ -459,7 +461,7 @@ Generated files: （後略）
 
 **図2.2-2** USBケーブルを図1.3-1の①につなぐ
 
-**3-2. シリアルコンソールを開いておく**
+**(2) シリアルコンソールを開いておく**
 
 `hello_world`は，起動直後に1回だけ文字列を出力して終わるプログラムです．書き込んだ後にシリアルコンソールを開いたのでは，出力を見逃してしまいます．そこで，**書き込む前に**シリアルコンソール（ボードの`printf`の出力などを，PCで表示する画面）を開いて接続しておきます．今回はターミナルソフトとして**Tera Term**を使います．次の「Tera Termの手順」1〜4で接続してください．
 
@@ -472,8 +474,7 @@ Generated files: （後略）
 3. **ボーレート（シリアル通信の速度）を115200にする**
    メニューの「設定」→「シリアルポート」を選ぶと，「Tera Term: その他の設定」という画面の「シリアルポート」タブが開きます．「スピード」を`115200`にして「OK」を押します（図2.2-5）．（古いバージョンのTera Termでは，画面の名前やボタンが異なります．）
 4. **文字コードをUTF-8にする** (会場のPCではこの設定は必要ありません)   
-   メニューの「設定」→「端末」を開き，「漢字（受信）」（文字コードの受信側の設定）を`UTF-8`にして「OK」を押します．3章で表示する`°C`の`°`を正しく表示するための設定です．
-   【Tera Term 5での画面名・項目名を確認（「その他の設定」の「エンコーディング」タブの可能性あり）】
+   メニューの「設定」→「その他の設定」を開き，「**エンコーディング**」タブを選びます（手順3の画面のまま，タブを切り替えても構いません）．受信の文字コードを`UTF-8`にして「OK」を押します．3章で表示する`°C`の`°`を正しく表示するための設定です．
 
 ![図2.2-3 デスクトップのTera Termのアイコン](img/teraterm.png)
 
@@ -489,7 +490,7 @@ Generated files: （後略）
 
 一度設定すれば，以降の章ではTera Termを開いたままで構いません．書き込みのたびに接続し直す必要はありません．
 
-**4. 書き込む**
+**ステップ4: 書き込む**
 
 準備ができたら，PowerShellに戻って次のコマンドで書き込みます．
 
@@ -623,19 +624,64 @@ LED state: ON
 
 この節では，`blinky`のコードを見ながら，LEDの場所がどこで決まっているのかを確かめます．
 
-`blinky`の`src/main.c`を開くと，GPIOをトグルするだけの短いコードになっていることが分かります．
+`blinky`の`src/main.c`は，GPIOをトグル（出力を反転）するだけの短いコードです．全体を見てみましょう．VSCodeで開くには，PowerShellから`code ~\handson\blinky\src\main.c`を実行します．
 
 ```c
+/*
+ * Copyright (c) 2016 Intel Corporation
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <stdio.h>
+#include <zephyr/kernel.h>
+#include <zephyr/drivers/gpio.h>
+
 /* 1000 msec = 1 sec */
 #define SLEEP_TIME_MS   1000
 
 /* The devicetree node identifier for the "led0" alias. */
 #define LED0_NODE DT_ALIAS(led0)
 
+/*
+ * A build error on this line means your board is unsupported.
+ * See the sample documentation for information on how to fix this.
+ */
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
+
+int main(void)
+{
+	int ret;
+	bool led_state = true;
+
+	if (!gpio_is_ready_dt(&led)) {
+		return 0;
+	}
+
+	ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
+	if (ret < 0) {
+		return 0;
+	}
+
+	while (1) {
+		ret = gpio_pin_toggle_dt(&led);
+		if (ret < 0) {
+			return 0;
+		}
+
+		led_state = !led_state;
+		printf("LED state: %s\n", led_state ? "ON" : "OFF");
+		k_msleep(SLEEP_TIME_MS);
+	}
+	return 0;
+}
 ```
 
-（抜粋）
+上から順に，次のことをしています．
+- `SLEEP_TIME_MS`で，点滅の間隔（1000ミリ秒＝1秒）を決めています．
+- `DT_ALIAS(led0)`と`GPIO_DT_SPEC_GET()`で，`led0`という名前のLEDが，どのGPIOの何番ピンにつながっているかの情報（`led`）を取り出しています．
+- `main()`では，まず`gpio_is_ready_dt()`でGPIOが使えるか確かめ，`gpio_pin_configure_dt()`でそのピンを出力に設定します．
+- `while (1)`のループで，`gpio_pin_toggle_dt()`でLEDを反転し，`printf()`で状態を表示し，`k_msleep()`で1秒待つ，をくり返します．
 
 ここで注目したいのは，コードのどこにも「どのピンにLEDがつながっているか」が書かれていないことです．コードが指定しているのは，`led0`という**エイリアス**（別名）だけです．`led0`が実際にどのLEDを指すのかは，Zephyr本体側にあるボードの**デバイスツリー**（ハードウェアの構成を書いたファイル．`zephyr/boards/nxp/frdm_mcxn947/frdm_mcxn947.dtsi`）で，次のように定義されています．
 
@@ -797,7 +843,7 @@ FRDM-MCXN947でHTTP Serverサンプルを動かす手順自体は，単発のブ
 
 **図4.1-1** PCとボードの接続とIPアドレス（USBケーブルとEthernetケーブル）
 
-**1. サンプルを作業用フォルダにコピーする**
+**ステップ1: サンプルを作業用フォルダにコピーする**
 
 ```powershell
 # コマンド例4.1-1
@@ -805,7 +851,7 @@ Copy-Item -Recurse ~\zephyrproject\zephyr\samples\net\sockets\http_server ~\hand
 cd ~\handson\http_server
 ```
 
-**2. `prj.conf`のIPアドレスを書き換える**
+**ステップ2: `prj.conf`のIPアドレスを書き換える**
 
 次のコマンドを実行すると，VSCodeで`prj.conf`が開きます．
 
@@ -824,7 +870,7 @@ CONFIG_NET_CONFIG_PEER_IPV4_ADDR="192.0.2.2"
 CONFIG_NET_CONFIG_MY_IPV4_GW="192.0.2.2"
 ```
 
-1行目の`"`で囲まれた値を，次のように書き換えます．
+1行目（ファイルの54行目）の`"`で囲まれた値を，次のように書き換えます．VSCodeでは，行番号が左端に表示されています（図4.1-2）．Zephyrのバージョンによっては，行番号が少しずれることがあります．
 
 ```
 CONFIG_NET_CONFIG_MY_IPV4_ADDR="192.168.1.100"
@@ -851,7 +897,7 @@ CONFIG_NET_CONFIG_MY_IPV4_ADDR="192.168.1.100"
 ************************************ チェックとコメント追加はここまで 2026-08-18
 -->
 
-**3. ビルドして書き込む**
+**ステップ3: ビルドして書き込む**
 
 `prj.conf`を保存したら，PowerShellのウィンドウに戻ってビルドします．VSCodeの画面のままコマンドを貼り付けないよう注意してください．
 
@@ -869,7 +915,7 @@ west flash
 
 書き込みの途中で，`INFO: MCU-Link firmware update 'check': ... is running a firmware version which is older than the included firmware version`のような表示が出ることがあります．ボードのMCU-Linkのファームウェアが，LinkServerに付属しているものより古いという案内です．書き込みはそのまま行われるので，気にせず進めてください．
 
-**4. Ethernetケーブルをつないで，応答を確認する**
+**ステップ4: Ethernetケーブルをつないで，応答を確認する**
 
 書き込みが終わったら，PCとボードをEthernetケーブルで直結します．ケーブルを挿すのは，ボードのEthernetコネクタ（[図1.3-1](#1-3)の⑤）です（図4.1-3）．
 
@@ -1314,7 +1360,7 @@ ipconfig
 <a id="appendixB"></a>
 ## 付録B. コマンド例一覧（PowerShell／bash・zsh）
 
-本文に登場するコマンド例を，番号順にまとめました．本文はWindowsのPowerShellを前提にしていますが，ご自身のmacOSやLinuxの環境で試す方のために，bash・zsh用の書き方もあわせて載せています．環境構築は，[2.1節](#2-1)の「ご自身のPCで試す場合: 環境のセットアップ」で紹介した公式のGetting Started Guideの手順どおりに`~/zephyrproject`へ済ませてある前提です．
+本文に登場するコマンド例を，番号順にまとめました．本文はWindowsのPowerShellを前提にしていますが，ご自身のmacOSやLinuxの環境で試す方のために，bash・zsh用の書き方もあわせて載せています．環境構築は，[0.3節](#0-3)で紹介した公式のGetting Started Guideの手順どおりに`~/zephyrproject`へ済ませてある前提です．
 
 > **bash・zshで試す場合の注意**
 > - **パスの区切り**: PowerShellの`\`は，bash・zshでは`/`になります．`~`がホームフォルダを表すのは共通です．
