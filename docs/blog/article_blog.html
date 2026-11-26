@@ -1,0 +1,1989 @@
+<p class="lia-align-center">【画像を挿入：img/title.png】</p>
+<p>&nbsp;</p>
+<div id="idxtoc" class="pt1">
+<h1><a target="_blank" name="idxtoc"></a>目次</h1>
+</div>
+<p>&nbsp;</p>
+<ul>
+<li><a class="smoothScroll" href="#idx0" target="_self">0. この記事は？</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idx0-1" target="_self">0.1 対象読者</a></li>
+<li><a class="smoothScroll" href="#idx0-2" target="_self">0.2 この記事のゴール</a></li>
+<li><a class="smoothScroll" href="#idx0-3" target="_self">0.3 使うもの</a></li>
+<li><a class="smoothScroll" href="#idx0-4" target="_self">0.4 進め方と所要時間の目安</a></li>
+<li><a class="smoothScroll" href="#idx0-5" target="_self">0.5 この記事の読み方</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idx1" target="_self">1. Zephyrとは？</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idx1-1" target="_self">1.1 Zephyrの概要と特長</a></li>
+<li><a class="smoothScroll" href="#idx1-2" target="_self">1.2 なぜ今Zephyrなのか</a></li>
+<li><a class="smoothScroll" href="#idx1-3" target="_self">1.3 FRDM-MCXN947について</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idx2" target="_self">2. 開発環境を触ってみる</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idx2-1" target="_self">2.1 環境の確認</a></li>
+<li><a class="smoothScroll" href="#idx2-2" target="_self">2.2 Hello Worldサンプルを実行してみる</a></li>
+<li><a class="smoothScroll" href="#idx2-3" target="_self">2.3 blinkyサンプル（Lチカ）を書き込む</a></li>
+<li><a class="smoothScroll" href="#idx2-4" target="_self">2.4 サンプルコードの中身をちょっと覗いてみる</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idx3" target="_self">3. 温度センサーを動かしてみる</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idx3-1" target="_self">3.1 サンプルをビルド・書き込む</a></li>
+<li><a class="smoothScroll" href="#idx3-2" target="_self">3.2 値を確認する</a></li>
+<li><a class="smoothScroll" href="#idx3-3" target="_self">3.3 なぜ動いたのか？</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idx4" target="_self">4. HTTP Serverを動かしてみる</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idx4-1" target="_self">4.1 サンプルをビルド・書き込む</a></li>
+<li><a class="smoothScroll" href="#idx4-2" target="_self">4.2 ブラウザからLEDを制御してみる</a></li>
+<li><a class="smoothScroll" href="#idx4-3" target="_self">4.3 /uptimeエンドポイントを覗いてみる</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idx5" target="_self">5. HTTP Serverを改変して，温度センサーの値をブラウザで見る</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idx5-1" target="_self">5.1 何を追加したか</a></li>
+<li><a class="smoothScroll" href="#idx5-2" target="_self">5.2 実際にブラウザで表示してみる</a></li>
+<li><a class="smoothScroll" href="#idx5-3" target="_self">5.3 3章・4章の内容がどう組み合わさっているか</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idx6" target="_self">6. まとめ</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idx6-1" target="_self">6.1 今日体験したこと</a></li>
+<li><a class="smoothScroll" href="#idx6-2" target="_self">6.2 自分でもう一度やってみるための情報源</a></li>
+<li><a class="smoothScroll" href="#idx6-3" target="_self">6.3 AIをどう活用できるか</a></li>
+<li><a class="smoothScroll" href="#idx6-4" target="_self">6.4 後片付け</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idxA" target="_self">付録A. うまくいかないときは</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idxA-1" target="_self">A.1 まず確認すること</a></li>
+<li><a class="smoothScroll" href="#idxA-2" target="_self">A.2 PowerShell・westまわり</a></li>
+<li><a class="smoothScroll" href="#idxA-3" target="_self">A.3 ビルドのエラー</a></li>
+<li><a class="smoothScroll" href="#idxA-4" target="_self">A.4 書き込み（west flash）のエラー</a></li>
+<li><a class="smoothScroll" href="#idxA-5" target="_self">A.5 シリアルコンソールに何も出ない</a></li>
+<li><a class="smoothScroll" href="#idxA-6" target="_self">A.6 ネットワーク・ブラウザまわり</a></li>
+<li><a class="smoothScroll" href="#idxA-7" target="_self">A.7 どうしても直らないときのリセット手順</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idxB" target="_self">付録B. コマンド例一覧（PowerShell／bash・zsh）</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idxB-2" target="_self">2章 開発環境を触ってみる</a></li>
+<li><a class="smoothScroll" href="#idxB-3" target="_self">3章 温度センサーを動かしてみる</a></li>
+<li><a class="smoothScroll" href="#idxB-4" target="_self">4章 HTTP Serverを動かしてみる</a></li>
+<li><a class="smoothScroll" href="#idxB-5" target="_self">5章 HTTP Serverを改変して，温度センサーの値をブラウザで見る</a></li>
+<li><a class="smoothScroll" href="#idxB-A" target="_self">付録A うまくいかないときは</a></li>
+<li><a class="smoothScroll" href="#idxB-C" target="_self">付録C やってみよう</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idxC" target="_self">付録C. やってみよう（早く終わった方へ）</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idxC-1" target="_self">C.1 Lチカの点滅間隔を変える</a></li>
+<li><a class="smoothScroll" href="#idxC-2" target="_self">C.2 Hello Worldのメッセージを変える</a></li>
+<li><a class="smoothScroll" href="#idxC-3" target="_self">C.3 温度を華氏でも表示する</a></li>
+<li><a class="smoothScroll" href="#idxC-4" target="_self">C.4 ブラウザに表示する温度の桁数を変える</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idxD" target="_self">付録D. 他のFRDMボードで試すには</a></li>
+<ul>
+<li><a class="smoothScroll" href="#idxD-1" target="_self">D.1 ボード名を調べる</a></li>
+<li><a class="smoothScroll" href="#idxD-2" target="_self">D.2 サンプルごとの注意</a></li>
+</ul>
+<li><a class="smoothScroll" href="#idxE" target="_self">付録E. 用語集</a></li>
+<li><a class="smoothScroll" href="#idxF" target="_self">付録F. よくある質問</a></li>
+<li><a class="smoothScroll" href="#idxG" target="_self">付録G. HTTP Serverサンプルの足回り</a></li>
+</ul>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idx0" class="pt1">
+<h1><a target="_blank" name="idx0"></a>0. この記事は？</h1>
+</div>
+<p>&nbsp;</p>
+<p>この記事は，<strong>ハンズオン・セミナー</strong>「<strong>Zephyrデビュー会</strong>」の<strong>進行ガイド</strong>として書かれたものです．当日の会場では，この記事の手順に沿って一緒に手を動かしていきます．</p>
+<p>当日参加できなかった方も，この記事だけを読みながら，同じ内容を自分の環境で再現できます．そのために，コマンド例や確認ポイントを省略せずに書いています．読み物としての解説記事というより，実際に「動くところまで」たどり着くための作業ガイドだと捉えてください．</p>
+<p>&nbsp;</p>
+<div id="idx0-1" class="pt1">
+<h2><a target="_blank" name="idx0.1"></a>0.1 対象読者</h2>
+</div>
+<p>&nbsp;</p>
+<p>「<strong>Zephyr</strong>って聞いたことはあるけど触ったことはない」というZephyr OS初心者，これからZephyrを触ってみたい方に向けた記事です．組み込み開発の経験は問いません．C言語のコードを読んだことがある程度で十分です．</p>
+<p>&nbsp;</p>
+<div id="idx0-2" class="pt1">
+<h2><a target="_blank" name="idx0.2"></a>0.2 この記事のゴール</h2>
+</div>
+<p>&nbsp;</p>
+<p>NXPのFRDM-MCXN947ボードを使って，LEDの点滅から温度センサーの読み取り，さらにブラウザ経由でセンサー値を表示するところまでを，実際に手を動かして体験します．ゴールは「Zephyrで簡単にアプリが動かせる」という成功体験を持ち帰ってもらうことです．難しい設定やコーディングは，この記事の中では最小限に留めます．</p>
+<p>この記事では，あえて<strong>コマンドライン</strong>で作業します．NXPのMCUXpresso for VS Codeのように，ボタン操作でビルドや書き込みができる便利なツールもありますが，ここではZephyrが標準で用意している<code>west</code>コマンドを直接使います．特定のベンダーのツールに依存しない，ニュートラルな素のZephyrを体験してもらうためです．ここで体験する手順は，NXP以外のメーカーのボードでも，ボード名を変えるだけでそのまま使えます．</p>
+<p>今日の流れは，図0.2-1のとおりです．2章で開発の手順に慣れ，3章と4章でそれぞれ別の機能を動かし，5章でその2つを組み合わせます．</p>
+<p class="lia-align-center">【画像を挿入：img/fig_flow_overview.png】<br /><em>図0.2-1：今日の流れ</em></p>
+<p>&nbsp;</p>
+<div id="idx0-3" class="pt1">
+<h2><a target="_blank" name="idx0.3"></a>0.3 使うもの</h2>
+</div>
+<p>&nbsp;</p>
+<ul>
+<li>ハードウェア</li>
+<ul>
+<li>FRDM-MCXN947評価ボード</li>
+<li>PC（Zephyr開発環境など下記ソフトウェアをインストールしておく）</li>
+<li>温度センサー: P3T1755 I3C/I²Cバス対応，±0.5°C精度デジタル温度センサー (FRDM-MCXN947評価ボードに搭載)</li>
+<li>Ethernetケーブル</li>
+</ul>
+<li>ソフトウェア</li>
+<ul>
+<li>Zephyr開発環境（west（Zephyrのビルドや書き込みを行うコマンド），Zephyr SDK（コンパイラなどのツール一式），Python仮想環境を含む．公式のGetting Started Guideの手順で<code>~/zephyrproject</code>にセットアップしたもの）</li>
+<li><strong>LinkServer</strong>（NXPの書き込み・デバッグツール．<code>west flash</code>がFRDM-MCXN947への書き込みに使います）</li>
+<li>Microsoft Visual Studio Code（ソースコードや<code>prj.conf</code>（アプリケーションごとの設定ファイル）の表示・編集に使います）</li>
+<li>ターミナルソフト（本記事ではWindows用の<strong>Tera Term</strong>を使って説明します．macOSやLinuxで試す場合は，CoolTermなど，シリアルポートに接続できるものを使ってください）</li>
+<li>ブラウザ</li>
+<li>Git（5章でサンプルコードを取得するのに使います）</li>
+<li>MCUXpresso for VSC（<strong>必須ではありません</strong>．会場PCには入っていますが，本記事の手順では使いません）</li>
+</ul>
+</ul>
+<p>会場のPCには，これらがすべてセットアップ済みです．</p>
+<blockquote>
+<p><strong>ご自身のPCで再現する方へ</strong></p>
+<p>会場PCと同じ状態にするには，上のソフトウェアをインストールしておく必要があります．特に<strong>LinkServer</strong>は見落としがちです．インストールされていない（またはPATHが通っていない）と，ビルドまではできても<code>west flash</code>で書き込めません．また，4章ではPCのEthernetポートを使うので，Ethernetポートのないノートパソコンでは，USB-Ethernetアダプタを用意してください．</p>
+<p>インストール方法は，次のどちらかを参考にしてください．</p>
+<ul>
+<li><strong>公式ガイド</strong>: <a href="https://docs.zephyrproject.org/latest/develop/getting_started/index.html" target="_blank" rel="noopener">Getting Started Guide</a>（英語）．この記事の前提（<code>~/zephyrproject</code>にワークスペースとPython仮想環境<code>.venv</code>を作る構成）と同じ手順です．LinkServerは，別にインストールしてください．</li>
+<li><strong>NXPのツールを使った手軽な方法</strong>: <a href="https://community.nxp.com/t5/NXP-Tech-Blog/Zephyr-シリーズ-第２回-はじめてのビルドと実機動作-日本語ブログ/ba-p/2189007" target="_blank" rel="noopener">[Zephyr® シリーズ] 第２回 はじめてのビルドと実機動作（NXP Tech Blog，日本語）</a>．MCUXpresso for VS CodeとMCUXpresso Installerで，Zephyrの開発環境とLinkServerをまとめてインストールできます．ただし，この方法ではPython仮想環境（Windowsでは<code>C:\Users\&lt;ユーザー名&gt;\.mcuxpressotools\</code>の下）やZephyrのフォルダの場所が，この記事と異なります．コマンド例2.1-1などのフォルダの場所は，ご自身の環境に合わせて読み替えてください．</li>
+</ul>
+</blockquote>
+<p>&nbsp;</p>
+<div id="idx0-4" class="pt1">
+<h2><a target="_blank" name="idx0.4"></a>0.4 進め方と所要時間の目安</h2>
+</div>
+<p>&nbsp;</p>
+<p>セミナーは90分です．おおよそ次の時間配分で進めます．</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">章</td>
+<td height="25px">内容</td>
+<td height="25px">目安</td>
+</tr>
+<tr>
+<td height="25px">0〜1章</td>
+<td height="25px">この記事について，Zephyrとは</td>
+<td height="25px">10分</td>
+</tr>
+<tr>
+<td height="25px">2章</td>
+<td height="25px">開発環境の確認，Hello World，Lチカ</td>
+<td height="25px">25分</td>
+</tr>
+<tr>
+<td height="25px">3章</td>
+<td height="25px">温度センサーを動かす</td>
+<td height="25px">15分</td>
+</tr>
+<tr>
+<td height="25px">4章</td>
+<td height="25px">HTTP Serverを動かす</td>
+<td height="25px">20分</td>
+</tr>
+<tr>
+<td height="25px">5章</td>
+<td height="25px">HTTP Serverで温度を表示する</td>
+<td height="25px">15分</td>
+</tr>
+<tr>
+<td height="25px">6章</td>
+<td height="25px">まとめ</td>
+<td height="25px">5分</td>
+</tr>
+</tbody>
+</table>
+<p>【実際のタイムテーブルに合わせて調整】</p>
+<p><strong>遅れてしまったら</strong></p>
+<p>3章から5章は，それぞれ独立しています．前の章が終わっていなくても，新しいPowerShellでコマンド例2.1-1（会場PCでは<code>zinit</code>）を実行すれば，どの章からでも始められます．たとえば3章でつまずいたまま時間が来たら，3章はいったん置いて，4章の最初のコマンド例から進めてください．あとからこの記事を見ながら，自分のペースでやり直せます．</p>
+<p><strong>早く終わったら</strong></p>
+<p>記事末尾の<a class="smoothScroll" href="#idxC" target="_self">付録C. やってみよう</a>に，サンプルコードを少しだけ書き換えて試す課題を用意しています．</p>
+<p><strong>質問するときは</strong></p>
+<p>手が止まったら，遠慮なく手を挙げてください．会場のスタッフや，あとからこの記事を見ながらAIや知り合いに質問するときは，次の3つを伝えると，原因がすぐに分かります．</p>
+<ol>
+<li><strong>どのコマンド例で止まったか</strong>（コードブロックの1行目にある<code># コマンド例3.1-2</code>のような番号）</li>
+<li><strong>最初に出たエラーの行</strong>（赤い文字や<code>error</code>を含む行．スクリーンショットでも構いません）</li>
+<li><strong><a class="smoothScroll" href="#idxA-1" target="_self">コマンド例A.1-1</a>の実行結果</strong>（今いるフォルダと，環境の設定状態が分かります）</li>
+</ol>
+<p>&nbsp;</p>
+<div id="idx0-5" class="pt1">
+<h2><a target="_blank" name="idx0.5"></a>0.5 この記事の読み方</h2>
+</div>
+<p>&nbsp;</p>
+<p>2章から5章の各節は，次の順に並んでいます．会場では，まず手順を最後まで進め，「✔ ここまでできればOK」を確かめてから，解説を聞いてください．</p>
+<ol>
+<li><strong>この節でやること</strong>（1行）</li>
+<li><strong>手順</strong>（コマンド例．長い節は「ステップ1」「ステップ2」…に分けています）</li>
+<li><strong>✔ ここまでできればOK</strong>（成功したときの画面や表示）</li>
+<li><strong>うまくいかないときは</strong>（よくあるつまずきと対処）</li>
+<li><strong>解説・コラム</strong></li>
+</ol>
+<p>本文の中の囲みは，次のように使い分けています．</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">囲み</td>
+<td height="25px">内容</td>
+<td height="25px">いつ読むか</td>
+</tr>
+<tr>
+<td height="25px"><strong>注意</strong></td>
+<td height="25px">手順を進めるうえで，必ず守ってほしいこと</td>
+<td height="25px">手順の前に必ず読む</td>
+</tr>
+<tr>
+<td height="25px"><strong>解説</strong></td>
+<td height="25px">今やった操作やコードの意味</td>
+<td height="25px">手順が終わってから．会場では講師がその場で説明します</td>
+</tr>
+<tr>
+<td height="25px"><strong>コラム</strong></td>
+<td height="25px">背景知識や，関連する話題</td>
+<td height="25px">余裕があるとき，またはあとで</td>
+</tr>
+<tr>
+<td height="25px"><strong>ご自身のPCで試す場合</strong></td>
+<td height="25px">会場PC以外で再現するときの補足</td>
+<td height="25px">自分のPCで試すとき</td>
+</tr>
+</tbody>
+</table>
+<p>本文に出てくる用語は，<a class="smoothScroll" href="#idxE" target="_self">付録E. 用語集</a>にまとめています．</p>
+<p><strong>この記事をVS Codeで読む場合</strong></p>
+<p>会場では，この記事をVS Code（Visual Studio Code）の右側に表示して読みます．コードブロックのコマンドは，ドラッグで選んで<code>Ctrl</code>+<code>C</code>でコピーし，PowerShellに貼り付けます．</p>
+<p>記事の表示（プレビュー）がある右側の領域は，<strong>ロック</strong>してあります．そのため，<code>code prj.conf</code>のようにコマンドで開いたファイルは，必ず左側に開きます．右側の記事は，読んでいた位置のまま残ります．</p>
+<p>右側の記事を閉じてしまったときは，次の手順で戻します．</p>
+<ol>
+<li>VS Codeの「File」→「Open File...」で，<code>~\seminar_text\article_draft.md</code>を開きます．</li>
+<li><code>Ctrl</code>+<code>K</code>を押してから<code>V</code>を押すと，記事のプレビューが右側に表示されます．</li>
+<li>右側のプレビューのタブをクリックしてから，<code>Ctrl</code>+<code>Shift</code>+<code>P</code>でコマンドパレットを開き，「View: Lock Editor Group」を実行します．</li>
+<li>左側に開いた<code>article_draft.md</code>のタブは，閉じて構いません（誤って書き換えないためです）．</li>
+</ol>
+<p>ブラウザやNXPのブログで読んでいる場合は，この手順は必要ありません．</p>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idx1" class="pt1">
+<h1><a target="_blank" name="idx1"></a>1. Zephyrとは？</h1>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="idx1-1" class="pt1">
+<h2><a target="_blank" name="idx1.1"></a>1.1 Zephyrの概要と特長</h2>
+</div>
+<p>&nbsp;</p>
+<p>Zephyrは，Linux Foundation配下で開発が進むオープンソースのRTOS（リアルタイムOS）です．小規模なマイコンから，比較的リソースの大きなSoCまで，幅広いハードウェアを対象にしています．</p>
+<p>対象範囲の広さは，NXP製品だけを見ても分かります．今回使うMCXシリーズのようなCortex-Mコアのマイコンから，i.MXシリーズのようなCortex-Aコアのアプリケーションプロセッサまで，同じZephyrという1つのOSでカバーしています．ボードごとにOSやビルド環境を使い分けなくて済むのは，実用上の大きなメリットです．</p>
+<p>特長を一言でまとめると，次の2つの仕組みで，ハードウェアの構成とソフトウェアの機能を分けて管理できる点です．</p>
+<ul>
+<li><strong>デバイスツリー</strong>: 「どの部品が，どこにつながっているか」というハードウェアの構成を書くファイル</li>
+<li><strong>Kconfig</strong>: 「どの機能を使うか」というソフトウェアの機能のオン・オフを設定する仕組み</li>
+</ul>
+<p>この分離のおかげで，同じアプリケーションのコードを，複数のボードに展開しやすくなっています．</p>
+<p>言い換えると，C言語などで書くアプリケーションのロジックは，「何のセンサーが」「どのバスに」つながっているかを直接知らなくてよい，という設計です．アプリケーションのコードは，デバイスツリーに付けた名前を使ってデバイスにアクセスするだけです．この分離を，2.4節と3.3節で実際のコードを見ながら体感します．</p>
+<p>&nbsp;</p>
+<div id="idx1-2" class="pt1">
+<h2><a target="_blank" name="idx1.2"></a>1.2 なぜ今Zephyrなのか</h2>
+</div>
+<p>&nbsp;</p>
+<p>半導体メーカー各社が，既存製品ラインを含めZephyrへの対応を広げています．特定のベンダーに縛られないRTOSとして，業界内での存在感が増しているのが現状です．</p>
+<p>Zephyrプロジェクトは2016年にLinux Foundation配下でスタートし，およそ10年の歴史を持ちます．新しくて枯れていない技術ではありません．</p>
+<p>この間に積み重ねられてきたのは，CPUアーキテクチャやペリフェラルのドライバだけではありません．4章・5章で体験するTCP/IPスタックやHTTPサーバーといった，ネットワーク関連のミドルウェアも，Zephyr本体に標準で組み込まれた機能として育ってきています．マイコン向けOSというと，最小限のスケジューラだけを想像しがちです．こうした上位のミドルウェアまで，一貫してKconfigで有効にできる点も，Zephyrを選ぶ理由のひとつです．</p>
+<p>製品に使うOSとして，セキュリティへの取り組みが整っていることも，Zephyrが注目される理由です．欧州では，ネットワークにつながる製品にサイバーセキュリティ対策を求める「サイバーレジリエンス法（CRA）」が施行され，2026年9月からは，悪用された脆弱性の報告がメーカーの義務になっています．Zephyrプロジェクトは，脆弱性への対応や長期サポートの体制を整え，こうした要求に応える準備を進めています（下のコラム）．</p>
+<p>「結局何がそんなによいのか」は，触ってみないと実感しにくい部分です．この記事では，実際に手を動かしながらその感触を確かめていきます．</p>
+<blockquote>
+<p><strong>コラム: Zephyrのセキュリティへの取り組み</strong></p>
+<ul>
+<li>脆弱性に対応する専門チーム（PSIRT）があり，2017年からCVE番号を割り当てる機関（CNA）に登録されています．報告を受けてから，30日以内にメーカーへの通知と修正の公開を，最長90日で公表することを目標にしています．</li>
+<li>製品メーカーは，脆弱性の通知（Vulnerability Alert Registry）に登録して，情報を受け取れます．</li>
+<li>製品向けの長期サポート版（LTS）は，セキュリティ修正を含めて少なくとも5年間保守されます．</li>
+<li><code>west spdx</code>で，製品に含まれるソフトウェアの一覧（SBOM）を作れます．</li>
+<li>暗号機能はPSA Crypto（実装はMbed TLS）で提供されます．FRDM-MCXN947には，TrustZoneを使うTF-Mと組み合わせるボード指定（<code>frdm_mcxn947/mcxn947/cpu0/ns</code>）も用意されています．</li>
+</ul>
+<p>CRAとZephyrの関係は，Zephyrの公式ドキュメントの<a href="https://docs.zephyrproject.org/latest/security/standards/cyber-resilience-act.html" target="_blank" rel="noopener">Cyber Resilience Act</a>のページにまとめられています．なお，このハンズオンでは手順を簡単にするため，暗号化しないプレーンHTTPを使っています（<a class="smoothScroll" href="#idx4-1" target="_self">4.1節</a>の解説）．</p>
+</blockquote>
+<p>&nbsp;</p>
+<div id="idx1-3" class="pt1">
+<h2><a target="_blank" name="idx1.3"></a>1.3 FRDM-MCXN947について</h2>
+</div>
+<p>&nbsp;</p>
+<p>FRDM-MCXN947は，NXPのMCX N947マイコンを搭載した評価ボードです．150MHzで動作するCortex-M33のデュアルコア構成です．GPIO・I2C・I3C・SPI・Ethernetなどのペリフェラルを，ArduinoヘッダやmikroBusソケットなどのコネクタ経由で扱えます．</p>
+<p>本記事では，ボード上の次の部品を使います（図1.3-1）．以降の本文では，「図1.3-1の①」のように，この番号で場所を示します．</p>
+<p class="lia-align-center">【画像を挿入：img/frdm-mcxn947_parts_location.png】<br /><em>図1.3-1：FRDM-MCXN947で使う部品</em></p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">番号</td>
+<td height="25px">部品</td>
+<td height="25px">使う場面</td>
+</tr>
+<tr>
+<td height="25px">①</td>
+<td height="25px">デバッグ用USBコネクタ（MCU-Link側）</td>
+<td height="25px">PCとの接続．書き込み（<code>west flash</code>）とシリアルコンソールの両方に使います．電源もここから供給されます．MCU-Linkは，ボードに載っている書き込み・デバッグ用の回路です</td>
+</tr>
+<tr>
+<td height="25px">②</td>
+<td height="25px">RESETボタン</td>
+<td height="25px">プログラムを最初から実行し直したいとき（シリアルの出力を見逃したときなど）</td>
+</tr>
+<tr>
+<td height="25px">③</td>
+<td height="25px">RGB LED</td>
+<td height="25px">2.3節のLチカ（赤く点滅），4.2節のブラウザからのLED制御（緑に点灯）</td>
+</tr>
+<tr>
+<td height="25px">④</td>
+<td height="25px">温度センサー（P3T1755）</td>
+<td height="25px">3章，5章</td>
+</tr>
+<tr>
+<td height="25px">⑤</td>
+<td height="25px">Ethernetコネクタ（RJ45）</td>
+<td height="25px">4章，5章でPCとEthernetケーブルで直結します</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注意</strong>: ボードにはUSBコネクタが複数あります．①以外のUSBコネクタにつなぐと，書き込みもシリアルコンソールも使えません．</p>
+</blockquote>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idx2" class="pt1">
+<h1><a target="_blank" name="idx2"></a>2. 開発環境を触ってみる</h1>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="idx2-1" class="pt1">
+<h2><a target="_blank" name="idx2.1"></a>2.1 環境の確認</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，PowerShellを開いて，Zephyrのコマンド（west）が使える状態になっていることを確認します．</p>
+<p>会場のPCには，west・Zephyr SDKを含む開発環境を，公式のGetting Startedガイドの手順でセットアップしてあります．皆さんが環境構築で手間取る必要はありません．MCUXpresso for VSCも使える状態ですが，0.2節で書いたとおり，このセミナーではあえてコマンドラインで操作します．</p>
+<p><strong>ステップ1: PowerShellを開く</strong></p>
+<p>スタートメニューで「PowerShell」と入力し，「Windows PowerShell」を起動してください（図2.1-1）．このとき，「管理者として実行」は<strong>選ばないでください</strong>．このセミナーの手順に管理者の権限は必要なく，管理者として起動すると，コマンドを間違えたときの影響がPC全体に及ぶおそれがあるためです．管理者として起動したかどうかは，ウィンドウのタブ（またはタイトル）の先頭に「管理者:」と付いているかで見分けられます．</p>
+<p class="lia-align-center">【画像を挿入：img/powershell.png】<br /><em>図2.1-1：スタートメニューから「Windows PowerShell」を開く</em></p>
+<p>PowerShellは，起動のしかたによって最初にいるフォルダ（カレントディレクトリ）が違います．図2.1-2のように，管理者として起動していなくても<code>PS C:\WINDOWS\system32&gt;</code>と表示されることがあります．ホームフォルダ（<code>C:\Users\&lt;ユーザー名&gt;</code>）で開くこともありますし，VSCodeのターミナルでは開いているフォルダになります．どこで開いても，次のコマンド例の最初の<code>cd</code>でZephyrのワークスペース（<code>~\zephyrproject</code>）に移動するので問題ありません．<code>~</code>は自分のホームフォルダを表す記号です．</p>
+<p class="lia-align-center">【画像を挿入：img/powershell_launched.png】<br /><em>図2.1-2：起動したPowerShell（<code>C:\WINDOWS\system32</code>で開いた例）</em></p>
+<p><strong>ステップ2: westを使える状態にする</strong></p>
+<p>westを使う前に，Zephyr用のPython仮想環境（Zephyrのツールをまとめて入れてある，独立したPythonの環境）を有効化し，Zephyr本体の場所を環境変数<code>ZEPHYR_BASE</code>に設定します．次のコマンド例をコピーして，PowerShellに貼り付けて実行してください．</p>
+<blockquote>
+<p><strong>貼り付けるときは</strong></p>
+<ul>
+<li>PowerShellのウィンドウ上で右クリックするか，<code>Ctrl</code>+<code>V</code>を押すと貼り付けられます．</li>
+<li>最後の行が入力されたまま止まっていたら，<code>Enter</code>を押して実行します．</li>
+<li>1行目の<code># コマンド例…</code>の行も，そのまま貼り付けて構いません（PowerShellでは何もしない行です）．</li>
+</ul>
+<p>そのほかの注意は，この節の最後の「コラム: コマンドをコピー＆ペーストするときの注意」にまとめています．</p>
+</blockquote>
+<li-code lang="markup"># コマンド例2.1-1
+cd ~\zephyrproject
+.\.venv\Scripts\Activate.ps1
+$env:ZEPHYR_BASE = "$HOME\zephyrproject\zephyr"
+west --version
+west topdir</li-code>
+<p><strong>✔ ここまでできればOK</strong></p>
+<p>プロンプト（コマンドの入力を待っている<code>PS C:\...&gt;</code>の表示）の先頭に<code>(.venv)</code>が付き，<code>west --version</code>でバージョンが，<code>west topdir</code>でワークスペースの場所が表示されれば準備完了です（図2.1-3）．</p>
+<li-code lang="markup">(.venv) PS C:\Users\&lt;ユーザー名&gt;\zephyrproject&gt; west --version
+West version: v1.5.0
+(.venv) PS C:\Users\&lt;ユーザー名&gt;\zephyrproject&gt; west topdir
+C:/Users/&lt;ユーザー名&gt;/zephyrproject</li-code>
+<p><code>west topdir</code>の表示は，フォルダの区切りが<code>\</code>ではなく<code>/</code>になりますが，同じ場所を指しています．</p>
+<p class="lia-align-center">【画像を挿入：img/activated.png】<br /><em>図2.1-3：コマンド例2.1-1の実行結果</em></p>
+<p>（ここから先，「実行結果の例」として載せている出力は，自分の画面と見比べるためのものです．コマンドとしてコピーしないでください．数値やバージョン番号は，環境によって異なります．）</p>
+<blockquote>
+<p><strong>注意: このPowerShellのウィンドウは閉じない</strong></p>
+<p>仮想環境の有効化や<code>ZEPHYR_BASE</code>の設定は，<strong>そのウィンドウの中だけ</strong>で有効です．セミナーの間は，このウィンドウを開いたままにしておいてください．閉じてしまったときは，下の「PowerShellを開き直したときは」の手順で戻れます．</p>
+</blockquote>
+<p><strong>うまくいかないときは</strong></p>
+<ul>
+<li><code>.\.venv\Scripts\Activate.ps1</code>で「このシステムではスクリプトの実行が無効になっている」と赤字が出る → 下の解説の最後にある実行ポリシーの設定を行ってから，コマンド例2.1-1をもう一度最初から実行します．</li>
+<li><code>west</code>が「認識されません」と出る → 仮想環境の有効化に失敗しています．プロンプトの先頭に<code>(.venv)</code>が付いているか確認してください（<a class="smoothScroll" href="#idxA-2" target="_self">A.2</a>）．</li>
+<li><code>cd</code>で「パスが存在しないため検出できません」と出る → ワークスペースが<code>~\zephyrproject</code>以外の場所にある可能性があります．ご自身の環境で試している場合は，ワークスペースの場所に読み替えてください．</li>
+</ul>
+<p><strong>PowerShellを開き直したときは</strong></p>
+<p>新しいPowerShellで環境を設定し直してから，作業していたサンプルのフォルダに戻ります．会場のPCには，これを一度に行う<code>zinit</code>というコマンドを用意してあります．<code>zinit</code>に続けて，作業していたサンプルの名前を指定します．たとえば3章の途中なら，次のように実行します．</p>
+<li-code lang="markup"># コマンド例2.1-2
+zinit thermometer</li-code>
+<p>サンプル名は，途中まで入力して<code>Tab</code>キーを押すと補完されます．サンプル名を付けずに<code>zinit</code>だけを実行すると，コマンド例2.1-1を実行した直後と同じ状態（<code>~\zephyrproject</code>にいる状態）になります．<code>zinit</code>はVSCodeのターミナルでも使えます．</p>
+<p><code>zinit</code>がないPCでは，コマンド例2.1-1を実行してから，<code>cd ~\handson\thermometer</code>のようにサンプルのフォルダに移動します．コマンド例2.1-1を実行した直後は<code>~\zephyrproject</code>にいるので，そのまま<code>west build</code>を実行しても，サンプルのビルドにはなりません．</p>
+<blockquote>
+<p><strong>解説: コマンド例2.1-1で何をしているか</strong></p>
+<ul>
+<li><code>cd ~\zephyrproject</code> — Zephyrのワークスペース（west・Zephyr本体・各種モジュールをまとめて置いてあるフォルダ）に移動します．</li>
+<li><code>.\.venv\Scripts\Activate.ps1</code> — Zephyr用に用意されたPython仮想環境を有効化します．west自体やビルドに使う各種Pythonツールが，この仮想環境にインストールされています．有効化に成功すると，プロンプトの先頭に<code>(.venv)</code>と表示されます．</li>
+<li><code>$env:ZEPHYR_BASE = "..."</code> — Zephyr本体のフォルダを環境変数<code>ZEPHYR_BASE</code>に設定します．westは，カレントディレクトリから上のフォルダをたどってワークスペースを探します．この後の章では，ワークスペースの<strong>外</strong>にある作業用フォルダ（<code>~\handson\...</code>）でビルドします．そこからではワークスペースが見つからず，<code>west build</code>が「unknown command」になってしまいます．<code>ZEPHYR_BASE</code>を設定しておくと，westはそれを手がかりにワークスペースを見つけられます．</li>
+<li><code>west --version</code> — westコマンド自体が正しく使える状態になっているかを，バージョン表示で確認します．</li>
+<li><code>west topdir</code> — westが認識しているワークスペースの場所を表示します．ここでエラーになる場合は，<code>ZEPHYR_BASE</code>の設定を見直してください．</li>
+</ul>
+<p>Linux/macOSの解説記事では，<code>source ~/zephyrproject/.venv/bin/activate</code>や<code>source zephyr/zephyr-env.sh</code>という書き方をよく見かけます．これはbash/zsh用の書き方で，PowerShellではそのままでは動きません．</p>
+<p><code>zephyr-env.sh</code>が主に行っているのは，<code>ZEPHYR_BASE</code>の設定です．そこでPowerShellでは，上のように<code>$env:ZEPHYR_BASE</code>で直接設定します．（Windows向けには<code>zephyr-env.cmd</code>も用意されていますが，これはコマンドプロンプト用です．PowerShellから実行しても，設定した環境変数はPowerShell側には残りません．）</p>
+<p>なお，<code>Activate.ps1</code>の実行時に「スクリプトの実行が無効になっている」というエラーが出る場合は，PowerShellの実行ポリシーで止められています．<code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code>を一度実行してから，もう一度試してください（会場PCでは設定済みです）．</p>
+</blockquote>
+<blockquote>
+<p><strong>コラム: コマンドをコピー＆ペーストするときの注意</strong></p>
+<ul>
+<li><strong>複数行の貼り付けの確認ダイアログ</strong>: Windows Terminalでは，複数行を貼り付けると「複数行のテキストを貼り付けようとしています」という確認が出ることがあります．そのまま貼り付けを選んでください．</li>
+<li><strong>途中でエラーが出たら，そこで止まる</strong>: 複数行をまとめて貼り付けると，途中の行でエラーが出ても，後ろの行が続けて実行されてしまいます．赤い文字のエラーが出たら，それより後の結果は当てにせず，エラーが出た行の原因を先に解決してください．慣れないうちは，<strong>1行ずつ</strong>コピーして実行するのが確実です．</li>
+<li><strong><code># コマンド例…</code>の行は目印</strong>: 質問するときや，付録Aを参照するときに，この番号を使ってください．</li>
+<li><strong>プロンプト（<code>PS C:\Users\...&gt;</code>）はコピーしない</strong>: スクリーンショットや実行例に表示されているプロンプト部分は，コマンドの一部ではありません．</li>
+</ul>
+<p>うまくいかないときは，記事末尾の<a class="smoothScroll" href="#idxA" target="_self">付録A. うまくいかないときは</a>を参照してください．記事中のコマンド例は，<a class="smoothScroll" href="#idxB" target="_self">付録B. コマンド例一覧</a>にもまとめています．macOSやLinuxで試す方向けのbash・zsh版もそちらに載せています．</p>
+</blockquote>
+<blockquote>
+<p><strong>コラム: ご自身のPCで<code>zinit</code>を使うには</strong></p>
+<p><code>zinit</code>は，PowerShellの<strong>プロファイル</strong>（PowerShellの起動時に自動で読み込まれるスクリプト）に登録した関数です．ご自身のPCでも，次のようにして同じものを用意できます．</p>
+<p>まず，次のコマンドでプロファイルをメモ帳で開きます（ファイルがなければ作ります）．</p>
+<li-code lang="markup"># コマンド例2.1-3
+if (-not (Test-Path $PROFILE.CurrentUserAllHosts)) { New-Item -Force $PROFILE.CurrentUserAllHosts | Out-Null }
+notepad $PROFILE.CurrentUserAllHosts</li-code>
+<p>開いたメモ帳に，次の内容を書き加えて保存します．これはPowerShellに貼り付けて実行するコマンドではなく，<strong>プロファイルに書く内容</strong>です．</p>
+<li-code lang="markup">function zinit {
+    param([string]$Sample)
+    Set-Location ~\zephyrproject
+    . .\.venv\Scripts\Activate.ps1
+    $env:ZEPHYR_BASE = "$HOME\zephyrproject\zephyr"
+    west --version
+    west topdir
+    if ($Sample) { Set-Location ~\handson\$Sample }
+}</li-code>
+<p>保存したら，PowerShellのウィンドウを開き直すと<code>zinit</code>が使えるようになります．プロファイルの実行にも，この節の解説で説明した実行ポリシーの設定（<code>RemoteSigned</code>）が必要です．なお，プロファイルに日本語を書く場合は，文字コードに注意が必要です（Windows PowerShellは，BOMなしのUTF-8のファイルに含まれる日本語を正しく読めません）．上の内容は英数字だけなので，そのまま保存して構いません．</p>
+</blockquote>
+<blockquote>
+<p><strong>ご自身のPCで試す場合: 環境のセットアップ</strong></p>
+<p>今回は会場PCに環境構築済みの状態で臨んでいただいていますが，ご自身のPCでも同じ環境を用意できます．インストール方法は，<a class="smoothScroll" href="#idx0-3" target="_self">0.3節</a>の「ご自身のPCで再現する方へ」を参照してください．</p>
+</blockquote>
+<p>&nbsp;</p>
+<div id="idx2-2" class="pt1">
+<h2><a target="_blank" name="idx2.2"></a>2.2 Hello Worldサンプルを実行してみる</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，<code>hello_world</code>サンプルをビルドしてボードに書き込み，シリアルコンソールに文字が表示されることを確認します．</p>
+<p>これ以降，サンプルは<code>zephyr/samples/</code>の中のものを直接編集せず，自分の作業用フォルダ（<code>~\handson</code>）にコピーしてから使います（図2.2-1）．<code>zephyr/samples/</code>は元のサンプル集として手を加えずに残しておき，実験や書き換えは自分のフォルダの中だけで行います．</p>
+<p class="lia-align-center">【画像を挿入：img/copying_sample.png】<br /><em>図2.2-1：サンプルを作業用フォルダにコピーして使う</em></p>
+<p><strong>ステップ1: サンプルを作業用フォルダにコピーする</strong></p>
+<p><code>hello_world</code>サンプルを作業用フォルダにコピーし，そのフォルダに移動します．</p>
+<li-code lang="markup"># コマンド例2.2-1
+New-Item -ItemType Directory -Force ~\handson | Out-Null
+Copy-Item -Recurse ~\zephyrproject\zephyr\samples\hello_world ~\handson\hello_world
+cd ~\handson\hello_world</li-code>
+<p>実行後，プロンプトが<code>PS C:\Users\&lt;ユーザー名&gt;\handson\hello_world&gt;</code>になっていれば移動できています．念のため<code>ls</code>を実行すると，<code>src</code>・<code>CMakeLists.txt</code>・<code>prj.conf</code>などが並んでいるはずです．</p>
+<p><strong>ステップ2: ビルドする</strong></p>
+<blockquote>
+<p><strong>注意: 最後の<code> .</code>を忘れずに</strong></p>
+<p>行末の<code> .</code>（スペースとピリオド）は「カレントディレクトリにあるアプリケーションをビルドする」という意味です．コピーの際に切れやすいので，貼り付けた後に確認してください．<code>-b</code>の後ろのボード名も，<code>/</code>と<code>//</code>を含めて1文字でも違うとエラーになります．手で打ち直さず，コピーしてください．</p>
+</blockquote>
+<li-code lang="markup"># コマンド例2.2-2
+west build -p auto -b frdm_mcxn947/mcxn947/cpu0 .</li-code>
+<p>最初のビルドは数分かかることがあります．プロンプトが戻ってくるまで待ってください．</p>
+<p><strong>✔ ここまでできればOK</strong></p>
+<p>出力の最後に，次のようなFLASHやRAMの使用量の表が出ていればビルドは成功です．これで，マイコンに書き込むプログラムができました．</p>
+<li-code lang="markup">（前略）
+[xxx/xxx] Linking C executable zephyr\zephyr.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:       xxxxx B         2 MB      x.xx%
+             RAM:        xxxx B       320 KB      x.xx%
+           SRAMX:          0 B        96 KB      0.00%
+        IDT_LIST:          0 B        32 KB      0.00%
+Generated files: （後略）</li-code>
+<p>【会場PCでの実際の出力に差し替え】</p>
+<p>エラーの場合は，そのメッセージが表示されます．Zephyrのエラーメッセージは大量になることが多く，最初は追うのが大変です．まずは<strong>最初に出てくる<code>error</code></strong>の行を探すのがコツです．メッセージを注意深く読むか，AIの力を借りて把握するとよいでしょう．よくあるエラーと対処法は<a class="smoothScroll" href="#idxA-3" target="_self">A.3 ビルドのエラー</a>にまとめています．</p>
+<p><strong>ステップ3: 書き込みの準備をする</strong></p>
+<p>書き込みの前に，次の2つを準備します．</p>
+<p><strong>(1) PCとボードをUSBケーブルでつなぐ</strong></p>
+<p>図1.3-1の①（デバッグ用USBコネクタ，MCU-Link側）とPCを，USBケーブルでつなぎます（図2.2-2）．ボードのLEDが点灯して，電源が入ったことが分かります．充電専用のUSBケーブルでは通信できないので，データ通信に対応したケーブルを使ってください．</p>
+<p class="lia-align-center">【画像を挿入：img/usb_connected.jpg】<br /><em>図2.2-2：USBケーブルを図1.3-1の①につなぐ</em></p>
+<p><strong>(2) シリアルコンソールを開いておく</strong></p>
+<p><code>hello_world</code>は，起動直後に1回だけ文字列を出力して終わるプログラムです．書き込んだ後にシリアルコンソールを開いたのでは，出力を見逃してしまいます．そこで，<strong>書き込む前に</strong>シリアルコンソール（ボードの<code>printf</code>の出力などを，PCで表示する画面）を開いて接続しておきます．今回はターミナルソフトとして<strong>Tera Term</strong>を使います．次の「Tera Termの手順」1〜4で接続してください．</p>
+<ol>
+<li><strong>Tera Termを起動する</strong><br />デスクトップの「Tera Term 5」のアイコンから起動します（図2.2-3）．起動すると「Tera Term: 新しい接続」という画面が開きます．</li>
+<li><strong>シリアルポートを選ぶ</strong><br />「シリアル」を選び，「ポート」の一覧から，MCU-Link（図1.3-1の①）に対応するポートを選んで「OK」を押します（図2.2-4）．<br />一覧には，<code>COM3: MCU-Link VCom Port (COM3)</code>のように<code>COM</code>＋番号の名前で表示されます．番号はPCによって異なります．<br />どれか分からない場合は，ボードのUSBケーブルを抜き差しして，そのとき一覧から消えたり現れたりするポートを選んでください（一覧は「新しい接続」の画面を開き直すと更新されます）．</li>
+<li><strong>ボーレート（シリアル通信の速度）を115200にする</strong><br />メニューの「設定」→「シリアルポート」を選ぶと，「Tera Term: その他の設定」という画面の「シリアルポート」タブが開きます．「スピード」を<code>115200</code>にして「OK」を押します（図2.2-5）．（古いバージョンのTera Termでは，画面の名前やボタンが異なります．）</li>
+<li><strong>文字コードをUTF-8にする</strong> (会場のPCではこの設定は必要ありません)<br />メニューの「設定」→「その他の設定」を開き，「<strong>エンコーディング</strong>」タブを選びます（手順3の画面のまま，タブを切り替えても構いません）．受信の文字コードを<code>UTF-8</code>にして「OK」を押します．3章で表示する<code>°C</code>の<code>°</code>を正しく表示するための設定です．</li>
+</ol>
+<p class="lia-align-center">【画像を挿入：img/teraterm.png】<br /><em>図2.2-3：デスクトップのTera Termのアイコン</em></p>
+<p class="lia-align-center">【画像を挿入：img/teraterm_port.png】<br /><em>図2.2-4：「新しい接続」でシリアルポートを選ぶ</em></p>
+<p class="lia-align-center">【画像を挿入：img/teraterm_baud.png】<br /><em>図2.2-5：「設定」→「シリアルポート」でスピードを115200にする</em></p>
+<p>一度設定すれば，以降の章ではTera Termを開いたままで構いません．書き込みのたびに接続し直す必要はありません．</p>
+<p><strong>ステップ4: 書き込む</strong></p>
+<p>準備ができたら，PowerShellに戻って次のコマンドで書き込みます．</p>
+<li-code lang="markup"># コマンド例2.2-3
+west flash</li-code>
+<p>書き込みが終わるとマイコンがリセットされ，書き込んだプログラムが実行されます．</p>
+<p><strong>✔ ここまでできればOK</strong></p>
+<p>シリアルコンソールに，次のような文字列が表示されれば成功です（図2.2-6）．</p>
+<li-code lang="markup">*** Booting Zephyr OS build v4.x.x ***
+Hello World! frdm_mcxn947/mcxn947/cpu0</li-code>
+<p>1行目はZephyrが起動したときに必ず出すメッセージで，<code>v4.x.x</code>の部分はZephyrのバージョンです．2行目が<code>hello_world</code>のプログラムが出力した文字列です．</p>
+<p class="lia-align-center">【画像を挿入：img/hello_world.png】<br /><em>図2.2-6：Tera TermにHello Worldが表示された画面</em></p>
+<p><strong>うまくいかないときは</strong></p>
+<ul>
+<li>書き込み前にシリアルコンソールを開き忘れて出力を見逃した → Tera Termが接続されている状態で，ボードのRESETボタン（図1.3-1の②）を押してください．プログラムが最初から実行し直され，もう一度文字列が表示されます．</li>
+<li><code>west flash</code>で「プローブが見つからない（No probe found など）」というエラーが出る → USBケーブルが図1.3-1の①に挿さっているか確認します．抜き差ししてから，もう一度コマンド例2.2-3を実行します（<a class="smoothScroll" href="#idxA-4" target="_self">A.4</a>）．</li>
+<li>書き込みは成功したのに何も表示されない，文字化けする → Tera Termのポート，ボーレート，文字コードの設定を確認します（<a class="smoothScroll" href="#idxA-5" target="_self">A.5</a>）．</li>
+</ul>
+<blockquote>
+<p><strong>解説: 作業用フォルダへのコピー（コマンド例2.2-1）</strong></p>
+<p>1行目の<code>New-Item</code>で，作業用フォルダ<code>~\handson</code>を作っておきます（すでにある場合は何もしません．この行は最初の1回だけで大丈夫です）．<code>Copy-Item -Recurse</code>で，<code>zephyr\samples\</code>の中のサンプルをフォルダごと作業用フォルダにコピーし，<code>cd</code>でそのフォルダに移動しています．以降の章でも同じように，触りたいサンプルをまず作業用フォルダへコピーしてから作業を始めます．</p>
+<p><code>Copy-Item</code>は，コピー先のフォルダがすでに存在すると，その<strong>中に</strong>サンプルのフォルダをもう1つ作ってしまいます（例: <code>~\handson\hello_world\hello_world</code>）．コピーをやり直したいときは，先に<code>Remove-Item -Recurse -Force ~\handson\hello_world</code>で古いフォルダを消してから実行してください．</p>
+</blockquote>
+<blockquote>
+<p><strong>解説: <code>-b</code>・<code>-p</code>オプション（コマンド例2.2-2）</strong></p>
+<ul>
+<li><code>-b</code>に続く引数は，ビルド対象のボードの指定です．FRDM-MCXN947はCortex-M33のデュアルコア構成なので，<code>frdm_mcxn947/mcxn947/cpu0</code>のように「ボード名／SoC名／コア名」まで指定します．FRDM-MCXA153のようなシングルコアのボードでは，<code>frdm_mcxa153</code>というボード名だけで済みます．</li>
+<li>SoC名を省略して<code>frdm_mcxn947//cpu0</code>と書くこともできます．FRDM-MCXN947のようにSoCが1つしかないボードでは，間のSoC名を省いてスラッシュだけを残しても一意に決まるためです．本記事でも，2.3節以降はこの省略形を使います．</li>
+<li><code>-p auto</code>は<code>--pristine=auto</code>の省略形です．ビルドフォルダをクリーンな状態から作り直す（pristineビルドする）かどうかを，自動で判定します．詳しくは次の解説で説明します．</li>
+<li>以降の章で登場する<code>west build</code>・<code>west flash</code>でも，これらのオプションの意味は同じです．</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>解説: ビルドでできたファイルの場所</strong></p>
+<p>ビルドが成功すると，カレントディレクトリに<code>build/</code>フォルダが作られます．書き込みに使われるのは<code>build/zephyr/zephyr.elf</code>（デバッグ情報付きのELFファイル）で，この後実行する<code>west flash</code>も，このファイルをボードに書き込みます．そのほか，コンフィグの内容は<code>build/zephyr/.config</code>，展開後のデバイスツリーは<code>build/zephyr/zephyr.dts</code>で確認できます．</p>
+<p><code>--pristine</code>は，このビルドフォルダを作り直すかどうかを指定するオプションです．<code>-p auto</code>（<code>--pristine=auto</code>）は，ソースやコンフィグの変更を検知して，必要なときだけビルドフォルダを作り直します．ビルドの様子がおかしいときなど，明示的にクリーンビルドしたい場合は<code>-p always</code>（<code>--pristine=always</code>）を指定します．</p>
+</blockquote>
+<blockquote>
+<p><strong>ご自身のPCで試す場合（Tera Term）</strong></p>
+<ul>
+<li>Tera Termの手順3と4の設定は，「設定」→「設定の保存」で保存しておくと，次回からは手順2だけで接続できます．</li>
+<li>macOSやLinuxでは，Tera Termは使えません．CoolTermなどで，ポートに<code>/dev/tty.usbmodemXXXX</code>（macOS）や<code>/dev/ttyACM0</code>（Linux）を選び，ボーレートを115200にして接続してください．</li>
+</ul>
+</blockquote>
+<p><strong><code>hello_world</code>のコードを見てみる</strong></p>
+<p><code>hello_world</code>の<code>src/main.c</code>は，次のように驚くほど短いコードです．VSCodeでこのファイルを開くには，PowerShellから<code>code ~\handson\hello_world\src\main.c</code>を実行します．（VSCodeの「Open Folder」でフォルダを開くと，記事を表示しているウィンドウの中身が切り替わってしまうので，会場では使わないでください．）</p>
+<li-code lang="markup">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+	printf("Hello World! %s\n", CONFIG_BOARD_TARGET);
+
+	return 0;
+}</li-code>
+<p>これを見る限り，至って普通のC言語による<code>Hello World</code>コードです．強いて特別な点を挙げるなら，<code>CONFIG_BOARD_TARGET</code>というマクロがこのビルド環境の中で定義されているのだろう，という程度です．マイコンプログラムでよく見られるクロック設定やペリフェラルの初期化処理は，このコードのどこにも見当たりません．</p>
+<p>このコードには，「RTOSのコードっぽくなさ」もあります．タスク（スレッド）の生成も，スケジューラの起動もありません．<code>main()</code>から<code>printf()</code>を呼ぶだけで，PC向けのC言語プログラムとほとんど同じ見た目です．</p>
+<p>多くのRTOSでは，「Hello World」のためにもタスクを明示的に作り，<code>osKernelStart()</code>のような呼び出しでスケジューラを起動する必要があります．Zephyrでは，<code>main()</code>自体がすでに1つのスレッドとして動いています．その手前の初期化は，ビルドシステムとKconfigの設定に任されています．この「素のCプログラムに近い書き味」は，Zephyrがアプリケーション開発者に見せる顔の特徴のひとつです．</p>
+<blockquote>
+<p><strong>解説: main.c以外に必要なファイル</strong></p>
+<p>Zephyrアプリケーションとして最低限必要なのは，<code>src/main.c</code>のほかに<code>prj.conf</code>と<code>CMakeLists.txt</code>の2つです．</p>
+<ul>
+<li><code>prj.conf</code>は，そのアプリケーションで使うKconfigの機能を並べる設定ファイルです．<code>hello_world</code>では特に有効にしたい機能がないため，中身はほぼ空です．</li>
+<li><code>CMakeLists.txt</code>は，ビルドの定義ファイルです．<code>find_package(Zephyr ...)</code>でZephyrのビルドシステムを読み込み，<code>target_sources()</code>でビルドするソースファイルを指定します．</li>
+</ul>
+<p>実際に<code>zephyr/samples/hello_world/</code>の中を見ても，ファイルは<code>CMakeLists.txt</code>・<code>prj.conf</code>・<code>src/main.c</code>（と説明用の<code>README.rst</code>）程度しかありません．Zephyrアプリケーションの最小構成は，この3点セットです．</p>
+</blockquote>
+<p>&nbsp;</p>
+<div id="idx2-3" class="pt1">
+<h2><a target="_blank" name="idx2.3"></a>2.3 blinkyサンプル（Lチカ）を書き込む</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，<code>blinky</code>サンプルを書き込んで，ボードのLEDを点滅させます．手順はHello Worldと同じで，コピーするサンプルが変わるだけです．これ以降，ボードの指定には，2.2節の解説で触れた省略形<code>frdm_mcxn947//cpu0</code>を使います．</p>
+<li-code lang="markup"># コマンド例2.3-1
+Copy-Item -Recurse ~\zephyrproject\zephyr\samples\basic\blinky ~\handson\blinky
+cd ~\handson\blinky</li-code>
+<p>プロンプトが<code>...\handson\blinky&gt;</code>になったことを確認してから，ビルドします．</p>
+<blockquote>
+<p><strong>注意: ビルドと書き込みは分けて実行する</strong></p>
+<p><code>west build</code>と<code>west flash</code>を一度に貼り付けると，ビルドが失敗しても<code>west flash</code>が続けて実行されます．そうなると，最後に表示されるのは<code>west flash</code>側のエラーなので，本当の原因（ビルドのエラー）が画面の上の方に流れてしまいます．ビルドが成功したのを確認してから書き込む，という順序を守ると，どこで失敗したのかがすぐ分かります．</p>
+</blockquote>
+<li-code lang="markup"># コマンド例2.3-2
+west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<p>ビルドが成功したこと（最後にメモリ使用量の表が出ていること）を確認してから，書き込みます．</p>
+<li-code lang="markup"># コマンド例2.3-3
+west flash</li-code>
+<p><strong>✔ ここまでできればOK</strong></p>
+<p>ボード上のRGB LED（図1.3-1の③）が，赤色で1秒ごとに点滅すれば成功です（図2.3-1）．Tera Termを接続したままにしておくと，点滅に合わせて次のような表示も流れてきます．</p>
+<p class="lia-align-center">【画像を挿入：img/led_red.jpg】<br /><em>図2.3-1：blinkyでRGB LEDが赤く点滅する</em></p>
+<li-code lang="markup">*** Booting Zephyr OS build v4.x.x ***
+LED state: OFF
+LED state: ON
+LED state: OFF
+LED state: ON</li-code>
+<p><strong>うまくいかないときは</strong></p>
+<ul>
+<li>プロンプトが<code>...\hello_world&gt;</code>のままで<code>west build</code>を実行してしまった → <code>hello_world</code>がもう一度ビルドされるだけで，害はありません．コマンド例2.3-1の<code>cd</code>からやり直してください．</li>
+<li><code>Copy-Item</code>を2回実行してしまった → <code>~\handson\blinky\blinky</code>という入れ子のフォルダができますが，<code>~\handson\blinky</code>でのビルドには影響しません．気になる場合は，2.2節の解説の方法で消してからコピーし直してください．</li>
+</ul>
+<p>&nbsp;</p>
+<div id="idx2-4" class="pt1">
+<h2><a target="_blank" name="idx2.4"></a>2.4 サンプルコードの中身をちょっと覗いてみる</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，<code>blinky</code>のコードを見ながら，LEDの場所がどこで決まっているのかを確かめます．</p>
+<p><code>blinky</code>の<code>src/main.c</code>は，GPIOをトグル（出力を反転）するだけの短いコードです．全体を見てみましょう．VSCodeで開くには，PowerShellから<code>code ~\handson\blinky\src\main.c</code>を実行します．</p>
+<li-code lang="markup">/*
+ * Copyright (c) 2016 Intel Corporation
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;zephyr/kernel.h&gt;
+#include &lt;zephyr/drivers/gpio.h&gt;
+
+/* 1000 msec = 1 sec */
+#define SLEEP_TIME_MS   1000
+
+/* The devicetree node identifier for the "led0" alias. */
+#define LED0_NODE DT_ALIAS(led0)
+
+/*
+ * A build error on this line means your board is unsupported.
+ * See the sample documentation for information on how to fix this.
+ */
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
+
+int main(void)
+{
+	int ret;
+	bool led_state = true;
+
+	if (!gpio_is_ready_dt(&amp;led)) {
+		return 0;
+	}
+
+	ret = gpio_pin_configure_dt(&amp;led, GPIO_OUTPUT_ACTIVE);
+	if (ret &lt; 0) {
+		return 0;
+	}
+
+	while (1) {
+		ret = gpio_pin_toggle_dt(&amp;led);
+		if (ret &lt; 0) {
+			return 0;
+		}
+
+		led_state = !led_state;
+		printf("LED state: %s\n", led_state ? "ON" : "OFF");
+		k_msleep(SLEEP_TIME_MS);
+	}
+	return 0;
+}</li-code>
+<p>上から順に，次のことをしています．</p>
+<ul>
+<li><code>SLEEP_TIME_MS</code>で，点滅の間隔（1000ミリ秒＝1秒）を決めています．</li>
+<li><code>DT_ALIAS(led0)</code>と<code>GPIO_DT_SPEC_GET()</code>で，<code>led0</code>という名前のLEDが，どのGPIOの何番ピンにつながっているかの情報（<code>led</code>）を取り出しています．</li>
+<li><code>main()</code>では，まず<code>gpio_is_ready_dt()</code>でGPIOが使えるか確かめ，<code>gpio_pin_configure_dt()</code>でそのピンを出力に設定します．</li>
+<li><code>while (1)</code>のループで，<code>gpio_pin_toggle_dt()</code>でLEDを反転し，<code>printf()</code>で状態を表示し，<code>k_msleep()</code>で1秒待つ，をくり返します．</li>
+</ul>
+<p>ここで注目したいのは，コードのどこにも「どのピンにLEDがつながっているか」が書かれていないことです．コードが指定しているのは，<code>led0</code>という<strong>エイリアス</strong>（別名）だけです．<code>led0</code>が実際にどのLEDを指すのかは，Zephyr本体側にあるボードの<strong>デバイスツリー</strong>（ハードウェアの構成を書いたファイル．<code>zephyr/boards/nxp/frdm_mcxn947/frdm_mcxn947.dtsi</code>）で，次のように定義されています．</p>
+<li-code lang="markup">aliases {
+	led0 = &amp;red_led;
+	...
+};
+
+red_led: led_3 {
+	gpios = &lt;&amp;gpio0 10 GPIO_ACTIVE_LOW&gt;;
+	label = "Red LED";
+};</li-code>
+<p>（抜粋）</p>
+<p>「<code>led0</code>はRGB LEDの赤（GPIO0の10番ピン）だ」という情報がボード側に書かれているので，アプリケーションは<code>led0</code>と言うだけで済みます．<code>blinky</code>のフォルダには，FRDM-MCXN947向けの追加設定（<code>boards/</code>フォルダに置くオーバーレイ．ボードのデバイスツリーに差分を重ねるファイルで，3.3節で説明します）もありません．ボード側の定義だけで，そのまま動いているわけです．同じ<code>blinky</code>が，<code>led0</code>を定義しているどのボードでもそのまま動くのはこのためです．</p>
+<p>アプリケーション・デバイスツリー・Kconfig・ドライバの関係を図にすると，図2.4-1のようになります．<strong>Kconfig</strong>は，Zephyrの機能のオン・オフを設定する仕組みです（3章でもう一度触れます）．</p>
+<p class="lia-align-center">【画像を挿入：img/fig_c8_blinky_devicetree.png】<br /><em>図2.4-1：blinkyでの，アプリケーション・デバイスツリー・Kconfig・ドライバの関係</em></p>
+<blockquote>
+<p><strong>コラム: MCXなのに「kinetis」？</strong></p>
+<p>図の<code>compatible = "nxp,kinetis-gpio"</code>にある<code>kinetis</code>は，NXPの以前のマイコンシリーズ（Kinetis）の名前です．MCXのGPIOはKinetisと同じ系統の回路なので，Zephyrでは新しい名前を作らず，同じ名前・同じドライバ（<code>gpio_mcux.c</code>）を使っています．</p>
+</blockquote>
+<p>ここで出てきた「デバイスツリー」は，3章で温度センサーの仕組みを説明するときにもう一度登場します．3章では，ボード側の定義だけでは足りない部分を，アプリケーション側のオーバーレイで追加する例を見ます．</p>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idx3" class="pt1">
+<h1><a target="_blank" name="idx3"></a>3. 温度センサーを動かしてみる</h1>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="idx3-1" class="pt1">
+<h2><a target="_blank" name="idx3.1"></a>3.1 サンプルをビルド・書き込む</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，ボードに載っている温度センサーを読む<code>thermometer</code>サンプルを書き込みます．2章と同じように，作業用フォルダにコピーしてからビルド・書き込みます．</p>
+<li-code lang="markup"># コマンド例3.1-1
+Copy-Item -Recurse ~\zephyrproject\zephyr\samples\sensor\thermometer ~\handson\thermometer
+cd ~\handson\thermometer</li-code>
+<li-code lang="markup"># コマンド例3.1-2
+west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<p>ビルドが成功したら，Tera Termが接続されたままか確認してから書き込みます（閉じてしまった場合は，2.2節の手順で接続し直します）．</p>
+<li-code lang="markup"># コマンド例3.1-3
+west flash</li-code>
+<p>&nbsp;</p>
+<div id="idx3-2" class="pt1">
+<h2><a target="_blank" name="idx3.2"></a>3.2 値を確認する</h2>
+</div>
+<p>&nbsp;</p>
+<p><strong>✔ ここまでできればOK</strong></p>
+<p>シリアルコンソールに，1秒ごとに気温の値が表示されます（図3.2-1）．温度センサー（<a class="smoothScroll" href="#idx1-3" target="_self">図1.3-1</a>の④）を指で触ると，少しずつ値が上がっていくのが分かります．</p>
+<li-code lang="markup">*** Booting Zephyr OS build v4.x.x ***
+Thermometer Example (arm)
+Temperature device is 0x1000b23c, name is p3t1755@4800000236152a0090
+Temperature is 25.9°C
+Temperature is 25.8°C
+Temperature is 25.8°C</li-code>
+<p>最初の数行は，サンプルの起動メッセージです．<code>name is p3t1755@4800000236152a0090</code>の行から，3.3節で説明するデバイスツリーの定義どおり，P3T1755が温度センサーとして使われていることが分かります．（<code>0x1000b23c</code>の部分は，ビルドによって変わることがあります．）</p>
+<p class="lia-align-center">【画像を挿入：img/temperature.png】<br /><em>図3.2-1：Tera Termに温度が表示された画面</em></p>
+<p><strong>うまくいかないときは</strong></p>
+<ul>
+<li>何も表示されない → Tera Termのタイトルバーに<code>COM3 - Tera Term VT</code>のようにCOMポートが表示されているか（接続中か）を確認し，ボードのRESETボタンを押します（<a class="smoothScroll" href="#idxA-5" target="_self">A.5</a>）．</li>
+<li><code>°C</code>の部分が文字化けする → Tera Termの文字コード設定によるもので，動作には問題ありません．気になる場合は，2.2節のTera Termの手順4で受信の文字コードを<code>UTF-8</code>にしてください．</li>
+<li><code>Device ... is not ready</code>のようなメッセージが出る → センサーの初期化に失敗しています．別のサンプル（<code>hello_world</code>など）を書き込んでいないか，<code>cd ~\handson\thermometer</code>でこのサンプルのフォルダにいる状態でビルドしたかを確認し，コマンド例3.1-2からやり直します．</li>
+</ul>
+<p>&nbsp;</p>
+<div id="idx3-3" class="pt1">
+<h2><a target="_blank" name="idx3.3"></a>3.3 なぜ動いたのか？</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，センサーの値がなぜ表示されたのかを，<code>src/main.c</code>と<code>boards/*.overlay</code>を見ながら種明かしします．</p>
+<p><code>main.c</code>側では，センサーデバイスを次のように取得しています．</p>
+<li-code lang="markup">static const struct device *const temp_dev = DEVICE_DT_GET(DT_ALIAS(ambient_temp0));</li-code>
+<p>この<code>ambient_temp0</code>というエイリアスが，実際にどのハードウェア（センサーの品種・接続バス）を指すのかを決めているのが，<code>boards/*.overlay</code>です．<strong>オーバーレイ</strong>は，ボード本体のデバイスツリーに，アプリケーションごとの差分を重ねるファイルです．</p>
+<p>今回のFRDM-MCXN947では，温度センサーはI3Cバスにつながっています．<code>boards/frdm_mcxn947_mcxn947_cpu0.overlay</code>には，次のように定義されています（実際のファイルにはI3Cバスのクロック速度の指定なども含まれますが，ここでは要点を抜粋しています）．</p>
+<li-code lang="markup">/ {
+	aliases {
+		ambient-temp0 = &amp;p3t1755;
+	};
+};
+
+&amp;i3c1 {
+	status = "okay";
+
+	p3t1755: p3t1755@4800000236152a0090 {
+		compatible = "nxp,p3t1755";
+		reg = &lt;0x48 0x0236 0x152a0090&gt;;
+		status = "okay";
+	};
+};</li-code>
+<p>やっていることは2つだけです．</p>
+<ul>
+<li><code>aliases</code>ブロックで，<code>ambient-temp0</code>を<code>p3t1755</code>ノードに結び付ける</li>
+<li><code>i3c1</code>バスの下に，<code>nxp,p3t1755</code>ドライバを使うセンサーのノードを1つ追加する</li>
+</ul>
+<p><code>main.c</code>側は<code>DT_ALIAS(ambient_temp0)</code>としか書いていません．このセンサーがI2Cではなく（より高速な）I3Cでつながっていることも，レジスタアドレスの詳細も，アプリケーションのコードは一切知りません．</p>
+<p>ここでの見どころは，「コードを一行も書かずに，デバイスツリーの定義を変えるだけで別のハードウェア構成に対応できる」ことです．たとえば，同じセンサーをI2C接続のボードに載せ替えたり，別の温度センサーIC（対応ドライバがある前提）に変えたりする場合を考えます．変更するのは基本的に<code>boards/*.overlay</code>の中だけで，<code>main.c</code>の<code>DEVICE_DT_GET(DT_ALIAS(ambient_temp0))</code>という1行はそのまま使い回せます．この関係を図にすると，図3.3-1のようになります．</p>
+<p class="lia-align-center">【画像を挿入：img/fig_c5_devicetree_kconfig.png】<br /><em>図3.3-1：thermometerでの，アプリケーション・デバイスツリー・Kconfig・ドライバの関係</em></p>
+<blockquote>
+<p><strong>解説: デバイスツリーの実体はどこにあるのか</strong></p>
+<ol>
+<li>FRDM-MCXN947のボード自体が持つデバイスツリーの本体は，Zephyr本体側の<code>zephyr/boards/nxp/frdm_mcxn947/frdm_mcxn947_mcxn947_cpu0.dts</code>（および共通定義の<code>frdm_mcxn947.dtsi</code>）です．ここには，ボードに標準で載っているペリフェラル一式が定義されています．</li>
+<li>このボード本体のデバイスツリーファイルは，直接書き換えません．Zephyrでは，アプリケーション側に，ボード本体の定義へ<strong>追記・上書きするための差分ファイル</strong>（オーバーレイ，<code>*.overlay</code>）を置きます．<br />thermometerでは<code>samples/sensor/thermometer/boards/frdm_mcxn947_mcxn947_cpu0.overlay</code>，5章で使うリポジトリでは<code>boards/frdm_mcxn947_mcxn947_cpu0.overlay</code>です．本文で示した<code>p3t1755</code>ノードの定義も，このオーバーレイの中身です．ボード本体の定義はそのままに，アプリケーションごとに必要な差分だけを重ねられるのが利点です．</li>
+<li>ビルドすると，ボード本体のデバイスツリーとアプリケーションのオーバーレイがマージされ，最終的なデバイスツリー全体が<code>build/zephyr/zephyr.dts</code>に書き出されます．このファイルを開くと，<code>p3t1755</code>ノードがボード本体の定義に追加されていることを確認できます．</li>
+</ol>
+<p>OSを使わないベアメタル開発や，デバイスツリーの仕組みを持たない多くのRTOSでは，センサーのI2C/I3Cアドレスやレジスタ操作を，アプリケーションのコードの中に直接書くのが一般的です．そのため，センサーの型番やバスの配線が変わるたびに，アプリケーションのロジックを書き換える必要があります．Zephyrでは，「どの部品が」「どこに」つながっているかという情報をデバイスツリーという別の層に追い出しています．そのため，ボードが変わっても，アプリケーションのロジック（この場合は「気温を読んで表示する」という処理）そのものは触らずに済みます．</p>
+<p>興味を持った方は，他のボード向けの<code>overlay</code>ファイルも見比べてみてください．同じ<code>samples/sensor/thermometer</code>でも，ボードごとにハードウェアの接続だけが違う<code>overlay</code>が用意されていることが分かるはずです．</p>
+</blockquote>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idx4" class="pt1">
+<h1><a target="_blank" name="idx4"></a>4. HTTP Serverを動かしてみる</h1>
+</div>
+<p>&nbsp;</p>
+<p>この章では，PCとボードをEthernetケーブルでつなぎ，ボード上で動くHTTP Serverにブラウザからアクセスします（図4.1-1）．これまではボード単体で完結していましたが，ここから一歩進めます．</p>
+<p>使うのは，Zephyr公式サンプルの<code>samples/net/sockets/http_server</code>です．そのままビルド・書き込みして，ブラウザからLEDを点灯/消灯したり，シンプルな<strong>エンドポイント</strong>（<code>/uptime</code>のような，URLのパスごとに用意された窓口）の応答を確認したりします．5章では，この仕組みを土台にして，温度センサーの値をブラウザで見られるように拡張します．</p>
+<p>FRDM-MCXN947でHTTP Serverサンプルを動かす手順自体は，単発のブログ記事としてすでに公開されています．PC側のネットワーク設定や，固定IPの代わりにDHCPを使う場合の手順など，より詳しい内容はそちらも参照してください．</p>
+<ul>
+<li><a href="https://community.nxp.com/t5/NXP-Tech-Blog/Zephyr-HTTP-Server%E3%82%92FRDM-MCXN947%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%96%E3%83%AD%E3%82%B0/ba-p/2379867" target="_blank" rel="noopener">Zephyr HTTP ServerをFRDM-MCXN947で動かしてみた（NXP Tech Blog，日本語）</a></li>
+</ul>
+<p>&nbsp;</p>
+<div id="idx4-1" class="pt1">
+<h2><a target="_blank" name="idx4.1"></a>4.1 サンプルをビルド・書き込む</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，<code>http_server</code>サンプルのIPアドレスを書き換えてから書き込み，PCから<code>ping</code>で応答があることを確認します．今回は，TLSを使わないプレーンHTTPと，固定IPで進めます．</p>
+<p class="lia-align-center">【画像を挿入：img/pc_and_board_connection.png】<br /><em>図4.1-1：PCとボードの接続とIPアドレス（USBケーブルとEthernetケーブル）</em></p>
+<p><strong>ステップ1: サンプルを作業用フォルダにコピーする</strong></p>
+<li-code lang="markup"># コマンド例4.1-1
+Copy-Item -Recurse ~\zephyrproject\zephyr\samples\net\sockets\http_server ~\handson\http_server
+cd ~\handson\http_server</li-code>
+<p><strong>ステップ2: <code>prj.conf</code>のIPアドレスを書き換える</strong></p>
+<p>次のコマンドを実行すると，VSCodeで<code>prj.conf</code>が開きます．</p>
+<li-code lang="markup"># コマンド例4.1-2
+code prj.conf</li-code>
+<p>VSCodeの上部に「Restricted Mode is intended for safe code browsing.」という帯が表示されることがあります（後の図4.1-2の上部にも写っています）．これは，開いたファイルを安全のため機能を制限したモードで表示している，という案内です．<code>prj.conf</code>の編集・保存には影響しないので，そのまま進めて構いません．</p>
+<p>ボードに固定IPアドレスを持たせるため，<code>CONFIG_NET_CONFIG_MY_IPV4_ADDR</code>の行を書き換えます．ファイルの中ほどにある<code># Network address config</code>の下を見てください．元のサンプルでは，次のようになっています．</p>
+<li-code lang="markup">CONFIG_NET_CONFIG_MY_IPV4_ADDR="192.0.2.1"
+CONFIG_NET_CONFIG_PEER_IPV4_ADDR="192.0.2.2"
+CONFIG_NET_CONFIG_MY_IPV4_GW="192.0.2.2"</li-code>
+<p>1行目（ファイルの54行目）の<code>"</code>で囲まれた値を，次のように書き換えます．VSCodeでは，行番号が左端に表示されています（図4.1-2）．Zephyrのバージョンによっては，行番号が少しずれることがあります．</p>
+<li-code lang="markup">CONFIG_NET_CONFIG_MY_IPV4_ADDR="192.168.1.100"</li-code>
+<p>3行目の<code>CONFIG_NET_CONFIG_MY_IPV4_GW</code>は，Gateway（ルーター）のアドレスです．PCとボードを直結する今回の構成では使われないので，書き換えなくても構いません．書き換える場合は<code>"192.168.1.1"</code>にします（この節の最後の解説を参照）．2行目の<code>CONFIG_NET_CONFIG_PEER_IPV4_ADDR</code>は似ていますが別の設定で，今回は書き換えません．</p>
+<blockquote>
+<p><strong>注意: この行はPowerShellに貼り付けない</strong></p>
+<p>上の<code>CONFIG_...</code>の行はコマンドではなく，VSCodeで開いた<code>prj.conf</code>ファイルの<strong>中身</strong>です．PowerShellに貼り付けると「認識されません」というエラーになります（ファイルには何も影響しないので，間違えて貼り付けても問題はありません）．</p>
+<ul>
+<li>元の行を<strong>書き換えて</strong>ください．元の行を残したまま末尾に行を追加すると，同じ設定が2回書かれた状態になり，どちらが有効か分かりにくくなります．</li>
+<li>Gatewayも書き換える場合: <code>PEER_IPV4_ADDR</code>の行と<code>MY_IPV4_GW</code>の行は，元の値がどちらも<code>"192.0.2.2"</code>です．値で探すと<code>PEER</code>の行を書き換えてしまいやすいので，行の先頭の<code>CONFIG_...</code>の名前で確かめてください．</li>
+<li>値を囲む<code>"</code>（ダブルクォーテーション）は消さないでください．</li>
+<li>編集したら，<strong><code>Ctrl</code>+<code>S</code>で保存</strong>します．VSCodeのタブのファイル名の横に<code>●</code>が付いている間は，まだ保存されていません．保存し忘れると，元のIPアドレスのままビルドされてしまいます．</li>
+</ul>
+</blockquote>
+<p>図4.1-2は，<code>MY_IPV4_ADDR</code>の行を書き換えて保存したところです（<code>MY_IPV4_GW</code>の行は元のままにしています）．</p>
+<p class="lia-align-center">【画像を挿入：img/prj_conf_edit.png】<br /><em>図4.1-2：<code>prj.conf</code>の<code>MY_IPV4_ADDR</code>を書き換えて保存したところ</em></p>
+<p>会場のPC側のIPアドレスは，あらかじめこのボードと同じ<code>192.168.1.0/24</code>のサブネットに収まるよう設定済みです．PC側の設定を変更する必要はありません．</p>
+<p><strong>ステップ3: ビルドして書き込む</strong></p>
+<p><code>prj.conf</code>を保存したら，PowerShellのウィンドウに戻ってビルドします．VSCodeの画面のままコマンドを貼り付けないよう注意してください．</p>
+<li-code lang="markup"># コマンド例4.1-3
+west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<p>ビルドが成功したら書き込みます．</p>
+<li-code lang="markup"># コマンド例4.1-4
+west flash</li-code>
+<p>書き込みの途中で，<code>INFO: MCU-Link firmware update 'check': ... is running a firmware version which is older than the included firmware version</code>のような表示が出ることがあります．ボードのMCU-Linkのファームウェアが，LinkServerに付属しているものより古いという案内です．書き込みはそのまま行われるので，気にせず進めてください．</p>
+<p><strong>ステップ4: Ethernetケーブルをつないで，応答を確認する</strong></p>
+<p>書き込みが終わったら，PCとボードをEthernetケーブルで直結します．ケーブルを挿すのは，ボードのEthernetコネクタ（<a class="smoothScroll" href="#idx1-3" target="_self">図1.3-1</a>の⑤）です（図4.1-3）．</p>
+<p class="lia-align-center">【画像を挿入：img/ether_connected.jpg】<br /><em>図4.1-3：EthernetケーブルをボードのEthernetコネクタに挿す</em></p>
+<p>ボードがネットワークを使えるようになるまで数秒かかります．少し待ってから，PowerShellで次のコマンドを実行してください．</p>
+<li-code lang="markup"># コマンド例4.1-5
+ping 192.168.1.100</li-code>
+<p><strong>✔ ここまでできればOK</strong></p>
+<p>次のように<code>192.168.1.100 からの応答</code>と表示されれば，PCとボードの間で通信できています（図4.1-4）．</p>
+<li-code lang="markup">192.168.1.100 に ping を送信しています 32 バイトのデータ:
+192.168.1.100 からの応答: バイト数 =32 時間 &lt;1ms TTL=64
+192.168.1.100 からの応答: バイト数 =32 時間 &lt;1ms TTL=64
+192.168.1.100 からの応答: バイト数 =32 時間 &lt;1ms TTL=64
+192.168.1.100 からの応答: バイト数 =32 時間 &lt;1ms TTL=64
+
+192.168.1.100 の ping 統計:
+    パケット数: 送信 = 4、受信 = 4、損失 = 0 (0% の損失)、
+ラウンド トリップの概算時間 (ミリ秒):
+    最小 = 0ms、最大 = 0ms、平均 = 0ms</li-code>
+<p class="lia-align-center">【画像を挿入：img/ping.png】<br /><em>図4.1-4：<code>ping</code>の実行結果</em></p>
+<p><strong>うまくいかないときは</strong></p>
+<ul>
+<li>「要求がタイムアウトしました」と表示される → 次の順に確認します．</li>
+<ol>
+<li>Ethernetケーブルが，PCとボードの両方にしっかり挿さっているか．ボード側のコネクタのLEDが点灯しているか．</li>
+<li><code>prj.conf</code>のIPアドレスが<code>192.168.1.100</code>になっていて，<strong>保存されているか</strong>．保存し直した場合は，コマンド例4.1-3からビルドと書き込みをやり直します．</li>
+<li>シリアルコンソール（Tera Term）に，ボードの起動メッセージやIPアドレスの表示が出ているか．何も出ていなければ，RESETボタンを押してみます．</li>
+<li>それでもだめなら，<a class="smoothScroll" href="#idxA-6" target="_self">A.6</a>を参照してください．</li>
+</ol>
+<li>「宛先ホストに到達できません」と表示される → PC側のIPアドレスが<code>192.168.1.x</code>になっていない可能性があります（<a class="smoothScroll" href="#idxA-6" target="_self">A.6</a>）．</li>
+</ul>
+<blockquote>
+<p><strong>解説: なぜプレーンHTTPを使うのか</strong></p>
+<p>プレーンHTTPは，通信内容が暗号化されないHTTP通信です．実運用では，盗聴や改ざんを防ぐため，TLSで暗号化されたHTTPSの利用が推奨されます．HTTPSを使うには，サーバー証明書や秘密鍵といった認証まわりのファイルを，あらかじめ用意する必要があります．</p>
+<p>Zephyrでも，こうした認証の仕組みや，通信を暗号化する仕組みはサポートされています．しかし今回のハンズオンでは，限られた時間の中で認証ファイルの準備を省き，HTTP Serverそのものの仕組みを体験することに集中するため，あえてプレーンHTTPを使います．</p>
+</blockquote>
+<blockquote>
+<p><strong>解説: Gatewayの設定について</strong></p>
+<p>Gateway（<code>CONFIG_NET_CONFIG_MY_IPV4_GW</code>）は，ルーターを経由しない通信では本来必須ではありません．今回はPCとボードをEthernetケーブルで直結し，同じ<code>192.168.1.0/24</code>のサブネットに両方を置きます．通信はすべて同一リンク内のARPで解決され，Gatewayを経由するルーティングは発生しません．そのため今回は，元の値のままでも，<code>"192.168.1.1"</code>に書き換えても，同じように動きます．</p>
+<p>ボードをルーターにつないで別のネットワークと通信する場合は，そのルーターのアドレスに書き換える必要があります．</p>
+</blockquote>
+<p>&nbsp;</p>
+<div id="idx4-2" class="pt1">
+<h2><a target="_blank" name="idx4.2"></a>4.2 ブラウザからLEDを制御してみる</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，ブラウザからボードのLEDを点灯/消灯します．</p>
+<blockquote>
+<p><strong>注意: アドレスは<code>http://</code>から入力する</strong></p>
+<p>ブラウザのアドレス欄には，<code>http://</code>を省略せず<code>http://192.168.1.100/</code>のように入力してください．</p>
+<p>最近のブラウザは，<code>http://</code>を省略したり古い履歴を選んだりすると，自動的に暗号化通信の<code>https://</code>で接続しようとします．今回のボードはプレーンHTTPで動いているので，<code>https://</code>では接続できません．「接続がプライベートではありません」「安全な接続をサポートしていません」のような画面が出た場合は，アドレス欄が<code>https://</code>になっていないか確認してください．</p>
+<p>なお，ページが表示されたとき，アドレス欄の左に「保護されていない通信」と表示されます．暗号化していないプレーンHTTPで接続しているためで，今回はこれで正常です．</p>
+</blockquote>
+<p>ブラウザで<code>http://192.168.1.100/</code>にアクセスすると，LED制御用のページが表示されます（図4.2-1）．</p>
+<p class="lia-align-center">【画像を挿入：img/page_view.png】<br /><em>図4.2-1：ブラウザで開いたLED制御ページ</em></p>
+<p>このページには，「LED Control」のほかに，「Uptime Counter」（ボードの起動からの経過時間．4.3節で見る<code>/uptime</code>の値）と，「Network Statistics」（ボードが送受信したデータ量などの統計）も表示されます．</p>
+<p><strong>✔ ここまでできればOK</strong></p>
+<p>ページの「LED on」「LED off」ボタンで，ボード上のRGB LED（<a class="smoothScroll" href="#idx1-3" target="_self">図1.3-1</a>の③）が<strong>緑色に</strong>点灯/消灯すれば成功です（図4.2-2）．2.3節のLチカでは同じRGB LEDが赤く点滅しましたが，今回は緑です．</p>
+<p class="lia-align-center">【画像を挿入：img/led_green.jpg】<br /><em>図4.2-2：ブラウザの操作でRGB LEDが緑に光る</em></p>
+<p>このとき，Tera Termには<code>[00:00:25.684,000] &lt;dbg&gt; ...</code>のような行が次々と流れ，<code>uart:~$</code>という表示も出ています．HTTP Serverサンプルが出しているログと，Zephyrのシェル（コマンド入力の受付）の表示で，異常ではありません．</p>
+<p><strong>うまくいかないときは</strong></p>
+<ul>
+<li>pingは通るのにブラウザで表示されない → アドレスが<code>http://</code>になっているか確認します．会社のPCなどでプロキシが設定されている場合は，プロキシを経由しない設定が必要です（<a class="smoothScroll" href="#idxA-6" target="_self">A.6</a>）．</li>
+<li>ページは表示されるがLEDが反応しない → 赤ではなく緑に光るので，色を確かめてください．それでも反応しなければ，ブラウザを再読み込み（<code>F5</code>）して，もう一度ボタンを押してみます．</li>
+</ul>
+<blockquote>
+<p><strong>コラム: ネットワーク機能の「重さ」について</strong></p>
+<p>一般的な組み込み開発では，HTTPサーバーを1つ動かすだけでも，多くの下準備が必要になりがちです．TCP/IPスタック（lwIPなど）の組み込みと設定，ソケットAPIの用意，HTTPパーサーの選定と実装，静的ファイルの配信方法の実装，といった作業です．</p>
+<p>今回は，それらがすべて<code>prj.conf</code>の<code>CONFIG_NET_*</code>・<code>CONFIG_HTTP_*</code>系のオプションを<code>y</code>にするだけで揃っています．アプリケーション側で書いたのは，各エンドポイントのハンドラ関数（リクエストが来たときに呼び出される関数）だけです．ネットワークスタックからHTTPサーバーまでを，1つのビルドシステムとKconfigで一貫して扱える．これが，Zephyrがマイコン向けRTOSでありながら，比較的大きなミドルウェア込みで語られる理由のひとつです．</p>
+</blockquote>
+<blockquote>
+<p><strong>コラム: ZephyrのTCP/IPスタックはlwIPなのか</strong></p>
+<p>組み込み向けのTCP/IPスタックというと，lwIP（lightweight IP）を思い浮かべる方も多いかもしれません．しかしZephyrは，lwIPを外部から取り込むのではなく，<code>subsys/net/</code>以下に実装された独自のTCP/IPスタックを標準で使っています．IPv4/IPv6・TCP/UDP・ソケットAPIといった機能は，Zephyr本体に組み込まれています．</p>
+<p><code>prj.conf</code>で有効にしている<code>CONFIG_NET_IPV4</code>や<code>CONFIG_NET_TCP</code>，<code>CONFIG_NET_SOCKETS</code>といったオプションも，このスタックの機能を指しています．（Zephyrは，モジュールとして外部のネットワークスタックを組み合わせる構成にも対応していますが，本記事で使っているのは標準のスタックです．）</p>
+</blockquote>
+<p>&nbsp;</p>
+<div id="idx4-3" class="pt1">
+<h2><a target="_blank" name="idx4.3"></a>4.3 /uptimeエンドポイントを覗いてみる</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，一番シンプルなエンドポイントの動きを確かめます．</p>
+<p><strong>✔ ここまでできればOK</strong></p>
+<p>ブラウザで<code>http://192.168.1.100/uptime</code>にアクセスすると，ボードの起動からの経過時間が表示されます．</p>
+<p>この「GETリクエストに対して，値を計算してテキストで返す」というエンドポイントの作りを，次の5章でそのまま応用します．</p>
+<blockquote>
+<p><strong>解説: HTTPリクエストとレスポンス</strong></p>
+<ol>
+<li>ブラウザで<code>/uptime</code>にアクセスすると，ブラウザからボードへ，「このパスの内容をください」という意味の<code>GET</code>リクエストが送られます．</li>
+<li>ボード側では，リクエストを受け取ったHTTP Serverが，<code>/uptime</code>に紐づけられた<strong>ハンドラ関数</strong>（リクエストが来たときに呼び出される関数．ここでは<code>uptime_handler</code>）を呼び出します．</li>
+<li>ハンドラは起動からの経過時間を計算し，その値をレスポンスの本文（body）としてセットします．</li>
+<li>HTTP Serverは，この本文にステータス行（<code>200 OK</code>など）やヘッダーを付け加え，HTTPレスポンスとしてブラウザに返します．</li>
+<li>ブラウザは，受け取ったレスポンスの本文を画面に表示します．</li>
+</ol>
+<p>5章で追加する<code>/temperature</code>エンドポイントも，リクエストを受けて値を計算し，本文として返すという，まったく同じ流れで動いています．</p>
+</blockquote>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idx5" class="pt1">
+<h1><a target="_blank" name="idx5"></a>5. HTTP Serverを改変して，温度センサーの値をブラウザで見る</h1>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="idx5-1" class="pt1">
+<h2><a target="_blank" name="idx5.1"></a>5.1 何を追加したか</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，4章のHTTP Serverサンプルに何を追加したのかを説明します．</p>
+<p>4.3節で見た<code>/uptime</code>エンドポイントと同じ作りで，温度を返すエンドポイントを2つ追加しました．変更は<code>src/main.c</code>のごく一部です．</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">エンドポイント</td>
+<td height="25px">ハンドラ関数</td>
+<td height="25px">返すもの</td>
+</tr>
+<tr>
+<td height="25px"><code>/temperature</code></td>
+<td height="25px"><code>temperature_handler</code></td>
+<td height="25px">温度を表示するHTMLページ</td>
+</tr>
+<tr>
+<td height="25px"><code>/temperature.json</code></td>
+<td height="25px"><code>temperature_json_handler</code></td>
+<td height="25px">その時点の温度の数値だけ（JSON）</td>
+</tr>
+</tbody>
+</table>
+<p>ブラウザで開くのは<code>/temperature</code>のページです．このページには小さなJavaScriptが埋め込まれていて，1秒ごとに<code>/temperature.json</code>へ値を問い合わせ，表示を書き換えます（図5.1-1）．<code>/uptime</code>の値がトップページで自動的に更新されていくのと同じ仕組みです．</p>
+<li-code lang="markup">static int temperature_handler(struct http_client_ctx *client, enum http_transaction_status status,
+                const struct http_request_ctx *request_ctx,
+                struct http_response_ctx *response_ctx, void *user_data)
+{
+    /* 3章の温度センサーと同じ sensor_sample_fetch_chan /
+       sensor_channel_get の流れで気温を取得し，HTMLとして返す */
+    ...
+}
+
+static int temperature_json_handler(struct http_client_ctx *client, enum http_transaction_status status,
+                const struct http_request_ctx *request_ctx,
+                struct http_response_ctx *response_ctx, void *user_data)
+{
+    /* 同じ方法で気温を取得し，数値だけを返す */
+    ...
+}</li-code>
+<p>（抜粋）</p>
+<p>追加したのは，次の2つだけです．他の部分（LED制御，<code>/uptime</code>，静的ページの配信）は，元のサンプルのまま変更していません．</p>
+<ul>
+<li>この2つのハンドラ関数（センサーの読み取り部分は，共通の関数にまとめています）</li>
+<li>それぞれを<code>/temperature</code>・<code>/temperature.json</code>というパスに紐づける，<code>HTTP_RESOURCE_DEFINE()</code>の2行</li>
+</ul>
+<p class="lia-align-center">【画像を挿入：img/fig_c6_http_flow.png】<br /><em>図5.1-1：<code>/temperature</code>のページが温度を表示し，1秒ごとに更新する流れ</em></p>
+<p>&nbsp;</p>
+<div id="idx5-2" class="pt1">
+<h2><a target="_blank" name="idx5.2"></a>5.2 実際にブラウザで表示してみる</h2>
+</div>
+<p>&nbsp;</p>
+<p>この節では，改変済みのコードを書き込み，ブラウザで温度を表示します．</p>
+<p>改変済みのコードは，GitHubのリポジトリ<a href="https://github.com/teddokano/handson_http_server_temp" target="_blank" rel="noopener">teddokano/handson_http_server_temp</a>で公開しています．作業用フォルダにクローンして，これまでと同じ手順でビルド・書き込みします．</p>
+<li-code lang="markup"># コマンド例5.2-1
+cd ~\handson
+git clone https://github.com/teddokano/handson_http_server_temp
+cd handson_http_server_temp</li-code>
+<p>【会場PCにはクローン済みにしておくか（会場でインターネット接続が使えるか）を確認．クローン済みの場合は<code>cd</code>以降だけを示す】</p>
+<p>このリポジトリの<code>prj.conf</code>は，ボードのIPアドレスが4章と同じ<code>192.168.1.100</code>になるよう設定済みです．<code>prj.conf</code>を書き換える必要はありません．</p>
+<li-code lang="markup"># コマンド例5.2-2
+west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<p>ビルドが成功したら書き込みます．Ethernetケーブルは，4章でつないだままで構いません．</p>
+<li-code lang="markup"># コマンド例5.2-3
+west flash</li-code>
+<p><strong>✔ ここまでできればOK</strong></p>
+<p>書き込み後，数秒待ってから，ブラウザで<code>http://192.168.1.100/temperature</code>にアクセスすると，次のようなページが表示されます（図5.2-1）．</p>
+<li-code lang="markup">Hello FRDM-MCXN947 temp sensor: P3T1755
+Temperature: 24.312°C
+← Back</li-code>
+<p>温度の値は1秒ごとに自動で更新されます．温度センサー（<a class="smoothScroll" href="#idx1-3" target="_self">図1.3-1</a>の④）を指で触って，値が上がっていくのを確かめてみてください．<code>http://192.168.1.100/temperature.json</code>を直接開くと，ページの裏で問い合わせている数値だけの応答（<code>24.312</code>のような値）も見られます．</p>
+<p class="lia-align-center">【画像を挿入：img/temp_on_browser.png】<br /><em>図5.2-1：ブラウザに表示された温度</em></p>
+<p><strong>うまくいかないときは</strong></p>
+<ul>
+<li><code>git clone</code>で「already exists and is not an empty directory」と出る → すでにクローン済みです．そのまま<code>cd handson_http_server_temp</code>を実行して先に進んでください．</li>
+<li><code>git clone</code>で「Could not resolve host」などと出る → PCがインターネットに接続されていません．Wi-Fiなど，インターネットに出られるネットワークに接続してから再実行してください．</li>
+<li><code>/temperature</code>を開くと「404 Not Found」になる → 4章の元のサンプルが書き込まれたままになっています．プロンプトが<code>...\handson_http_server_temp&gt;</code>になっているか確認し，コマンド例5.2-2からやり直してください．</li>
+<li>ページが開けない → 4.1節・4.2節の「うまくいかないときは」と同じ手順で確認します．</li>
+</ul>
+<p>&nbsp;</p>
+<div id="idx5-3" class="pt1">
+<h2><a target="_blank" name="idx5.3"></a>5.3 3章・4章の内容がどう組み合わさっているか</h2>
+</div>
+<p>&nbsp;</p>
+<p>この章で作ったアプリケーションは，新しい仕組みを使っていません．2〜4章で1つずつ動かした部品を組み合わせただけです．どの部品をどこで見たのかを，表にまとめます．</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">5章で使っているもの</td>
+<td height="25px">5章のどこにあるか</td>
+<td height="25px">どこで見たか</td>
+</tr>
+<tr>
+<td height="25px">温度センサーをエイリアスで取得する</td>
+<td height="25px"><code>main.c</code>の<code>DEVICE_DT_GET(DT_ALIAS(ambient_temp0))</code></td>
+<td height="25px">3.3節（thermometerと同じ1行）</td>
+</tr>
+<tr>
+<td height="25px">温度センサーをデバイスツリーに追加する</td>
+<td height="25px"><code>boards/frdm_mcxn947_mcxn947_cpu0.overlay</code>の<code>p3t1755</code>ノード</td>
+<td height="25px">3.3節（thermometerと同じオーバーレイ）</td>
+</tr>
+<tr>
+<td height="25px">センサーの機能を有効にする</td>
+<td height="25px"><code>prj.conf</code>の<code>CONFIG_SENSOR=y</code></td>
+<td height="25px">3.3節の図3.3-1</td>
+</tr>
+<tr>
+<td height="25px">温度を読み取る</td>
+<td height="25px"><code>sensor_sample_fetch_chan()</code>・<code>sensor_channel_get()</code></td>
+<td height="25px">3章（thermometer）</td>
+</tr>
+<tr>
+<td height="25px">パスとハンドラ関数を結び付ける</td>
+<td height="25px"><code>HTTP_RESOURCE_DEFINE()</code>で<code>/temperature</code>・<code>/temperature.json</code>を登録</td>
+<td height="25px">4.3節（<code>/uptime</code>と同じ書き方）</td>
+</tr>
+<tr>
+<td height="25px">値を計算してレスポンスで返す</td>
+<td height="25px"><code>temperature_handler</code>・<code>temperature_json_handler</code></td>
+<td height="25px">4.3節の解説（<code>uptime_handler</code>と同じ流れ）</td>
+</tr>
+<tr>
+<td height="25px">ネットワークとHTTP Serverの機能</td>
+<td height="25px"><code>prj.conf</code>の<code>CONFIG_NET_*</code>・<code>CONFIG_HTTP_*</code></td>
+<td height="25px">4章（元のサンプルのまま）</td>
+</tr>
+</tbody>
+</table>
+<p>それぞれ単体で動かした部品を組み合わせると，「ブラウザからセンサー値を見る」というアプリケーションになります．新しく書いたコードは，2つのハンドラ関数と，それを登録する2行だけです．</p>
+<blockquote>
+<p><strong>解説: main.cとCMakeLists.txtが少し煩雑に見える理由</strong></p>
+<p><code>src/main.c</code>を開くと，<code>/temperature</code>のハンドラ以外にもかなりの行数があります．これは，HTTP Serverサンプルが，トップページのHTMLやJavaScript，LED制御・<code>/uptime</code>などの元からあるエンドポイントも，あわせて用意しているためです．これらは温度センサーの追加とは直接関係のない「HTTPサーバーとして動くための足回り」なので，今回は5.1節の2つのハンドラ関数だけに注目すれば十分です．足回りの仕組みは，<a class="smoothScroll" href="#idxG" target="_self">付録G</a>で説明しています．</p>
+</blockquote>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idx6" class="pt1">
+<h1><a target="_blank" name="idx6"></a>6. まとめ</h1>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="idx6-1" class="pt1">
+<h2><a target="_blank" name="idx6.1"></a>6.1 今日体験したこと</h2>
+</div>
+<p>&nbsp;</p>
+<ul>
+<li>Zephyrの開発環境（west・デバイスツリー・Kconfig）に触れた</li>
+<li>Lチカ，温度センサー読み取り，HTTP Serverをそれぞれ動かした</li>
+<li>2つのサンプルを組み合わせて，ブラウザでセンサー値を見るアプリケーションを作った</li>
+</ul>
+<p>&nbsp;</p>
+<div id="idx6-2" class="pt1">
+<h2><a target="_blank" name="idx6.2"></a>6.2 自分でもう一度やってみるための情報源</h2>
+</div>
+<p>&nbsp;</p>
+<ul>
+<li><a href="https://docs.zephyrproject.org/latest/" target="_blank" rel="noopener">Zephyr Project公式ドキュメント</a></li>
+<li><a href="https://github.com/teddokano/handson_http_server_temp" target="_blank" rel="noopener">今回使ったサンプルコードのリポジトリ (teddokano/handson_http_server_temp)</a></li>
+<li>【この記事自体へのリンクを挿入(公開後に確定)】</li>
+</ul>
+<p>&nbsp;</p>
+<div id="idx6-3" class="pt1">
+<h2><a target="_blank" name="idx6.3"></a>6.3 AIをどう活用できるか</h2>
+</div>
+<p>&nbsp;</p>
+<p>Zephyrのサンプルコードを読んだり改変したりするとき，AIアシスタントに「このサンプルにこういう機能を足すには」と相談すると，既存コードのパターンに沿った改変案を出してもらえます．今回の<code>/temperature</code>エンドポイントも，既存の<code>/uptime</code>エンドポイントと同じ構造で追加しています．分からない箇所があれば，まず既存のサンプルコードの近い部分を探し，AIと一緒に読み解いてみることをおすすめします．</p>
+<p>もう一つよくあるのが，<code>west build</code>でエラーになったときです．Zephyrのビルドでは，Kconfigの警告からCMakeのエラー，リンカのエラーまで，一度に大量のメッセージが出ます．どこが本当の原因なのか，初めは分かりにくいことがあります．</p>
+<p>そんなときも，エラーメッセージ全体をそのままAIに貼り付けて，「これはどういうエラーですか」と聞いてみるところから始めるのがおすすめです．<a class="smoothScroll" href="#idxG" target="_self">付録G</a>で触れた<code>sections-rom.ld</code>まわりのリンクエラーも，この記事を書く過程で，AIと一緒に原因を特定したものです．</p>
+<p>質問するときに伝えるとよい情報は，<a class="smoothScroll" href="#idx0-4" target="_self">0.4節</a>の「質問するときは」にまとめています．AIに相談するときも同じです．</p>
+<p>&nbsp;</p>
+<div id="idx6-4" class="pt1">
+<h2><a target="_blank" name="idx6.4"></a>6.4 後片付け</h2>
+</div>
+<p>&nbsp;</p>
+<p><strong>会場で参加された方</strong></p>
+<p>ボードやケーブルは，抜かずにそのままにしておいてください．PCの片付けも不要です．会場スタッフの案内に従ってください．</p>
+<p><strong>ご自身のPCで試した方</strong></p>
+<ul>
+<li>PowerShell（またはターミナル）は，そのまま閉じて構いません．仮想環境の有効化や<code>ZEPHYR_BASE</code>の設定は，ウィンドウを閉じれば消えます．閉じずに仮想環境だけを抜けたい場合は，<code>deactivate</code>を実行します．</li>
+<li>4章でPCのEthernetを固定IPに設定した場合は，元に戻しておきましょう．<a class="smoothScroll" href="#idxA-6" target="_self">A.6</a>のコラムと同じ画面で，「IP割り当て」を「自動（DHCP）」に戻します．戻さないと，そのEthernetポートを社内LANや自宅のルーターにつないだときに，インターネットにつながらなくなります．</li>
+<li>ボードには，最後に書き込んだプログラム（5章の温度表示つきHTTP Server）が残ります．電源を入れるたびにそのプログラムが動きますが，<code>west flash</code>でいつでも別のプログラムに書き換えられます．</li>
+<li>作業用フォルダ<code>~\handson</code>は，残しておけば今日の続きをいつでも試せます．不要になったら，フォルダごと削除して構いません（<code>~\zephyrproject</code>は消さないでください）．</li>
+</ul>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idxA" class="pt1">
+<h1><a target="_blank" name="idxA"></a>付録A. うまくいかないときは</h1>
+</div>
+<p>&nbsp;</p>
+<p>この付録では，コマンドをコピー＆ペーストして進める中でつまずきやすいポイントと，その回復方法をまとめています．本文の各節にある「うまくいかないときは」から参照しています．</p>
+<p>&nbsp;</p>
+<div id="idxA-1" class="pt1">
+<h2><a target="_blank" name="idxA.1"></a>A.1 まず確認すること</h2>
+</div>
+<p>&nbsp;</p>
+<p>エラーが出たら，原因を探す前に次の3点を確認してください．ほとんどのトラブルは，このどれかで見つかります．</p>
+<ol>
+<li><strong>プロンプトの先頭に<code>(.venv)</code>が付いているか</strong><br />付いていなければ，仮想環境が有効になっていません．PowerShellを開き直した，別のウィンドウで作業している，といった場合に起こります．コマンド例2.1-1を実行し直すか，会場PCでは<code>zinit &lt;作業中のサンプル名&gt;</code>（<a class="smoothScroll" href="#idx2-1" target="_self">コマンド例2.1-2</a>）を実行します．</li>
+<li><strong>今いるフォルダは正しいか</strong><br />プロンプトの<code>PS C:\Users\&lt;ユーザー名&gt;\handson\thermometer&gt;</code>のような部分が，今作業している節のサンプルのフォルダになっているか確認します．違っていたら，その節の最初のコマンド例にある<code>cd</code>を実行し直します．</li>
+<li><strong>最初に出たエラーはどれか</strong><br />エラーが出ると後続のメッセージが大量に出ます．画面を上にスクロールして，<strong>最初に</strong>赤字や<code>error</code>が出た行を探してください．複数行をまとめて貼り付けた場合は，どのコマンドで最初にエラーが出たかを確認します．</li>
+</ol>
+<p>次のコマンドで，今の状態をまとめて確認できます．</p>
+<li-code lang="markup"># コマンド例A.1-1
+Get-Location
+$env:ZEPHYR_BASE
+west topdir</li-code>
+<p>1行目に今いるフォルダ，2行目に<code>C:\Users\&lt;ユーザー名&gt;\zephyrproject\zephyr</code>，3行目に<code>C:/Users/&lt;ユーザー名&gt;/zephyrproject</code>が表示されれば，環境は正しく設定されています．2行目が空なら，コマンド例2.1-1を実行し直します．</p>
+<p>&nbsp;</p>
+<div id="idxA-2" class="pt1">
+<h2><a target="_blank" name="idxA.2"></a>A.2 PowerShell・westまわり</h2>
+</div>
+<p>&nbsp;</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">症状</td>
+<td height="25px">原因</td>
+<td height="25px">回復方法</td>
+</tr>
+<tr>
+<td height="25px"><code>west : 用語 'west' は，コマンドレット，関数，スクリプト ファイル，または操作可能なプログラムの名前として認識されません</code></td>
+<td height="25px">仮想環境が有効になっていない</td>
+<td height="25px"><code>zinit &lt;作業中のサンプル名&gt;</code>を実行する（<code>zinit</code>がないPCでは，コマンド例2.1-1を実行し，作業中のフォルダに<code>cd</code>で戻る）</td>
+</tr>
+<tr>
+<td height="25px"><code>west: unknown command "build"</code></td>
+<td height="25px"><code>ZEPHYR_BASE</code>が設定されていない（westがワークスペースを見つけられない）</td>
+<td height="25px"><code>zinit &lt;作業中のサンプル名&gt;</code>を実行する（<code>zinit</code>がないPCでは，コマンド例2.1-1を実行し，作業中のフォルダに<code>cd</code>で戻る）</td>
+</tr>
+<tr>
+<td height="25px"><code>Activate.ps1</code>で「このシステムではスクリプトの実行が無効になっている」</td>
+<td height="25px">PowerShellの実行ポリシー</td>
+<td height="25px"><code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code>を実行してから，コマンド例2.1-1をやり直す</td>
+</tr>
+<tr>
+<td height="25px"><code>cd</code>や<code>Copy-Item</code>で「パスが存在しないため検出できません」</td>
+<td height="25px">パスの打ち間違い，またはコピー元・コピー先のフォルダが無い</td>
+<td height="25px">コマンドを手で打たずにコピーし直す．<code>~\handson</code>が無い場合はコマンド例2.2-1の1行目を実行する</td>
+</tr>
+<tr>
+<td height="25px">コマンドを貼り付けたのに何も起きず，プロンプトの後ろにコマンドが残っている</td>
+<td height="25px">最後の行の改行がコピーされていない</td>
+<td height="25px"><code>Enter</code>を押す</td>
+</tr>
+<tr>
+<td height="25px">貼り付けたら<code>&gt;&gt;</code>というプロンプトが出て止まった</td>
+<td height="25px"><code>"</code>の閉じ忘れなど，コマンドが途中で切れている</td>
+<td height="25px"><code>Ctrl</code>+<code>C</code>で中断し，コマンドを丸ごとコピーし直す</td>
+</tr>
+<tr>
+<td height="25px"><code>ping</code>や<code>west</code>の結果ではなく，日本語の文章がエラーになっている</td>
+<td height="25px">記事の本文や<code>prj.conf</code>の中身まで貼り付けてしまった</td>
+<td height="25px">コードブロックの中だけをコピーし直す．PowerShell上で実行されただけなので，ファイルなどへの影響はない</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<div id="idxA-3" class="pt1">
+<h2><a target="_blank" name="idxA.3"></a>A.3 ビルドのエラー</h2>
+</div>
+<p>&nbsp;</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">症状</td>
+<td height="25px">原因</td>
+<td height="25px">回復方法</td>
+</tr>
+<tr>
+<td height="25px"><code>Invalid BOARD</code>，<code>No board named ...</code></td>
+<td height="25px"><code>-b</code>のボード名の打ち間違い</td>
+<td height="25px">コマンド例をコピーし直す．<code>frdm_mcxn947//cpu0</code>の<code>//</code>も含めて正確に</td>
+</tr>
+<tr>
+<td height="25px"><code>source directory ... does not contain a CMakeLists.txt</code>など</td>
+<td height="25px">サンプルのフォルダ以外（<code>~\handson</code>や<code>~\zephyrproject</code>など）でビルドした</td>
+<td height="25px">その節のコマンド例の<code>cd</code>を実行してからビルドし直す</td>
+</tr>
+<tr>
+<td height="25px"><code>Build directory ... is for application ...</code>のように，別のアプリのビルドフォルダだと言われる</td>
+<td height="25px">以前のビルドの<code>build</code>フォルダが残っている</td>
+<td height="25px"><code>-p auto</code>を<code>-p always</code>に変えてビルドし直す（下記）</td>
+</tr>
+<tr>
+<td height="25px">設定を変えたのに反映されない，原因不明のエラーが続く</td>
+<td height="25px">ビルドフォルダに古い情報が残っている</td>
+<td height="25px"><code>-p always</code>でクリーンビルドする（下記）</td>
+</tr>
+<tr>
+<td height="25px"><code>prj.conf</code>を書き換えた後にKconfigのエラーが出る</td>
+<td height="25px">書き換えの際に<code>"</code>や<code>=</code>を消してしまった</td>
+<td height="25px"><code>prj.conf</code>を見直す．分からなくなったら<a class="smoothScroll" href="#idxA-7" target="_self">A.7</a>の手順でサンプルをコピーし直す</td>
+</tr>
+</tbody>
+</table>
+<p>クリーンビルドは次のコマンドで行います．ビルドフォルダを消して最初から作り直すので，時間はかかりますが確実です．</p>
+<li-code lang="markup"># コマンド例A.3-1
+west build -p always -b frdm_mcxn947//cpu0 .</li-code>
+<p>エラーメッセージが長すぎて画面で追えない場合は，次のようにしてファイルに保存できます．保存した<code>build_log.txt</code>をVSCodeで開いて<code>error</code>で検索したり，内容をAIに貼り付けて相談したりするのに便利です．</p>
+<li-code lang="markup"># コマンド例A.3-2
+west build -p auto -b frdm_mcxn947//cpu0 . 2&gt;&amp;1 | Out-File build_log.txt
+code build_log.txt</li-code>
+<p><strong>ビルドが遅いとき（ご自身のPCで試している場合）</strong></p>
+<p>WindowsでのZephyrのビルドは，同じPCのLinuxより遅くなりがちです．http_serverのような大きめのサンプルでは，1回のビルドに数分かかることもあります．次の3つで大きく改善します（会場PCは設定済みです）．</p>
+<ul>
+<li><strong>ccacheを入れる</strong>: 一度コンパイルした結果を覚えておき，同じものを2回目以降は再利用するツールです．インストールしておけば，Zephyrが自動で使います．同じサンプルを同じフォルダでビルドし直すときは，<code>-p always</code>でクリーンビルドした場合も含めて，コンパイルの大部分が省略されて速くなります（最初の1回は通常どおり時間がかかります）．筆者の環境では，http_serverのクリーンビルドが約4分半から73秒になりました．</li>
+<li><strong>Windows Defenderの除外設定</strong>: 「Windows セキュリティ」→「ウイルスと脅威の防止」→「設定の管理」→「除外」を開きます．<code>~\zephyrproject</code>・作業用フォルダ・Zephyr SDKのフォルダ・ccacheのキャッシュフォルダ（通常は<code>%LOCALAPPDATA%\ccache</code>）を，除外に追加します．Defender以外のウイルス対策ソフトを使っている場合は，そのソフトの設定で除外します．ビルドのたびに大量のファイルがスキャンされるのを防げます．会社のPCでは，情報システム部門の方針を確認してください．</li>
+<li><strong>電源設定</strong>: ノートPCはACアダプタをつなぎ，電源モードを「最適なパフォーマンス」にします．</li>
+</ul>
+<li-code lang="markup"># コマンド例A.3-3
+winget install --id Ccache.Ccache -e</li-code>
+<p>インストールしたらPowerShellを開き直し，<code>zinit</code>（またはコマンド例2.1-1）で環境を設定してから，<code>-p always</code>でビルドし直してください．ccacheを入れる前に作ったbuildフォルダは，ccacheを使わない設定のままになっているためです．</p>
+<blockquote>
+<p><strong>ご自身のPCで試している場合</strong></p>
+<p>Windowsのユーザー名に日本語やスペースが含まれていると，環境によってはビルドツールがパスを正しく扱えずにエラーになることがあります．その場合は，<code>~\handson</code>の代わりに<code>C:\handson</code>のような英数字だけの短いパスを作業用フォルダにしてみてください．</p>
+</blockquote>
+<p>&nbsp;</p>
+<div id="idxA-4" class="pt1">
+<h2><a target="_blank" name="idxA.4"></a>A.4 書き込み（west flash）のエラー</h2>
+</div>
+<p>&nbsp;</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">症状</td>
+<td height="25px">原因</td>
+<td height="25px">回復方法</td>
+</tr>
+<tr>
+<td height="25px"><code>No probe found</code>など，デバッグプローブが見つからないというエラー</td>
+<td height="25px">USBケーブルがボードのデバッグ用コネクタ（MCU-Link側）に挿さっていない．または充電専用のUSBケーブルを使っている</td>
+<td height="25px">挿すコネクタを確認し，抜き差ししてから再実行．データ通信対応のケーブルを使う</td>
+</tr>
+<tr>
+<td height="25px">プローブが使用中，接続できないというエラー</td>
+<td height="25px">MCUXpresso for VSCなど，別のツールでデバッグ中</td>
+<td height="25px">他のツールのデバッグセッションを終了してから再実行</td>
+</tr>
+<tr>
+<td height="25px"><code>west flash</code>がビルドからやり直そうとしてエラーになる</td>
+<td height="25px">直前のビルドが失敗している</td>
+<td height="25px"><code>west flash</code>ではなく，ビルドのエラーを先に解決する（<a class="smoothScroll" href="#idxA-3" target="_self">A.3</a>）</td>
+</tr>
+<tr>
+<td height="25px">書き込みが途中で止まった，ボードが反応しない</td>
+<td height="25px">一時的な通信エラー</td>
+<td height="25px">USBケーブルを抜いて数秒待ってから挿し直し，<code>west flash</code>を再実行</td>
+</tr>
+</tbody>
+</table>
+<p><code>west flash</code>は何度実行しても問題ありません．失敗したら，原因を直してから同じコマンドを再実行してください．</p>
+<p>&nbsp;</p>
+<div id="idxA-5" class="pt1">
+<h2><a target="_blank" name="idxA.5"></a>A.5 シリアルコンソールに何も出ない</h2>
+</div>
+<p>&nbsp;</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">症状</td>
+<td height="25px">原因</td>
+<td height="25px">回復方法</td>
+</tr>
+<tr>
+<td height="25px">Tera Termの「新しい接続」で「シリアル」が選べない，ボードのポートが出てこない</td>
+<td height="25px">USBケーブルが挿さっていない，または充電専用ケーブル</td>
+<td height="25px">ケーブルを確認してから，「ファイル」→「新しい接続」で画面を開き直す（開き直すとポート一覧が更新される）</td>
+</tr>
+<tr>
+<td height="25px">「ポートが使用中」「シリアルポートを開けません」で接続できない</td>
+<td height="25px">別のウィンドウのTera Termや，VSCodeのシリアルモニターなどが同じポートを開いている</td>
+<td height="25px">他のウィンドウ・アプリでの接続を閉じてから接続し直す</td>
+</tr>
+<tr>
+<td height="25px">全体が意味のない記号の羅列になる</td>
+<td height="25px">ボーレートが違う</td>
+<td height="25px">「設定」→「シリアルポート」で115200に設定し直す</td>
+</tr>
+<tr>
+<td height="25px">接続しているのに何も出ない</td>
+<td height="25px">出力のタイミングを逃した</td>
+<td height="25px">ボードのRESETボタンを押す</td>
+</tr>
+<tr>
+<td height="25px">USBケーブルを抜き差ししたら表示が止まった</td>
+<td height="25px">抜き差しでTera Termの接続が切れた</td>
+<td height="25px">「ファイル」→「接続断」のあと，「ファイル」→「新しい接続」でポートを選び直す．COM番号が変わっていることがあるので注意</td>
+</tr>
+<tr>
+<td height="25px"><code>°</code>などの記号が文字化けする</td>
+<td height="25px">受信の文字コードがUTF-8になっていない</td>
+<td height="25px"><a class="smoothScroll" href="#idx2-2" target="_self">2.2節</a>のTera Termの手順4のとおり，受信の文字コードを<code>UTF-8</code>にする</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<div id="idxA-6" class="pt1">
+<h2><a target="_blank" name="idxA.6"></a>A.6 ネットワーク・ブラウザまわり</h2>
+</div>
+<p>&nbsp;</p>
+<p>PC側のIPアドレスは，PowerShellで次のコマンドを実行して確認できます．</p>
+<li-code lang="markup"># コマンド例A.6-1
+ipconfig</li-code>
+<p>「イーサネット アダプター」の欄の「IPv4 アドレス」を確認してください．</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">症状</td>
+<td height="25px">原因</td>
+<td height="25px">回復方法</td>
+</tr>
+<tr>
+<td height="25px">IPv4アドレスが<code>169.254.x.x</code>になっている</td>
+<td height="25px">PCのEthernetが固定IPに設定されていない</td>
+<td height="25px">PC側を<code>192.168.1.10</code>／<code>255.255.255.0</code>などに設定する（下記）</td>
+</tr>
+<tr>
+<td height="25px">IPv4アドレスが<code>192.168.1.100</code>になっている</td>
+<td height="25px">PCとボードのIPアドレスが重複している</td>
+<td height="25px">PC側を<code>192.168.1.100</code>以外（例: <code>192.168.1.10</code>）にする</td>
+</tr>
+<tr>
+<td height="25px">PCのWi-Fiも<code>192.168.1.x</code>のネットワークにつながっている</td>
+<td height="25px">通信がWi-Fi側に流れてしまい，ボードに届かない</td>
+<td height="25px">実習の間だけWi-Fiを切断する</td>
+</tr>
+<tr>
+<td height="25px">pingは通るが，ブラウザで開けない</td>
+<td height="25px"><code>https://</code>で接続しようとしている，またはプロキシ経由になっている</td>
+<td height="25px">アドレスを<code>http://192.168.1.100/</code>と入力し直す．プロキシを使っている場合は，<code>192.168.1.100</code>をプロキシの例外に追加する</td>
+</tr>
+<tr>
+<td height="25px"><code>prj.conf</code>を直したのにIPアドレスが変わらない</td>
+<td height="25px">保存していない，またはビルドし直していない</td>
+<td height="25px">VSCodeで<code>Ctrl</code>+<code>S</code>で保存し，コマンド例4.1-3からやり直す</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>ご自身のPCで試している場合: PC側の固定IPの設定</strong></p>
+<p>Windowsの「設定」→「ネットワークとインターネット」→「イーサネット」を開き，「IP割り当て」の「編集」から「手動」を選びます．IPv4をオンにして，IPアドレスに<code>192.168.1.10</code>，サブネットマスクに<code>255.255.255.0</code>を入力して保存します（ゲートウェイは空欄で構いません）．詳しくは4章の冒頭で紹介したHTTP Serverのブログ記事も参照してください．</p>
+<p class="lia-align-center">【画像を挿入：img/ip_address_setting.png】<br /><em>図A.6-1：Windowsの「設定」でEthernetを固定IPにする画面</em></p>
+</blockquote>
+<p>&nbsp;</p>
+<div id="idxA-7" class="pt1">
+<h2><a target="_blank" name="idxA.7"></a>A.7 どうしても直らないときのリセット手順</h2>
+</div>
+<p>&nbsp;</p>
+<p>何が原因か分からなくなったときは，その節を最初からやり直すのが一番の近道です．作業用フォルダにコピーしたサンプルを消しても，<code>~\zephyrproject</code>の中の元のサンプルは残っているので，何度でもやり直せます．</p>
+<ol>
+<li>PowerShellのウィンドウを閉じて，新しく開きます．</li>
+<li>コマンド例2.1-1（会場PCでは<code>zinit</code>）を実行し，環境を設定し直します．</li>
+<li>やり直したい節のサンプルのフォルダを削除します．たとえば4章をやり直す場合は次のようにします．
+<li-code lang="markup"># コマンド例A.7-1
+cd ~\handson
+Remove-Item -Recurse -Force ~\handson\http_server</li-code>
+フォルダ名の部分（<code>http_server</code>）は，やり直す節に合わせて<code>hello_world</code>・<code>blinky</code>・<code>thermometer</code>・<code>handson_http_server_temp</code>に読み替えてください．<code>~\handson</code>や<code>~\zephyrproject</code>そのものを消さないよう注意してください．</li>
+<li>その節の最初のコマンド例（コピーと<code>cd</code>）からやり直します．</li>
+</ol>
+<p>ボードの動作がおかしいときは，USBケーブルとEthernetケーブルを両方抜いて数秒待ち，挿し直してから<code>west flash</code>をやり直してください．</p>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idxB" class="pt1">
+<h1><a target="_blank" name="idxB"></a>付録B. コマンド例一覧（PowerShell／bash・zsh）</h1>
+</div>
+<p>&nbsp;</p>
+<p>本文に登場するコマンド例を，番号順にまとめました．本文はWindowsのPowerShellを前提にしていますが，ご自身のmacOSやLinuxの環境で試す方のために，bash・zsh用の書き方もあわせて載せています．環境構築は，<a class="smoothScroll" href="#idx0-3" target="_self">0.3節</a>で紹介した公式のGetting Started Guideの手順どおりに<code>~/zephyrproject</code>へ済ませてある前提です．</p>
+<blockquote>
+<p><strong>bash・zshで試す場合の注意</strong></p>
+<ul>
+<li><strong>パスの区切り</strong>: PowerShellの<code>\</code>は，bash・zshでは<code>/</code>になります．<code>~</code>がホームフォルダを表すのは共通です．</li>
+<li><strong>コマンド例の番号の行は付けていません</strong>: macOS標準のzshは，初期設定では対話中に入力した<code>#</code>をコメントとして扱いません．そのため<code># コマンド例2.1-1</code>の行を貼り付けると「command not found: #」というエラーになります．bash・zsh版のコードブロックには番号の行を入れず，見出しで番号を示しています．</li>
+<li><strong>仮想環境と<code>ZEPHYR_BASE</code></strong>: どちらもそのターミナルの中だけで有効なのは，PowerShellと同じです．ターミナルを開き直したら，コマンド例2.1-1から実行し直します．</li>
+<li><strong>シリアルポートの名前</strong>: macOSでは<code>/dev/tty.usbmodemXXXX</code>，Linuxでは<code>/dev/ttyACM0</code>などになります（<a class="smoothScroll" href="#idx2-2" target="_self">2.2節</a>）．</li>
+</ul>
+</blockquote>
+<p><strong>PowerShellとbash・zshの書き方の違い</strong></p>
+<p>PowerShellとbash・zshで書き方が違うところだけを，対にしてまとめました．<code>cd</code>や<code>west build</code>・<code>west flash</code>・<code>git clone</code>のように，両方で同じ書き方のものは載せていません．</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">やること</td>
+<td height="25px">PowerShell</td>
+<td height="25px">bash・zsh</td>
+<td height="25px">出てくるコマンド例</td>
+</tr>
+<tr>
+<td height="25px">パスの区切り</td>
+<td height="25px"><code>~\handson</code></td>
+<td height="25px"><code>~/handson</code></td>
+<td height="25px">全体</td>
+</tr>
+<tr>
+<td height="25px">仮想環境の有効化</td>
+<td height="25px"><code>.\.venv\Scripts\Activate.ps1</code></td>
+<td height="25px"><code>source .venv/bin/activate</code></td>
+<td height="25px">2.1-1</td>
+</tr>
+<tr>
+<td height="25px"><code>ZEPHYR_BASE</code>の設定</td>
+<td height="25px"><code>$env:ZEPHYR_BASE = "..."</code></td>
+<td height="25px"><code>source zephyr/zephyr-env.sh</code></td>
+<td height="25px">2.1-1</td>
+</tr>
+<tr>
+<td height="25px">設定ファイル（プロファイル）を開く</td>
+<td height="25px"><code>notepad $PROFILE.CurrentUserAllHosts</code></td>
+<td height="25px"><code>code ~/.bashrc</code>／<code>code ~/.zshrc</code></td>
+<td height="25px">2.1-3</td>
+</tr>
+<tr>
+<td height="25px">フォルダを作る</td>
+<td height="25px"><code>New-Item -ItemType Directory -Force</code></td>
+<td height="25px"><code>mkdir -p</code></td>
+<td height="25px">2.2-1</td>
+</tr>
+<tr>
+<td height="25px">フォルダごとコピーする</td>
+<td height="25px"><code>Copy-Item -Recurse</code></td>
+<td height="25px"><code>cp -r</code></td>
+<td height="25px">2.2-1，2.3-1，3.1-1，4.1-1</td>
+</tr>
+<tr>
+<td height="25px"><code>ping</code>を4回で止める</td>
+<td height="25px"><code>ping</code>（初めから4回で止まる）</td>
+<td height="25px"><code>ping -c 4</code></td>
+<td height="25px">4.1-5</td>
+</tr>
+<tr>
+<td height="25px">今いるフォルダを表示する</td>
+<td height="25px"><code>Get-Location</code></td>
+<td height="25px"><code>pwd</code></td>
+<td height="25px">A.1-1</td>
+</tr>
+<tr>
+<td height="25px">環境変数を表示する</td>
+<td height="25px"><code>$env:ZEPHYR_BASE</code></td>
+<td height="25px"><code>echo $ZEPHYR_BASE</code></td>
+<td height="25px">A.1-1</td>
+</tr>
+<tr>
+<td height="25px">ログをファイルに保存する</td>
+<td height="25px"><code>2&gt;&amp;1 | Out-File build_log.txt</code></td>
+<td height="25px"><code>&gt; build_log.txt 2&gt;&amp;1</code></td>
+<td height="25px">A.3-2</td>
+</tr>
+<tr>
+<td height="25px">ccacheをインストールする</td>
+<td height="25px"><code>winget install --id Ccache.Ccache -e</code></td>
+<td height="25px"><code>brew install ccache</code>（macOS）／<code>sudo apt install ccache</code>（Ubuntu）</td>
+<td height="25px">A.3-3</td>
+</tr>
+<tr>
+<td height="25px">PCのIPアドレスを確認する</td>
+<td height="25px"><code>ipconfig</code></td>
+<td height="25px"><code>ifconfig</code>（macOS）／<code>ip addr</code>（Linux）</td>
+<td height="25px">A.6-1</td>
+</tr>
+<tr>
+<td height="25px">フォルダを消す</td>
+<td height="25px"><code>Remove-Item -Recurse -Force</code></td>
+<td height="25px"><code>rm -rf</code></td>
+<td height="25px">A.7-1</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<div id="idxB-2" class="pt1">
+<h2><a target="_blank" name="idxB.2"></a>2章 開発環境を触ってみる</h2>
+</div>
+<p>&nbsp;</p>
+<p><strong>コマンド例2.1-1 環境の準備と確認（<a class="smoothScroll" href="#idx2-1" target="_self">2.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例2.1-1
+cd ~\zephyrproject
+.\.venv\Scripts\Activate.ps1
+$env:ZEPHYR_BASE = "$HOME\zephyrproject\zephyr"
+west --version
+west topdir</li-code>
+<li-code lang="markup">cd ~/zephyrproject
+source .venv/bin/activate
+source zephyr/zephyr-env.sh
+west --version
+west topdir</li-code>
+<p>bash・zshでは，<code>zephyr-env.sh</code>が<code>ZEPHYR_BASE</code>を設定してくれます．<code>export ZEPHYR_BASE=~/zephyrproject/zephyr</code>と直接書いても同じです．</p>
+<p><strong>コマンド例2.1-2 環境の準備と作業用フォルダへの移動をまとめて行う（<a class="smoothScroll" href="#idx2-1" target="_self">2.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例2.1-2
+zinit thermometer</li-code>
+<li-code lang="markup">zinit thermometer</li-code>
+<p>bash・zshで<code>zinit</code>を使うには，コマンド例2.1-3で開いたファイルに，次の関数を書き加えて保存し，ターミナルを開き直します（ファイルに書く内容です．ターミナルに貼り付けるコマンドではありません）．</p>
+<li-code lang="markup">zinit() {
+  cd ~/zephyrproject || return
+  source .venv/bin/activate
+  source zephyr/zephyr-env.sh
+  west --version
+  west topdir
+  if [ -n "$1" ]; then cd ~/handson/"$1"; fi
+}</li-code>
+<p><strong>コマンド例2.1-3 プロファイル（シェルの設定ファイル）を開く（<a class="smoothScroll" href="#idx2-1" target="_self">2.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例2.1-3
+if (-not (Test-Path $PROFILE.CurrentUserAllHosts)) { New-Item -Force $PROFILE.CurrentUserAllHosts | Out-Null }
+notepad $PROFILE.CurrentUserAllHosts</li-code>
+<p>bashの場合:</p>
+<li-code lang="markup">code ~/.bashrc</li-code>
+<p>zsh（macOSの標準）の場合:</p>
+<li-code lang="markup">code ~/.zshrc</li-code>
+<p><strong>コマンド例2.2-1 hello_worldを作業用フォルダにコピー（<a class="smoothScroll" href="#idx2-2" target="_self">2.2節</a>）</strong></p>
+<li-code lang="markup"># コマンド例2.2-1
+New-Item -ItemType Directory -Force ~\handson | Out-Null
+Copy-Item -Recurse ~\zephyrproject\zephyr\samples\hello_world ~\handson\hello_world
+cd ~\handson\hello_world</li-code>
+<li-code lang="markup">mkdir -p ~/handson
+cp -r ~/zephyrproject/zephyr/samples/hello_world ~/handson/hello_world
+cd ~/handson/hello_world</li-code>
+<p><code>cp -r</code>も<code>Copy-Item</code>と同じく，コピー先のフォルダがすでにあると，その中に入れ子でコピーします．</p>
+<p><strong>コマンド例2.2-2 hello_worldのビルド（<a class="smoothScroll" href="#idx2-2" target="_self">2.2節</a>）</strong></p>
+<li-code lang="markup"># コマンド例2.2-2
+west build -p auto -b frdm_mcxn947/mcxn947/cpu0 .</li-code>
+<li-code lang="markup">west build -p auto -b frdm_mcxn947/mcxn947/cpu0 .</li-code>
+<p><strong>コマンド例2.2-3 hello_worldの書き込み（<a class="smoothScroll" href="#idx2-2" target="_self">2.2節</a>）</strong></p>
+<li-code lang="markup"># コマンド例2.2-3
+west flash</li-code>
+<li-code lang="markup">west flash</li-code>
+<p>Linuxでは，USBデバイスへのアクセス権の設定（udevルール）がないと，書き込みツールがデバッグプローブを見つけられないことがあります．その場合は，書き込みツール（LinkServerなど）のインストール手順にあるudevルールの設定を行ってください．</p>
+<p><strong>コマンド例2.3-1 blinkyを作業用フォルダにコピー（<a class="smoothScroll" href="#idx2-3" target="_self">2.3節</a>）</strong></p>
+<li-code lang="markup"># コマンド例2.3-1
+Copy-Item -Recurse ~\zephyrproject\zephyr\samples\basic\blinky ~\handson\blinky
+cd ~\handson\blinky</li-code>
+<li-code lang="markup">cp -r ~/zephyrproject/zephyr/samples/basic/blinky ~/handson/blinky
+cd ~/handson/blinky</li-code>
+<p><strong>コマンド例2.3-2 blinkyのビルド（<a class="smoothScroll" href="#idx2-3" target="_self">2.3節</a>）</strong></p>
+<li-code lang="markup"># コマンド例2.3-2
+west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<li-code lang="markup">west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<p><strong>コマンド例2.3-3 blinkyの書き込み（<a class="smoothScroll" href="#idx2-3" target="_self">2.3節</a>）</strong></p>
+<li-code lang="markup"># コマンド例2.3-3
+west flash</li-code>
+<li-code lang="markup">west flash</li-code>
+<p>&nbsp;</p>
+<div id="idxB-3" class="pt1">
+<h2><a target="_blank" name="idxB.3"></a>3章 温度センサーを動かしてみる</h2>
+</div>
+<p>&nbsp;</p>
+<p><strong>コマンド例3.1-1 thermometerを作業用フォルダにコピー（<a class="smoothScroll" href="#idx3-1" target="_self">3.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例3.1-1
+Copy-Item -Recurse ~\zephyrproject\zephyr\samples\sensor\thermometer ~\handson\thermometer
+cd ~\handson\thermometer</li-code>
+<li-code lang="markup">cp -r ~/zephyrproject/zephyr/samples/sensor/thermometer ~/handson/thermometer
+cd ~/handson/thermometer</li-code>
+<p><strong>コマンド例3.1-2 thermometerのビルド（<a class="smoothScroll" href="#idx3-1" target="_self">3.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例3.1-2
+west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<li-code lang="markup">west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<p><strong>コマンド例3.1-3 thermometerの書き込み（<a class="smoothScroll" href="#idx3-1" target="_self">3.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例3.1-3
+west flash</li-code>
+<li-code lang="markup">west flash</li-code>
+<p>&nbsp;</p>
+<div id="idxB-4" class="pt1">
+<h2><a target="_blank" name="idxB.4"></a>4章 HTTP Serverを動かしてみる</h2>
+</div>
+<p>&nbsp;</p>
+<p><strong>コマンド例4.1-1 http_serverを作業用フォルダにコピー（<a class="smoothScroll" href="#idx4-1" target="_self">4.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例4.1-1
+Copy-Item -Recurse ~\zephyrproject\zephyr\samples\net\sockets\http_server ~\handson\http_server
+cd ~\handson\http_server</li-code>
+<li-code lang="markup">cp -r ~/zephyrproject/zephyr/samples/net/sockets/http_server ~/handson/http_server
+cd ~/handson/http_server</li-code>
+<p><strong>コマンド例4.1-2 prj.confをVSCodeで開く（<a class="smoothScroll" href="#idx4-1" target="_self">4.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例4.1-2
+code prj.conf</li-code>
+<li-code lang="markup">code prj.conf</li-code>
+<p>macOSで<code>code</code>が「command not found」になる場合は，VSCodeでコマンドパレット（<code>Cmd</code>+<code>Shift</code>+<code>P</code>）を開き，「Shell Command: Install 'code' command in PATH」を実行してから，ターミナルを開き直してください．</p>
+<p><strong>コマンド例4.1-3 http_serverのビルド（<a class="smoothScroll" href="#idx4-1" target="_self">4.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例4.1-3
+west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<li-code lang="markup">west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<p><strong>コマンド例4.1-4 http_serverの書き込み（<a class="smoothScroll" href="#idx4-1" target="_self">4.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例4.1-4
+west flash</li-code>
+<li-code lang="markup">west flash</li-code>
+<p><strong>コマンド例4.1-5 ボードとの疎通確認（<a class="smoothScroll" href="#idx4-1" target="_self">4.1節</a>）</strong></p>
+<li-code lang="markup"># コマンド例4.1-5
+ping 192.168.1.100</li-code>
+<li-code lang="markup">ping -c 4 192.168.1.100</li-code>
+<p>macOS・Linuxの<code>ping</code>は，WindowsとちがってCtrl+Cで止めるまで送り続けます．<code>-c 4</code>は「4回送ったら終わる」という指定です．応答は<code>64 bytes from 192.168.1.100: ...</code>のように表示されます．</p>
+<p>&nbsp;</p>
+<div id="idxB-5" class="pt1">
+<h2><a target="_blank" name="idxB.5"></a>5章 HTTP Serverを改変して，温度センサーの値をブラウザで見る</h2>
+</div>
+<p>&nbsp;</p>
+<p><strong>コマンド例5.2-1 改変版のリポジトリを取得（<a class="smoothScroll" href="#idx5-2" target="_self">5.2節</a>）</strong></p>
+<li-code lang="markup"># コマンド例5.2-1
+cd ~\handson
+git clone https://github.com/teddokano/handson_http_server_temp
+cd handson_http_server_temp</li-code>
+<li-code lang="markup">cd ~/handson
+git clone https://github.com/teddokano/handson_http_server_temp
+cd handson_http_server_temp</li-code>
+<p><strong>コマンド例5.2-2 改変版のビルド（<a class="smoothScroll" href="#idx5-2" target="_self">5.2節</a>）</strong></p>
+<li-code lang="markup"># コマンド例5.2-2
+west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<li-code lang="markup">west build -p auto -b frdm_mcxn947//cpu0 .</li-code>
+<p><strong>コマンド例5.2-3 改変版の書き込み（<a class="smoothScroll" href="#idx5-2" target="_self">5.2節</a>）</strong></p>
+<li-code lang="markup"># コマンド例5.2-3
+west flash</li-code>
+<li-code lang="markup">west flash</li-code>
+<p>&nbsp;</p>
+<div id="idxB-A" class="pt1">
+<h2><a target="_blank" name="idxB.A"></a>付録A うまくいかないときは</h2>
+</div>
+<p>&nbsp;</p>
+<p><strong>コマンド例A.1-1 今の状態をまとめて確認（<a class="smoothScroll" href="#idxA-1" target="_self">A.1</a>）</strong></p>
+<li-code lang="markup"># コマンド例A.1-1
+Get-Location
+$env:ZEPHYR_BASE
+west topdir</li-code>
+<li-code lang="markup">pwd
+echo $ZEPHYR_BASE
+west topdir</li-code>
+<p><strong>コマンド例A.3-1 クリーンビルド（<a class="smoothScroll" href="#idxA-3" target="_self">A.3</a>）</strong></p>
+<li-code lang="markup"># コマンド例A.3-1
+west build -p always -b frdm_mcxn947//cpu0 .</li-code>
+<li-code lang="markup">west build -p always -b frdm_mcxn947//cpu0 .</li-code>
+<p><strong>コマンド例A.3-2 ビルドのログをファイルに保存（<a class="smoothScroll" href="#idxA-3" target="_self">A.3</a>）</strong></p>
+<li-code lang="markup"># コマンド例A.3-2
+west build -p auto -b frdm_mcxn947//cpu0 . 2&gt;&amp;1 | Out-File build_log.txt
+code build_log.txt</li-code>
+<li-code lang="markup">west build -p auto -b frdm_mcxn947//cpu0 . &gt; build_log.txt 2&gt;&amp;1
+code build_log.txt</li-code>
+<p><strong>コマンド例A.3-3 ccacheのインストール（<a class="smoothScroll" href="#idxA-3" target="_self">A.3</a>）</strong></p>
+<li-code lang="markup"># コマンド例A.3-3
+winget install --id Ccache.Ccache -e</li-code>
+<p>macOS（Homebrew）の場合:</p>
+<li-code lang="markup">brew install ccache</li-code>
+<p>Linux（Ubuntu）の場合:</p>
+<li-code lang="markup">sudo apt install ccache</li-code>
+<p><strong>コマンド例A.6-1 PC側のIPアドレスを確認（<a class="smoothScroll" href="#idxA-6" target="_self">A.6</a>）</strong></p>
+<li-code lang="markup"># コマンド例A.6-1
+ipconfig</li-code>
+<p>macOSの場合:</p>
+<li-code lang="markup">ifconfig</li-code>
+<p>Linuxの場合:</p>
+<li-code lang="markup">ip addr</li-code>
+<p>macOSでは<code>en0</code>などのインターフェースの<code>inet</code>の行に，Linuxでは<code>eth0</code>や<code>enp...</code>などの<code>inet</code>の行に，IPv4アドレスが表示されます．</p>
+<p><strong>コマンド例A.7-1 作業用のサンプルを削除してやり直す（<a class="smoothScroll" href="#idxA-7" target="_self">A.7</a>）</strong></p>
+<li-code lang="markup"># コマンド例A.7-1
+cd ~\handson
+Remove-Item -Recurse -Force ~\handson\http_server</li-code>
+<li-code lang="markup">cd ~/handson
+rm -rf ~/handson/http_server</li-code>
+<p><code>rm -rf</code>は確認なしで削除し，ごみ箱にも残りません．フォルダ名を打ち間違えると別のフォルダが消えてしまうので，<code>~/handson</code>や<code>~/zephyrproject</code>そのものを指定していないことを確認してから実行してください．</p>
+<p>&nbsp;</p>
+<div id="idxB-C" class="pt1">
+<h2><a target="_blank" name="idxB.C"></a>付録C やってみよう</h2>
+</div>
+<p>&nbsp;</p>
+<p><strong>コマンド例C.1-1 blinkyのmain.cを開く（<a class="smoothScroll" href="#idxC-1" target="_self">C.1</a>）</strong></p>
+<li-code lang="markup"># コマンド例C.1-1
+cd ~\handson\blinky
+code src\main.c</li-code>
+<li-code lang="markup">cd ~/handson/blinky
+code src/main.c</li-code>
+<p><strong>コマンド例C.2-1 hello_worldのmain.cを開く（<a class="smoothScroll" href="#idxC-2" target="_self">C.2</a>）</strong></p>
+<li-code lang="markup"># コマンド例C.2-1
+cd ~\handson\hello_world
+code src\main.c</li-code>
+<li-code lang="markup">cd ~/handson/hello_world
+code src/main.c</li-code>
+<p><strong>コマンド例C.3-1 thermometerのmain.cを開く（<a class="smoothScroll" href="#idxC-3" target="_self">C.3</a>）</strong></p>
+<li-code lang="markup"># コマンド例C.3-1
+cd ~\handson\thermometer
+code src\main.c</li-code>
+<li-code lang="markup">cd ~/handson/thermometer
+code src/main.c</li-code>
+<p><strong>コマンド例C.4-1 改変版HTTP Serverのmain.cを開く（<a class="smoothScroll" href="#idxC-4" target="_self">C.4</a>）</strong></p>
+<li-code lang="markup"># コマンド例C.4-1
+cd ~\handson\handson_http_server_temp
+code src\main.c</li-code>
+<li-code lang="markup">cd ~/handson/handson_http_server_temp
+code src/main.c</li-code>
+<p><strong>コマンド例C.4-2 改変版のmain.cを元に戻す（<a class="smoothScroll" href="#idxC-4" target="_self">C.4</a>）</strong></p>
+<li-code lang="markup"># コマンド例C.4-2
+git checkout -- src/main.c</li-code>
+<li-code lang="markup">git checkout -- src/main.c</li-code>
+<p><strong>コマンド例D.1-1 Zephyrが対応しているFRDM-MCXボードの一覧を表示（<a class="smoothScroll" href="#idxD-1" target="_self">D.1</a>）</strong></p>
+<li-code lang="markup"># コマンド例D.1-1
+west boards -n frdm_mcx</li-code>
+<li-code lang="markup">west boards -n frdm_mcx</li-code>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idxC" class="pt1">
+<h1><a target="_blank" name="idxC"></a>付録C. やってみよう（早く終わった方へ）</h1>
+</div>
+<p>&nbsp;</p>
+<p>本文の手順が早く終わった方や，帰ってから少し遊んでみたい方向けの課題です．どれもサンプルコードを数行書き換えるだけで試せます．書き換えたら，必ずVSCodeで<code>Ctrl</code>+<code>S</code>を押して保存してから，ビルドと書き込みをしてください．</p>
+<p>書き換えたコードが分からなくなったときは，<a class="smoothScroll" href="#idxA-7" target="_self">A.7</a>の手順でサンプルをコピーし直せば，いつでも元に戻せます．</p>
+<p>&nbsp;</p>
+<div id="idxC-1" class="pt1">
+<h2><a target="_blank" name="idxC.1"></a>C.1 Lチカの点滅間隔を変える</h2>
+</div>
+<p>&nbsp;</p>
+<p>2.3節で動かした<code>blinky</code>の点滅を速くしてみましょう．</p>
+<li-code lang="markup"># コマンド例C.1-1
+cd ~\handson\blinky
+code src\main.c</li-code>
+<p><code>main.c</code>の中の次の行を探します．</p>
+<li-code lang="markup">#define SLEEP_TIME_MS   1000</li-code>
+<p><code>1000</code>は「1000ミリ秒＝1秒ごとにLEDを切り替える」という意味です．これを<code>200</code>などに書き換えて保存し，<a class="smoothScroll" href="#idx2-3" target="_self">コマンド例2.3-2</a>でビルド，<a class="smoothScroll" href="#idx2-3" target="_self">コマンド例2.3-3</a>で書き込みます．点滅が速くなれば成功です．</p>
+<p>&nbsp;</p>
+<div id="idxC-2" class="pt1">
+<h2><a target="_blank" name="idxC.2"></a>C.2 Hello Worldのメッセージを変える</h2>
+</div>
+<p>&nbsp;</p>
+<li-code lang="markup"># コマンド例C.2-1
+cd ~\handson\hello_world
+code src\main.c</li-code>
+<p><code>printf("Hello World! %s\n", CONFIG_BOARD_TARGET);</code>の<code>Hello World!</code>の部分を，好きな文字列に書き換えてみましょう．保存したら，Tera Termを接続した状態で<a class="smoothScroll" href="#idx2-2" target="_self">コマンド例2.2-2</a>でビルド，<a class="smoothScroll" href="#idx2-2" target="_self">コマンド例2.2-3</a>で書き込みます．</p>
+<p>日本語の文字列も表示できます．2.2節のTera Termの手順4でTera Termの受信の文字コードを<code>UTF-8</code>にしていれば，正しく表示されます．文字化けする場合は，その設定を確認してください．</p>
+<p>&nbsp;</p>
+<div id="idxC-3" class="pt1">
+<h2><a target="_blank" name="idxC.3"></a>C.3 温度を華氏でも表示する</h2>
+</div>
+<p>&nbsp;</p>
+<p>3章の<code>thermometer</code>で，摂氏（°C）に加えて華氏（°F）も表示してみましょう．</p>
+<li-code lang="markup"># コマンド例C.3-1
+cd ~\handson\thermometer
+code src\main.c</li-code>
+<p><code>main()</code>の最後のほうにある，次の行を探します．</p>
+<li-code lang="markup">		printf("Temperature is %0.1lf°C\n", sensor_value_to_double(&amp;value));</li-code>
+<p><strong>ヒント</strong>: 華氏は「摂氏 × 9 ÷ 5 ＋ 32」で計算できます．</p>
+<p><strong>答えの例</strong>: 上の1行を，次の2行に置き換えます．</p>
+<li-code lang="markup">		double c = sensor_value_to_double(&amp;value);
+		printf("Temperature is %0.1lf°C (%0.1lf°F)\n", c, c * 9.0 / 5.0 + 32.0);</li-code>
+<p>保存したら，<a class="smoothScroll" href="#idx3-1" target="_self">コマンド例3.1-2</a>でビルド，<a class="smoothScroll" href="#idx3-1" target="_self">コマンド例3.1-3</a>で書き込みます．<code>Temperature is 24.3°C (75.7°F)</code>のように表示されれば成功です．</p>
+<p>&nbsp;</p>
+<div id="idxC-4" class="pt1">
+<h2><a target="_blank" name="idxC.4"></a>C.4 ブラウザに表示する温度の桁数を変える</h2>
+</div>
+<p>&nbsp;</p>
+<p>5章の改変版HTTP Serverでは，温度を小数点以下3桁で表示しています．これを1桁にしてみましょう．</p>
+<li-code lang="markup"># コマンド例C.4-1
+cd ~\handson\handson_http_server_temp
+code src\main.c</li-code>
+<p><strong>ヒント</strong>: 画面の表示に関わっているのは，<code>main.c</code>の中の次の2か所です．VSCodeの検索（<code>Ctrl</code>+<code>F</code>）で探してみてください．</p>
+<ul>
+<li><code>temperature_handler</code>の中の，ページを最初に表示するときの書式: <code>"Temperature: %.3f&amp;deg;C"</code></li>
+<li>1秒ごとに表示を書き換えるJavaScriptの中: <code>t.toFixed(3)</code></li>
+</ul>
+<p><code>%.3f</code>で検索すると，<code>temperature_json_handler</code>の中にももう1か所見つかります．こちらはブラウザに数値を渡すためのものなので，今回は変えなくて構いません．</p>
+<p><strong>答えの例</strong>: 上の2か所を，それぞれ<code>"Temperature: %.1f&amp;deg;C"</code>と<code>t.toFixed(1)</code>に書き換えます．保存したら，<a class="smoothScroll" href="#idx5-2" target="_self">コマンド例5.2-2</a>でビルド，<a class="smoothScroll" href="#idx5-2" target="_self">コマンド例5.2-3</a>で書き込み，ブラウザで<code>http://192.168.1.100/temperature</code>を開き直します．</p>
+<p>片方だけ書き換えると，ページを開いた直後だけ3桁で，1秒後から1桁になる（またはその逆）という動きになります．HTMLを返すC言語側と，ブラウザで動くJavaScript側の両方が表示に関わっていることが分かります．</p>
+<p>このフォルダはGitで取得したものなので，次のコマンドで書き換える前の状態に戻せます．</p>
+<li-code lang="markup"># コマンド例C.4-2
+git checkout -- src/main.c</li-code>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idxD" class="pt1">
+<h1><a target="_blank" name="idxD"></a>付録D. 他のFRDMボードで試すには</h1>
+</div>
+<p>&nbsp;</p>
+<p>本記事はFRDM-MCXN947を前提にしていますが，ZephyrはNXPの他のFRDMボードにも対応しています．手元に別のボードがある場合のヒントをまとめます．</p>
+<p>&nbsp;</p>
+<div id="idxD-1" class="pt1">
+<h2><a target="_blank" name="idxD.1"></a>D.1 ボード名を調べる</h2>
+</div>
+<p>&nbsp;</p>
+<p><code>west build</code>の<code>-b</code>に指定するボード名は，次のコマンドで一覧できます．</p>
+<li-code lang="markup"># コマンド例D.1-1
+west boards -n frdm_mcx</li-code>
+<p>主なボードの指定方法は次のとおりです．</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">ボード</td>
+<td height="25px"><code>-b</code>に指定する名前</td>
+</tr>
+<tr>
+<td height="25px">FRDM-MCXN947</td>
+<td height="25px"><code>frdm_mcxn947//cpu0</code>（本記事）</td>
+</tr>
+<tr>
+<td height="25px">FRDM-MCXN236</td>
+<td height="25px"><code>frdm_mcxn236</code></td>
+</tr>
+<tr>
+<td height="25px">FRDM-MCXA153</td>
+<td height="25px"><code>frdm_mcxa153</code></td>
+</tr>
+<tr>
+<td height="25px">FRDM-MCXA156</td>
+<td height="25px"><code>frdm_mcxa156</code></td>
+</tr>
+<tr>
+<td height="25px">FRDM-MCXC444</td>
+<td height="25px"><code>frdm_mcxc444</code></td>
+</tr>
+</tbody>
+</table>
+<p>FRDM-MCXN947のようなデュアルコアのボード以外は，ボード名だけで指定できます（<a class="smoothScroll" href="#idx2-2" target="_self">2.2節</a>の解説）．</p>
+<p>【この表のボード名を，会場PCのZephyrバージョンで確認】</p>
+<p>&nbsp;</p>
+<div id="idxD-2" class="pt1">
+<h2><a target="_blank" name="idxD.2"></a>D.2 サンプルごとの注意</h2>
+</div>
+<p>&nbsp;</p>
+<ul>
+<li><strong>hello_world</strong>: ほぼすべてのボードでそのまま動きます．シリアルポートの名前やボーレートはボードによって異なることがあるので，各ボードのドキュメントを確認してください．</li>
+<li><strong>blinky</strong>: ボードのデバイスツリーに<code>led0</code>というエイリアスが定義されていれば，そのまま動きます（<a class="smoothScroll" href="#idx2-4" target="_self">2.4節</a>）．</li>
+<li><strong>thermometer</strong>: 温度センサーがボードに載っていて，そのセンサーを<code>ambient-temp0</code>として指すオーバーレイが必要です．<code>samples/sensor/thermometer/boards/</code>に，使いたいボード向けの<code>.overlay</code>があるか確認してください．無い場合は，3.3節で見たオーバーレイを参考に自分で書くことになります．</li>
+<li><strong>http_server</strong>: Ethernetを持つボードでなければ動きません．</li>
+</ul>
+<p>また，<code>west flash</code>が使う書き込みツールは，ボードによって異なることがあります．Zephyr公式ドキュメントの各ボードのページ（「Supported Boards」からボード名で検索）で，対応している書き込みツールを確認してください．</p>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idxE" class="pt1">
+<h1><a target="_blank" name="idxE"></a>付録E. 用語集</h1>
+</div>
+<p>&nbsp;</p>
+<p>本記事に出てくる用語を，アルファベット順，五十音順に簡単に説明します．</p>
+<table style="background: #F7F5F1;" border="1" width="100%">
+<tbody>
+<tr style="background: #EBE7DD;">
+<td height="25px">用語</td>
+<td height="25px">説明</td>
+</tr>
+<tr>
+<td height="25px">ELFファイル</td>
+<td height="25px">ビルドでできる，マイコンに書き込むプログラムのファイル．デバッグ情報も含みます（<code>build/zephyr/zephyr.elf</code>）</td>
+</tr>
+<tr>
+<td height="25px">Gateway（ゲートウェイ）</td>
+<td height="25px">別のネットワークと通信するときの出口になる機器（ルーター）のアドレス．PCとボードを直結する今回の構成では使われません</td>
+</tr>
+<tr>
+<td height="25px">HTTP／HTTPS</td>
+<td height="25px">ブラウザとWebサーバーがやりとりするための決まり．HTTPSは通信を暗号化したもので，今回のボードは暗号化しないHTTPで動いています</td>
+</tr>
+<tr>
+<td height="25px">IPアドレス</td>
+<td height="25px">ネットワーク上の機器を区別するための番号．今回はボードが<code>192.168.1.100</code>，PCが<code>192.168.1.x</code>です</td>
+</tr>
+<tr>
+<td height="25px">Kconfig</td>
+<td height="25px">Zephyrの機能のオン・オフを設定する仕組み．<code>prj.conf</code>に<code>CONFIG_xxx=y</code>のように書きます</td>
+</tr>
+<tr>
+<td height="25px">LinkServer</td>
+<td height="25px">NXPの書き込み・デバッグツール．<code>west flash</code>がFRDM-MCXN947への書き込みに使います</td>
+</tr>
+<tr>
+<td height="25px">MCU-Link</td>
+<td height="25px">FRDMボードに載っている，書き込み・デバッグ用の回路．PCとUSBでつなぐと，書き込みとシリアル通信（仮想COMポート）に使えます</td>
+</tr>
+<tr>
+<td height="25px"><code>ping</code></td>
+<td height="25px">相手の機器に小さなデータを送り，応答が返ってくるかでネットワークがつながっているかを確かめるコマンド</td>
+</tr>
+<tr>
+<td height="25px">pristineビルド（クリーンビルド）</td>
+<td height="25px">ビルドフォルダを消して，最初からビルドし直すこと．<code>-p always</code>で指定します</td>
+</tr>
+<tr>
+<td height="25px"><code>prj.conf</code></td>
+<td height="25px">アプリケーションごとのKconfigの設定ファイル</td>
+</tr>
+<tr>
+<td height="25px">west</td>
+<td height="25px">Zephyrのコマンドラインツール．ビルド（<code>west build</code>）や書き込み（<code>west flash</code>）など，Zephyrの操作をまとめて扱います</td>
+</tr>
+<tr>
+<td height="25px">Zephyr SDK</td>
+<td height="25px">Zephyrのビルドに使うコンパイラなどのツール一式</td>
+</tr>
+<tr>
+<td height="25px">エイリアス</td>
+<td height="25px">デバイスツリーで，ノードにつける別名．<code>led0</code>や<code>ambient-temp0</code>など．アプリケーションはエイリアスでデバイスを指定するので，ボードが変わってもコードを変えずに済みます</td>
+</tr>
+<tr>
+<td height="25px">エンドポイント</td>
+<td height="25px">HTTP Serverで，<code>/uptime</code>や<code>/temperature</code>のように，URLのパスごとに用意された「窓口」．それぞれにハンドラ関数が対応します</td>
+</tr>
+<tr>
+<td height="25px">オーバーレイ</td>
+<td height="25px">ボード本体のデバイスツリーに，アプリケーションごとの差分を重ねるファイル（<code>*.overlay</code>）</td>
+</tr>
+<tr>
+<td height="25px">書き込み</td>
+<td height="25px">ビルドしたプログラムをマイコンに転送すること．<code>west flash</code>で行います</td>
+</tr>
+<tr>
+<td height="25px">仮想環境（Python仮想環境）</td>
+<td height="25px">Zephyr用のPythonツールをまとめて入れてある，独立したPython環境．有効化するとプロンプトに<code>(.venv)</code>が付きます</td>
+</tr>
+<tr>
+<td height="25px">カレントディレクトリ</td>
+<td height="25px">今いるフォルダ．PowerShellでは，プロンプトの<code>PS C:\Users\...&gt;</code>の部分に表示されます</td>
+</tr>
+<tr>
+<td height="25px">サブネット</td>
+<td height="25px">直接通信できるIPアドレスのまとまり．<code>192.168.1.0/24</code>は，<code>192.168.1.</code>で始まるアドレスのまとまりを表します</td>
+</tr>
+<tr>
+<td height="25px">シリアルコンソール</td>
+<td height="25px">ボードの<code>printf</code>の出力などを，PCで表示するための画面．本記事ではTera Termを使います</td>
+</tr>
+<tr>
+<td height="25px">デバイスツリー</td>
+<td height="25px">「どの部品が，どこにつながっているか」というハードウェア構成を記述する仕組み．ボードごとに定義されています</td>
+</tr>
+<tr>
+<td height="25px">ハンドラ関数</td>
+<td height="25px">あるリクエストやイベントが来たときに呼び出される関数</td>
+</tr>
+<tr>
+<td height="25px">ビルド</td>
+<td height="25px">ソースコードから，マイコンに書き込めるプログラムを作ること</td>
+</tr>
+<tr>
+<td height="25px">プロンプト</td>
+<td height="25px">PowerShellで，コマンドの入力を待っている状態を示す表示（<code>PS C:\Users\...&gt;</code>）</td>
+</tr>
+<tr>
+<td height="25px">ボーレート</td>
+<td height="25px">シリアル通信の速度．本記事では115200</td>
+</tr>
+<tr>
+<td height="25px">ワークスペース</td>
+<td height="25px">west・Zephyr本体・各種モジュールをまとめて置いてあるフォルダ．本記事では<code>~\zephyrproject</code></td>
+</tr>
+</tbody>
+</table>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idxF" class="pt1">
+<h1><a target="_blank" name="idxF"></a>付録F. よくある質問</h1>
+</div>
+<p>&nbsp;</p>
+<p><strong>Q. Zephyrは商用製品に使えますか？</strong></p>
+<p>A. Zephyr本体はApache License 2.0で公開されており，商用製品にも使えます．ただし，Zephyrと一緒に使うモジュール（外部ライブラリ）には別のライセンスのものもあるので，製品に組み込む際は，使っているモジュールのライセンスもあわせて確認してください．</p>
+<p><strong>Q. MCUXpresso SDKとZephyrは，どう使い分ければいいですか？</strong></p>
+<p>A. NXPのマイコンでは，どちらも使えます．MCUXpresso SDKはNXPのマイコン向けに提供されるドライバやサンプルのパッケージで，ベアメタルやFreeRTOSでの開発に向いています．Zephyrは，ボードやベンダーをまたいで同じ書き方・同じ手順で開発できることや，ネットワークなどのミドルウェアが豊富なことが強みです．既存の資産や，将来ほかのマイコンにも展開するかどうかで選ぶとよいでしょう．</p>
+<p><strong>Q. 今日はコマンドラインで操作しましたが，MCUXpresso for VSCでもできますか？</strong></p>
+<p>A. はい．MCUXpresso for VSCからも，Zephyrアプリケーションのビルドや書き込み，デバッグができます．本記事でコマンドラインを使ったのは，どのボード・どのベンダーでも共通の手順を体験してもらうためです（<a class="smoothScroll" href="#idx2-1" target="_self">2.1節</a>）．</p>
+<p><strong>Q. ブレークポイントを使ったデバッグはできますか？</strong></p>
+<p>A. できます．コマンドラインでは<code>west debug</code>でデバッガを起動できます．GUIで操作したい場合は，MCUXpresso for VSCを使うのが手軽です．</p>
+<p><strong>Q. 今日使ったZephyrのバージョンは？</strong></p>
+<p>A. 【会場PCのZephyrバージョンを記入】です．ボードの起動時にシリアルコンソールに表示される<code>*** Booting Zephyr OS build v4.x.x ***</code>の行でも確認できます．バージョンが違うと，サンプルの中身や出力が本記事と少し異なることがあります．</p>
+<p><strong>Q. WindowsではなくmacOSやLinuxでもできますか？</strong></p>
+<p>A. できます．環境構築は公式のGetting Started Guideを参照してください．コマンドの書き方は，<a class="smoothScroll" href="#idxB" target="_self">付録B</a>にbash・zsh版をまとめています．</p>
+<p><strong>Q. <code>printf</code>の出力は，どうやってPCに届いているのですか？</strong></p>
+<p>A. マイコンのUART（シリアル通信）から出力された文字が，ボード上のMCU-Linkを経由して，USBの仮想COMポートとしてPCに届いています．そのため，書き込み用と同じUSBケーブル1本で，シリアルコンソールも使えます．</p>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>&nbsp;</p>
+<div id="idxG" class="pt1">
+<h1><a target="_blank" name="idxG"></a>付録G. HTTP Serverサンプルの足回り</h1>
+</div>
+<p>&nbsp;</p>
+<p>5章のリポジトリの<code>src/main.c</code>や<code>CMakeLists.txt</code>には，温度センサーの追加とは直接関係のない部分がかなりあります．HTTP Serverサンプルが，Webサーバーとして配信するデータ一式（トップページのHTML，JavaScript，LED制御・<code>/uptime</code>・ネットワーク統計といった元からある複数のエンドポイント）も，あわせて用意しているためです．ここでは，その「HTTPサーバーとして動くための足回り」を説明します．5章の手順を進めるだけなら，読まなくて構いません．</p>
+<p><strong>HTMLとJavaScriptの埋め込み</strong></p>
+<p><code>index.html</code>や<code>main.js</code>は，<code>CMakeLists.txt</code>の中の<code>generate_inc_file_for_target()</code>によって，ビルド時にgzipで圧縮されます．圧縮したデータは<code>index.html.gz.inc</code>のようなファイルになり，<code>main.c</code>から<code>#include</code>されて，プログラムの中に埋め込まれます．</p>
+<p><strong>エンドポイントの一覧</strong></p>
+<p><code>HTTP_RESOURCE_DEFINE()</code>で登録した各エンドポイントは，<code>sections-rom.ld</code>というリンカスクリプトが用意する専用のセクション（<code>http_resource_desc_test_http_service</code>など）に置かれます．HTTPサーバーは，起動時にこのセクションをたどって，エンドポイントの一覧を作ります．</p>
+<p>この<code>sections-rom.ld</code>と，<code>CMakeLists.txt</code>側の<code>zephyr_linker_sources()</code>の対応が崩れると，<code>_http_resource_desc_test_http_service_list_start</code>のようなシンボルが見つからず，リンクエラーになります．</p>
+<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>
+<p>変更履歴：【公開日】：初版</p>
+<p>=========================</p>
+<p>本投稿の「Comment」欄にコメントをいただいても、現在返信に対応しておりません。お手数をおかけしますが、お問い合わせの際には「NXPへの技術質問 - 問い合わせ方法 (日本語ブログ)」をご参照ください。（既に弊社NXP代理店、もしくはNXPとお付き合いのある方は、直接担当者へご質問いただいてもかまいません。）</p>
