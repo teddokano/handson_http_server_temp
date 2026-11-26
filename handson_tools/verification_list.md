@@ -18,6 +18,7 @@
 - `west flash`の書き込みツールの設定（board.cmakeにLinkServerの設定があること）
 - handson_http_server_tempの`/temperature`・`/temperature.json`，1秒ごとの更新，`prj.conf`のIPアドレス`192.168.1.100`，`%.3f`と`toFixed(3)`の位置
 - Zephyrが対応しているFRDM-MCXの基板名（付録Dの表）
+- 1.2節のセキュリティの記述（Zephyr main 2026-11-03で確認）: `doc/security/standards/cyber-resilience-act.rst`（CRAは2024-12-10発効，2026-09-11から報告義務，2027-12-11全面適用．CNAは2017年から．PSIRTの目標は7日・30日・最長90日），`doc/project/release_process.rst`（LTSは少なくとも5年），`doc/security/security-overview.rst`（PSA Crypto／Mbed TLS），`boards/nxp/frdm_mcxn947/frdm_mcxn947_mcxn947_cpu0_ns.yaml`（`frdm_mcxn947/mcxn947/cpu0/ns`，`CONFIG_BUILD_WITH_TFM=y`）．CRAのページへのリンクは筆者が確認済み（2026-11-26）．**公開前に，公式ドキュメントの数字（日付・日数・年数）をもう一度確認する**
 
 ---
 
