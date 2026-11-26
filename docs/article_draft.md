@@ -1311,6 +1311,26 @@ ipconfig
 > - **仮想環境と`ZEPHYR_BASE`**: どちらもそのターミナルの中だけで有効なのは，PowerShellと同じです．ターミナルを開き直したら，コマンド例2.1-1から実行し直します．
 > - **シリアルポートの名前**: macOSでは`/dev/tty.usbmodemXXXX`，Linuxでは`/dev/ttyACM0`などになります（[2.2節](#2-2)）．
 
+**PowerShellとbash・zshの書き方の違い**
+
+PowerShellとbash・zshで書き方が違うところだけを，対にしてまとめました．`cd`や`west build`・`west flash`・`git clone`のように，両方で同じ書き方のものは載せていません．
+
+| やること | PowerShell | bash・zsh | 出てくるコマンド例 |
+|---|---|---|---|
+| パスの区切り | `~\handson` | `~/handson` | 全体 |
+| 仮想環境の有効化 | `.\.venv\Scripts\Activate.ps1` | `source .venv/bin/activate` | 2.1-1 |
+| `ZEPHYR_BASE`の設定 | `$env:ZEPHYR_BASE = "..."` | `source zephyr/zephyr-env.sh` | 2.1-1 |
+| 設定ファイル（プロファイル）を開く | `notepad $PROFILE.CurrentUserAllHosts` | `code ~/.bashrc`／`code ~/.zshrc` | 2.1-3 |
+| フォルダを作る | `New-Item -ItemType Directory -Force` | `mkdir -p` | 2.2-1 |
+| フォルダごとコピーする | `Copy-Item -Recurse` | `cp -r` | 2.2-1，2.3-1，3.1-1，4.1-1 |
+| `ping`を4回で止める | `ping`（初めから4回で止まる） | `ping -c 4` | 4.1-5 |
+| 今いるフォルダを表示する | `Get-Location` | `pwd` | A.1-1 |
+| 環境変数を表示する | `$env:ZEPHYR_BASE` | `echo $ZEPHYR_BASE` | A.1-1 |
+| ログをファイルに保存する | `2>&1 \| Out-File build_log.txt` | `> build_log.txt 2>&1` | A.3-2 |
+| ccacheをインストールする | `winget install --id Ccache.Ccache -e` | `brew install ccache`（macOS）／`sudo apt install ccache`（Ubuntu） | A.3-3 |
+| PCのIPアドレスを確認する | `ipconfig` | `ifconfig`（macOS）／`ip addr`（Linux） | A.6-1 |
+| フォルダを消す | `Remove-Item -Recurse -Force` | `rm -rf` | A.7-1 |
+
 <a id="B-2"></a>
 ### 2章 開発環境を触ってみる
 
