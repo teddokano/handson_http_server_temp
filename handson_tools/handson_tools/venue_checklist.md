@@ -93,6 +93,10 @@ powershell -ExecutionPolicy Bypass -File .\setup_venue.ps1
   - 組織の管理下にあるPCでは，ポリシーで除外が禁止・上書きされることがある．`setup_venue.ps1`がNGを出したら情報システム部門に相談する
 - [ ] ノートPCはACアダプタをつなぎ，「設定」→「システム」→「電源」の電源モードを「最適なパフォーマンス」にした
 - [ ] スリープ・画面ロックまでの時間を長めに設定した（ビルド待ちの間に画面が消えないように）
+- [ ] 記事のテキストを`~\seminar_text`に置いた（受講者はVS Codeで記事を読む）
+  - リポジトリの`docs/article_draft.md`と`docs/img/`フォルダを，`~\seminar_text\article_draft.md`と`~\seminar_text\img\`にコピーする．置くのは`<!-- CLAUDE: -->`コメントを消した公開用の版
+  - フォルダ名は，`~\handson`（`reset_handson.ps1`で消える）や`~\zephyrproject`と紛らわしくならないよう，わざと別の名前にしている．名前を変えた場合は，記事の0.5節の「この記事をVS Codeで読む場合」も直す
+- [ ] VS Codeの設定（`Ctrl`+`,`）で「Workbench › Editor: Enable Preview」をオフにした（ファイルを仮のタブで開かない．`settings.json`では`"workbench.editor.enablePreview": false`）
 - [ ] `~\zephyrproject`や`~\handson`がOneDriveの同期対象になっていない（デスクトップや「ドキュメント」がOneDriveにバックアップされている設定に注意．同期対象だとビルドが極端に遅くなる）
 
 ### 5章のリポジトリ（どちらかに決める）
@@ -152,14 +156,21 @@ powershell -ExecutionPolicy Bypass -File .\setup_venue.ps1
 - [ ] Ethernetケーブルは**PC側だけ挿し，基板側は抜いておく**（4.1節で受講者が挿す）
 - [ ] `venue_check.ps1`を実行して，NGが0件．「ccacheのキャッシュ」のサイズが空に近くない（空なら`prewarm_ccache.ps1`を実行）
 - [ ] 作業用フォルダが初期状態（`venue_check.ps1`の「作業用フォルダ」がOK）
-- [ ] 開いているウィンドウ（PowerShell，VSCode，Tera Term，ブラウザ）をすべて閉じた
-- [ ] 記事を表示するための手段を用意した（印刷，別画面，URLの案内など）
+- [ ] 開いているウィンドウ（PowerShell，Tera Term，ブラウザ）をすべて閉じた．VS Codeは，記事のプレビュー以外を閉じた
+- [ ] VS Codeで記事を表示した（記事の0.5節「この記事をVS Codeで読む場合」の手順1〜4）
+  - `~\seminar_text\article_draft.md`を開き，`Ctrl`+`K`→`V`でプレビューを右側に表示する
+  - 右側のプレビューのタブを選んで，コマンドパレットの「View: Lock Editor Group」でロックする（タブの並びにロックのアイコンが出る）
+  - 左側の`article_draft.md`のタブは閉じる
+  - 確認: PowerShellで`code $HOME\seminar_text\article_draft.md`を実行し，左側に開くこと（確認したら左側のタブを閉じる）
+- [ ] 記事のプレビューを先頭までスクロールしておいた
 
 ---
 
 ## 4. 回と回の間
 
-- [ ] 受講者が開いたウィンドウ（PowerShell，VSCode，Tera Term，エクスプローラー）をすべて閉じた
+- [ ] 受講者が開いたウィンドウ（PowerShell，Tera Term，エクスプローラー）をすべて閉じた．VS Codeは，左側に開いたファイルをすべて閉じ，右側の記事のプレビューは残した（閉じてしまっていたら，「3. 当日 開場前」の手順で表示し直す）
+- [ ] VS Codeの別のウィンドウが開いていたら（受講者がフォルダを開いた場合など），そのウィンドウを閉じた
+- [ ] 記事のプレビューを先頭までスクロールしておいた
 - [ ] `reset_handson.ps1`を実行した
   ```powershell
   powershell -ExecutionPolicy Bypass -File C:\handson_tools\reset_handson.ps1 -ClearHistory

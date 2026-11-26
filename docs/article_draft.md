@@ -196,6 +196,20 @@ NXPのFRDM-MCXN947ボードを使って，LEDの点滅から温度センサー�
 
 本文に出てくる用語は，[付録E. 用語集](#appendixE)にまとめています．
 
+**この記事をVS Codeで読む場合**
+
+会場では，この記事をVS Code（Visual Studio Code）の右側に表示して読みます．コードブロックのコマンドは，ドラッグで選んで`Ctrl`+`C`でコピーし，PowerShellに貼り付けます．
+
+記事の表示（プレビュー）がある右側の領域は，**ロック**してあります．そのため，`code prj.conf`のようにコマンドで開いたファイルは，必ず左側に開きます．右側の記事は，読んでいた位置のまま残ります．
+
+右側の記事を閉じてしまったときは，次の手順で戻します．
+1. VS Codeの「File」→「Open File...」で，`~\seminar_text\article_draft.md`を開きます．
+2. `Ctrl`+`K`を押してから`V`を押すと，記事のプレビューが右側に表示されます．
+3. 右側のプレビューのタブをクリックしてから，`Ctrl`+`Shift`+`P`でコマンドパレットを開き，「View: Lock Editor Group」を実行します．
+4. 左側に開いた`article_draft.md`のタブは，閉じて構いません（誤って書き換えないためです）．
+
+ブラウザやNXPのブログで読んでいる場合は，この手順は必要ありません．
+
 ---
 
 <a id="chapter1"></a>
@@ -546,7 +560,7 @@ Hello World! frdm_mcxn947/mcxn947/cpu0
 
 **`hello_world`のコードを見てみる**
 
-`hello_world`の`src/main.c`は，次のように驚くほど短いコードです．VSCodeでこのファイルを開くには，作業用フォルダ（`~\handson\hello_world`）をVSCodeの「Open Folder」で開き，エクスプローラーから`src/main.c`を選択してください．PowerShellから`code ~\handson\hello_world`と実行して開くこともできます．
+`hello_world`の`src/main.c`は，次のように驚くほど短いコードです．VSCodeでこのファイルを開くには，PowerShellから`code ~\handson\hello_world\src\main.c`を実行します．（VSCodeの「Open Folder」でフォルダを開くと，記事を表示しているウィンドウの中身が切り替わってしまうので，会場では使わないでください．）
 
 ```c
 #include <stdio.h>
