@@ -8,6 +8,35 @@
 
 ---
 
+## 現状（2026-11-26）
+
+図はすべて`docs/img/`にあり，記事への挿入はほぼ済んでいます．下のA〜Cの表は2026-11-23時点のもので，行番号は古くなっています．
+
+| 図 | ファイル | 状態 |
+|---|---|---|
+| タイトル | `title.png` | 挿入済み |
+| 1 | `frdm-mcxn947_parts_location.png` | 挿入済み |
+| 2 | `powershell.png`，`powershell_launched.png` | 挿入済み．`powershell_launched.png`は`C:\WINDOWS\system32`で開いた画面で，2.1節の本文をこれに合わせた |
+| 3 | `activated.png` | 挿入済み．コマンド例2.1-1の出力の直後に置いたので，置き場所の問題は解決．`zinit`のコラムの後のプレースホルダは削除した |
+| 2.2節のコピーの説明 | `copying_sample.png` | 挿入済み（macOSのFinderの画面．フォルダ構成の説明用） |
+| 4 | `usb_connected.jpg` | 挿入済み |
+| 5 | `teraterm.png`，`teraterm_port.png`，`teraterm_baud.png` | 挿入済み．`teraterm_baud.png`ではスピードの初期値が`9600`（`TERATERM.INI`が読まれていない可能性．`verification_list.md`参照） |
+| 6 | `hello_world.png` | 挿入済み．2.2節の末尾のプレースホルダは削除した |
+| C1 | `led_red.jpg` | 挿入済み（2.3節） |
+| 3.2節 | `temperature.png` | 挿入済み |
+| C5 | `fig_c5_devicetree_kconfig.png` | 挿入済み（3.3節） |
+| 7 | `pc_and_board_connection.png` | 挿入済み（4章冒頭） |
+| C4 | `prj_conf_edit.png` | 挿入済み．**撮り直しが必要**: `MY_IPV4_ADDR`しか書き換えておらず，`MY_IPV4_GW`が`192.0.2.2`のまま．2行とも書き換えて保存した状態で撮る |
+| C3 | `ether_connected.jpg` | 挿入済み（4.1節） |
+| 4.1節 | `ping.png` | 挿入済み |
+| 8 | `page_view.png` | 挿入済み．背景にTera TermとPowerShellが写っているので，必要ならトリミング |
+| C2 | `led_green.jpg` | 挿入済み（4.2節） |
+| C6 | `fig_c6_http_flow.png` | 挿入済み（5.1節） |
+| 9 | `temp_on_browser.png` | 挿入済み |
+| C7 | `ip_address_setting.png` | 挿入済み（付録A.6） |
+
+---
+
 ## A. 記事にプレースホルダがある図（9点）
 
 | 図 | 種類 | 節 | 行 | 探す文字列 | 内容 | 撮るときの状態・注意 |

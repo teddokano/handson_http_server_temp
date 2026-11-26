@@ -217,11 +217,11 @@ FRDM-MCXN947は，NXPのMCX N947マイコンを搭載した評価ボードです
 > - 公式ガイド: [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html)
 > - NXPのツールを使った簡単セットアップ: [Zephyrシリーズ 第２回 はじめてのビルドと実機動作（NXP Tech Blog，日本語）](https://community.nxp.com/t5/NXP-Tech-Blog/Zephyr-シリーズ-第２回-はじめてのビルドと実機動作-日本語ブログ/ba-p/2189007)
 
-このセミナーでは，コマンドの入力にWindowsの**PowerShell**を使います．スタートメニューで「PowerShell」と入力し，「Windows PowerShell」を起動してください．このとき，「管理者として実行」は**選ばないでください**．管理者として起動すると，最初にいる場所（カレントディレクトリ）が`C:\Windows\System32`になるなど，以降の手順と状態が変わってしまいます．
+このセミナーでは，コマンドの入力にWindowsの**PowerShell**を使います．スタートメニューで「PowerShell」と入力し，「Windows PowerShell」を起動してください．このとき，「管理者として実行」は**選ばないでください**．このセミナーの手順に管理者の権限は必要なく，管理者として起動すると，コマンドを間違えたときの影響がPC全体に及ぶおそれがあるためです．管理者として起動したかどうかは，ウィンドウのタブ（またはタイトル）の先頭に「管理者:」と付いているかで見分けられます．
 
 ![](img/powershell.png)
 
-PowerShellは，起動のしかたによって最初にいるフォルダが違います（スタートメニューから起動した場合はホームフォルダ`C:\Users\<ユーザー名>`ですが，VSCodeのターミナルなどでは開いているフォルダになります）．そこで，まず`cd`でZephyrのワークスペース（`~\zephyrproject`）に移動してから作業を始めます．`~`は自分のホームフォルダを表す記号です．
+PowerShellは，起動のしかたによって最初にいるフォルダ（カレントディレクトリ）が違います．下の画面のように，管理者として起動していなくても`PS C:\WINDOWS\system32>`と表示されることがあります．ホームフォルダ（`C:\Users\<ユーザー名>`）で開くこともありますし，VSCodeのターミナルでは開いているフォルダになります．どこで開いても，次のコマンド例の最初の`cd`でZephyrのワークスペース（`~\zephyrproject`）に移動するので問題ありません．`~`は自分のホームフォルダを表す記号です．
 
 ![](img/powershell_launched.png)
 
@@ -253,10 +253,12 @@ west topdir
 
 ```text
 (.venv) PS C:\Users\<ユーザー名>\zephyrproject> west --version
-West version: v1.x.x
+West version: v1.5.0
 (.venv) PS C:\Users\<ユーザー名>\zephyrproject> west topdir
-C:\Users\<ユーザー名>\zephyrproject
+C:/Users/<ユーザー名>/zephyrproject
 ```
+
+`west topdir`の表示は，フォルダの区切りが`\`ではなく`/`になりますが，同じ場所を指しています．
 
 ![](img/activated.png)
 
@@ -322,8 +324,6 @@ zinit thermometer
 >
 > 保存したら，PowerShellのウィンドウを開き直すと`zinit`が使えるようになります．プロファイルの実行にも，2.1節のコラムで説明した実行ポリシーの設定（`RemoteSigned`）が必要です．なお，プロファイルに日本語を書く場合は，文字コードに注意が必要です（Windows PowerShellは，BOMなしのUTF-8のファイルに含まれる日本語を正しく読めません）．上の内容は英数字だけなので，そのまま保存して構いません．
 
-【実行例のスクリーンショットを挿入】
-
 <a id="2-2"></a>
 ### 2.2 HelloWorldサンプルを実行してみる
 
@@ -369,8 +369,9 @@ west build -p auto -b frdm_mcxn947/mcxn947/cpu0 .
 [xxx/xxx] Linking C executable zephyr\zephyr.elf
 Memory region         Used Size  Region Size  %age Used
            FLASH:       xxxxx B         2 MB      x.xx%
-             RAM:        xxxx B       xxx KB      x.xx%
-        IDT_LIST:          0 GB        32 KB      0.00%
+             RAM:        xxxx B       320 KB      x.xx%
+           SRAMX:          0 B        96 KB      0.00%
+        IDT_LIST:          0 B        32 KB      0.00%
 Generated files: （後略）
 ```
 
@@ -397,13 +398,14 @@ Generated files: （後略）
 `hello_world`は，起動直後に1回だけ文字列を出力して終わるプログラムです．書き込み後にシリアルコンソールを開いたのでは，出力を見逃してしまいます．そこで，**書き込む前に**シリアルコンソールを開いて接続しておきます．今回はターミナルソフトとして**Tera Term**を使用します．次の手順で接続してください．
 
 1. **Tera Termを起動する**
-   起動すると「Tera Term: 新しい接続」という画面が開きます．
+   デスクトップの「Tera Term 5」のアイコンから起動します．起動すると「Tera Term: 新しい接続」という画面が開きます．
 2. **シリアルポートを選ぶ**
    「シリアル」を選び，「ポート」の一覧から，FRDM-MCXN947のデバッグ用USBコネクタ（MCU-Link）に対応するポートを選んで「OK」を押します．一覧には`COM3: MCU-Link VCom Port (COM3)`のように，`COM`＋番号の名前で表示されます．番号はPCによって異なります．どれか分からない場合は，基板のUSBケーブルを抜き差しして，そのとき一覧から消えたり現れたりするポートを選んでください（一覧は「新しい接続」の画面を開き直すと更新されます）．
 3. **ボーレートを115200にする**
-   メニューの「設定」→「シリアルポート」を開き，「スピード」を`115200`にして「現在の接続を再設定」（バージョンによっては「新しい設定」）を押します．
+   メニューの「設定」→「シリアルポート」を選ぶと，「Tera Term: その他の設定」という画面の「シリアルポート」タブが開きます．「スピード」を`115200`にして「OK」を押します．（古いバージョンのTera Termでは，画面の名前やボタンが異なります．）
 4. **文字コードをUTF-8にする** (会場のPCではこの設定は必要ありません)   
    メニューの「設定」→「端末」を開き，「漢字（受信）」（文字コードの受信側の設定）を`UTF-8`にして「OK」を押します．3章で表示する`°C`の`°`を正しく表示するための設定です．
+   【Tera Term 5での画面名・項目名を確認（「その他の設定」の「エンコーディング」タブの可能性あり）】
 
 ![](img/teraterm.png)
 ![](img/teraterm_port.png)
@@ -441,8 +443,6 @@ Hello World! frdm_mcxn947/mcxn947/cpu0
 <!-- CLAUDE: 
 ******************************************* ここまでチェックした 
 -->
-
-【実行例のスクリーンショットを挿入】
 
 `hello_world`の`src/main.c`は，次のように驚くほど短いコードです．VSCodeでこのファイルを開くには，作業用フォルダ（`~\handson\hello_world`）をVSCodeの「Open Folder」で開き，エクスプローラーから`src/main.c`を選択してください．PowerShellから`code ~\handson\hello_world`と実行して開くこともできます．
 
@@ -579,13 +579,13 @@ west flash
 ```text
 *** Booting Zephyr OS build v4.x.x ***
 Thermometer Example (arm)
-Temperature device is 0x........, name is p3t1755@...
-Temperature is 24.3°C
-Temperature is 24.3°C
-Temperature is 24.4°C
+Temperature device is 0x1000b23c, name is p3t1755@4800000236152a0090
+Temperature is 25.9°C
+Temperature is 25.8°C
+Temperature is 25.8°C
 ```
 
-最初の数行はサンプルの起動メッセージです．`name is p3t1755@...`の行から，3.3節で説明するデバイスツリーの定義どおり，P3T1755が温度センサーとして使われていることが分かります．（センサーのしきい値設定に関するメッセージが続けて表示されることもあります．）
+最初の数行はサンプルの起動メッセージです．`name is p3t1755@4800000236152a0090`の行から，3.3節で説明するデバイスツリーの定義どおり，P3T1755が温度センサーとして使われていることが分かります．（`0x1000b23c`の部分は，ビルドによって変わることがあります．）
 
 ![](img/temperature.png)
 
@@ -674,24 +674,28 @@ cd ~\handson\http_server
 code prj.conf
 ```
 
-基板に固定IPアドレスを持たせるため，`CONFIG_NET_CONFIG_MY_IPV4_ADDR`と`CONFIG_NET_CONFIG_MY_IPV4_GW`が書かれてある2行を探します．元のサンプルでは，次のようになっています．
+VSCodeの上部に「Restricted Mode is intended for safe code browsing.」という帯が表示されることがあります．これは，開いたファイルを安全のため機能を制限したモードで表示している，という案内です．`prj.conf`の編集・保存には影響しないので，そのまま進めて構いません．
+
+基板に固定IPアドレスを持たせるため，`CONFIG_NET_CONFIG_MY_IPV4_ADDR`と`CONFIG_NET_CONFIG_MY_IPV4_GW`の2行を書き換えます．ファイルの中ほどにある`# Network address config`の下を見てください．元のサンプルでは，次のようになっています．
 
 ```
 CONFIG_NET_CONFIG_MY_IPV4_ADDR="192.0.2.1"
+CONFIG_NET_CONFIG_PEER_IPV4_ADDR="192.0.2.2"
 CONFIG_NET_CONFIG_MY_IPV4_GW="192.0.2.2"
 ```
 
-この2行の`"`で囲まれた値を，次のように書き換えます．
+書き換える2行は並んでおらず，間に`CONFIG_NET_CONFIG_PEER_IPV4_ADDR`の行が挟まっています．この行は似ていますが別の設定で，今回は書き換えません．1行目と3行目の`"`で囲まれた値を，次のように書き換えます．
 
 ```
 CONFIG_NET_CONFIG_MY_IPV4_ADDR="192.168.1.100"
+CONFIG_NET_CONFIG_PEER_IPV4_ADDR="192.0.2.2"
 CONFIG_NET_CONFIG_MY_IPV4_GW="192.168.1.1"
 ```
 
-> **注意: この2行はPowerShellに貼り付けない**
-> 上の2行はコマンドではなく，VSCodeで開いた`prj.conf`ファイルの**中身**です．PowerShellに貼り付けると「認識されません」というエラーになります（ファイルには何も影響しないので，間違えて貼り付けても問題はありません）．
-> - 元の2行を**書き換えて**ください．元の行を残したまま末尾に2行を追加すると，同じ設定が2回書かれた状態になり，どちらが有効か分かりにくくなります．
-> - すぐ近くにある`CONFIG_NET_CONFIG_PEER_IPV4_ADDR`の行は，似ていますが別の設定です．今回は書き換えなくて構いません．
+> **注意: この3行はPowerShellに貼り付けない**
+> 上の3行はコマンドではなく，VSCodeで開いた`prj.conf`ファイルの**中身**です．PowerShellに貼り付けると「認識されません」というエラーになります（ファイルには何も影響しないので，間違えて貼り付けても問題はありません）．
+> - 元の行を**書き換えて**ください．元の行を残したまま末尾に行を追加すると，同じ設定が2回書かれた状態になり，どちらが有効か分かりにくくなります．
+> - `PEER_IPV4_ADDR`の行と`MY_IPV4_GW`の行は，元の値がどちらも`"192.0.2.2"`です．値で探すと`PEER`の行を書き換えてしまいやすいので，行の先頭の`CONFIG_...`の名前で確かめてください．
 > - 値を囲む`"`（ダブルクォーテーション）は消さないでください．
 > - 編集したら，**`Ctrl`+`S`で保存**します．VSCodeのタブのファイル名の横に`●`が付いている間は，まだ保存されていません．保存し忘れると，元のIPアドレスのままビルドされてしまいます．
 
@@ -720,6 +724,7 @@ west build -p auto -b frdm_mcxn947//cpu0 .
 west flash
 ```
 
+書き込みの途中で，`INFO: MCU-Link firmware update 'check': ... is running a firmware version which is older than the included firmware version`のような表示が出ることがあります．基板のMCU-Linkのファームウェアが，LinkServerに付属しているものより古いという案内です．書き込みはそのまま行われるので，気にせず進めてください．
 書き込みが終わったら，PCとボードをEthernetケーブルで直結します．ケーブルを挿すのは基板のEthernetコネクタ（[1.3節](#1-3)の図の⑤）です．
 
 ![ether_connected.jpg](img/ether_connected.jpg)
@@ -742,6 +747,8 @@ ping 192.168.1.100
 
 192.168.1.100 の ping 統計:
     パケット数: 送信 = 4、受信 = 4、損失 = 0 (0% の損失)、
+ラウンド トリップの概算時間 (ミリ秒):
+    最小 = 0ms、最大 = 0ms、平均 = 0ms
 ```
 
 ![](img/ping.png)
@@ -761,8 +768,12 @@ ping 192.168.1.100
 ![](img/page_view.png)
 ![led_green.jpg](img/led_green.jpg)   
 
+このとき，Tera Termには`[00:00:25.684,000] <dbg> ...`のような行が次々と流れ，`uart:~$`という表示も出ています．HTTP Serverサンプルが出しているログと，Zephyrのシェル（コマンド入力の受付）の表示で，異常ではありません．
+
 > **注意: アドレスは`http://`から入力する**
 > ブラウザのアドレス欄には，`http://`を省略せず`http://192.168.1.100/`のように入力してください．最近のブラウザは，`http://`を省略したり古い履歴を選んだりすると，自動的に暗号化通信の`https://`で接続しようとします．今回のボードはプレーンHTTPで動いているので，`https://`では接続できません．「接続がプライベートではありません」「安全な接続をサポートしていません」のような画面が出た場合は，アドレス欄が`https://`になっていないか確認してください．
+>
+> なお，ページが表示されたとき，アドレス欄の左に「保護されていない通信」と表示されます．暗号化していないプレーンHTTPで接続しているためで，今回はこれで正常です．
 
 **うまくいかないときは**
 - pingは通るのにブラウザで表示されない → アドレスが`http://`になっているか確認します．会社のPCなどでプロキシが設定されている場合は，プロキシを経由しない設定が必要です（[A.6](#A-6)）．
@@ -953,7 +964,7 @@ $env:ZEPHYR_BASE
 west topdir
 ```
 
-1行目に今いるフォルダ，2行目に`C:\Users\<ユーザー名>\zephyrproject\zephyr`，3行目に`C:\Users\<ユーザー名>\zephyrproject`が表示されれば，環境は正しく設定されています．2行目が空なら，コマンド例2.1-1を実行し直します．
+1行目に今いるフォルダ，2行目に`C:\Users\<ユーザー名>\zephyrproject\zephyr`，3行目に`C:/Users/<ユーザー名>/zephyrproject`が表示されれば，環境は正しく設定されています．2行目が空なら，コマンド例2.1-1を実行し直します．
 
 <a id="A-2"></a>
 ### A.2 PowerShell・westまわり
