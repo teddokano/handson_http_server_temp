@@ -1,0 +1,25 @@
+<!doctype html>
+<!--
+  図4.1-1（pc_and_board_connection.png）に IP アドレスを書き加える重ね書き．元の画像は pc_and_board_connection_orig.png．
+  PC側の値は要確認リスト#44で決まるまで「192.168.1.x」．
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu --hide-scrollbars \
+    --force-device-scale-factor=2 --window-size=1176,395 --virtual-time-budget=5000 \
+    --screenshot=docs/img/pc_and_board_connection.png "file://$PWD/docs/img/src/pc_and_board_connection_ip.html"
+-->
+<html lang="ja"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+Mono:wght@400;700&display=block" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#fff}
+#w{position:relative;width:1176px;height:395px}
+#w img{width:1176px;height:395px;display:block}
+.lab{position:absolute;text-align:center;font-family:"Noto Sans JP","Hiragino Sans",sans-serif;color:#222}
+.lab .t{font-size:20px;font-weight:700}
+.lab .ip{font-family:"Noto Sans Mono",Menlo,monospace;font-size:20px;font-weight:700;color:#1d5fbf}
+.lab .n{font-size:13px;color:#555}
+#pc{left:100px;top:95px;width:330px;background:rgba(255,255,255,.88);border-radius:8px;padding:8px 0}
+#bd{left:640px;top:318px;width:500px}
+</style></head><body>
+<div id="w"><img src="../pc_and_board_connection_orig.png">
+<div class="lab" id="pc"><div class="t">PC</div><div class="ip">192.168.1.x</div><div class="n">（会場PCは設定済み）</div></div>
+<div class="lab" id="bd"><span class="t">ボード </span><span class="ip">192.168.1.100</span><div class="n">（4.1節の<code>prj.conf</code>で設定）</div></div>
+</div></body></html>

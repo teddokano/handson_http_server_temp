@@ -79,7 +79,7 @@ powershell -ExecutionPolicy Bypass -File .\setup_venue.ps1
   新しいPowerShellを開いて`zinit`と打ち，`west --version`と`west topdir`が表示されることを確認する．VSCodeのターミナルでも同じく使えることを確認する．
 - [ ] Tera Termを起動し，MCU-LinkのCOMポートに`115200`で接続できること，`°C`が文字化けしないことを確認した
   - Tera Termの設定ファイル（`TERATERM.INI`）は配らない．会場PCで読まれなかったため，`setup_venue.ps1`のコピーをやめた
-  - 会場PCのTera Term 5は，初期状態のままで`°C`が正しく表示されることを確認済み．ボーレートは受講者が記事2.2節の手順3で設定する
+  - 会場PCのTera Term 5は，初期状態のままで`°C`が正しく表示されることを確認済み．ボーレートは受講者が記事2.2節のTera Termの手順3で設定する
 - [ ] PCのEthernetアダプタを固定IPにした
   - IPアドレス: `192.168.1.10`など（**`192.168.1.100`はボードが使うので避ける**）
   - サブネットマスク: `255.255.255.0`
@@ -192,7 +192,7 @@ powershell -ExecutionPolicy Bypass -File .\setup_venue.ps1
 | ビルドが他の席より明らかに遅い | その席で`venue_check.ps1`を実行し，ccache・ACアダプタを確認 | A.3 |
 | `west flash`でプローブが見つからない | USBが①に挿さっているか，他のツールが使っていないか | A.4 |
 | Tera Termに何も出ない | タイトルバーにCOMポートが出ているか → RESETボタン（②） | A.5 |
-| `°C`が文字化けする | 記事2.2節の手順4のとおり，受信の文字コードをUTF-8に | 2.2，A.5 |
+| `°C`が文字化けする | 記事2.2節のTera Termの手順4のとおり，受信の文字コードをUTF-8に | 2.2，A.5 |
 | pingが通らない | `prj.conf`を保存したか → ビルドし直したか → ケーブル | 4.1，A.6 |
 | ブラウザで開けない | アドレスが`http://`になっているか | 4.2，A.6 |
 | 手順がぐちゃぐちゃになった | その節のサンプルフォルダを消して最初から | A.7 |

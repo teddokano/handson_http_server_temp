@@ -2,7 +2,7 @@
 
 | ファイル | 内容 |
 |---|---|
-| `article_draft.md` | 記事ドラフト（Zephyrデビュー会 〜FRDM-MCXN947でつまずかず動かす90分〜） |
+| `../docs/article_draft.md` | 記事ドラフト（Zephyrデビュー会 〜FRDM-MCXN947でつまずかず動かす90分〜）．以前ここにあった版は`docs/old/`に移した |
 | `verification_list.md` | 要確認リスト．リハーサルで実機と照らし合わせる記述の一覧 |
 | `handson_tools/venue_checklist.md` | 会場準備チェックリスト（事前準備・リハーサル・当日・回の間・終了後，スタッフ向け早見表） |
 | `handson_tools/setup_venue.ps1` | 会場PCの準備をまとめて行う（zinit，LinkServerのPATH，ccache，Defender除外，キャッシュ作成，状態確認） |

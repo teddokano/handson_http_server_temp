@@ -1,0 +1,95 @@
+<!doctype html>
+<!--
+  0.2節の図（今日の流れ）．図2.4-1・図3.3-1と同じ配色．
+  PNG にするには（macOS）:
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu \
+      --hide-scrollbars --force-device-scale-factor=2 --window-size=1260,460 \
+      --virtual-time-budget=5000 --screenshot=docs/img/fig_flow_overview.png \
+      "file://$PWD/docs/img/src/fig_flow_overview.html"
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+Mono:wght@400&display=block" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #fff; }
+  svg { display: block; }
+  text { font-family: "Noto Sans JP", "Hiragino Sans", sans-serif; font-size: 14px; fill: #333; }
+  .mono { font-family: "Noto Sans Mono", Menlo, monospace; font-size: 13px; fill: #666; }
+  .h { font-size: 19px; font-weight: 700; }
+  .s { font-size: 15px; font-weight: 700; }
+  .b { font-weight: 700; }
+  .see { fill: #444; }
+  .learn { fill: #555; font-size: 13.5px; }
+  .blue { fill: #2c6fd1; } .green { fill: #2e9348; } .orange { fill: #dd8526; }
+  .purple { fill: #7a4cc4; } .gray { fill: #555; }
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="460" viewBox="0 0 1260 460">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5f6670"/></marker>
+  </defs>
+
+  <!-- ============ 2章 ============ -->
+  <rect x="30" y="30" width="340" height="400" rx="10" fill="#e9f0fc" stroke="#2c6fd1" stroke-width="2"/>
+  <text x="50" y="62" class="h blue">2章 開発環境を触ってみる</text>
+
+  <rect x="48" y="80" width="304" height="150" rx="8" fill="#fff" stroke="#2c6fd1" stroke-width="1.5"/>
+  <text x="64" y="108" class="s blue">Hello World（2.1〜2.2節）</text>
+  <text x="64" y="128" class="mono">hello_world</text>
+  <text x="64" y="158" class="see">▶ Tera Termに文字が出る</text>
+  <text x="64" y="186" class="learn">ビルド（west build）と</text>
+  <text x="64" y="206" class="learn">書き込み（west flash）の手順</text>
+
+  <line x1="200" y1="230" x2="200" y2="262" stroke="#5f6670" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="48" y="264" width="304" height="150" rx="8" fill="#fff" stroke="#2c6fd1" stroke-width="1.5"/>
+  <text x="64" y="292" class="s blue">Lチカ（2.3〜2.4節）</text>
+  <text x="64" y="312" class="mono">blinky</text>
+  <text x="64" y="342" class="see">▶ LEDが赤く点滅する</text>
+  <text x="64" y="370" class="learn">LEDの場所は，コードではなく</text>
+  <text x="64" y="390" class="learn">デバイスツリーで決まる</text>
+
+  <!-- 2章 → 3章 / 4章 -->
+  <path d="M370,230 H410 V125 H448" fill="none" stroke="#5f6670" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M410,230 V335 H448" fill="none" stroke="#5f6670" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- ============ 3章 ============ -->
+  <rect x="450" y="30" width="360" height="190" rx="10" fill="#e8f5ec" stroke="#2e9348" stroke-width="2"/>
+  <text x="470" y="62" class="h green">3章 温度センサーを動かす</text>
+  <text x="470" y="84" class="mono">thermometer</text>
+  <text x="470" y="116" class="see">▶ Tera Termに温度が出る</text>
+  <text x="470" y="146" class="learn">センサーは，オーバーレイで</text>
+  <text x="470" y="166" class="learn">デバイスツリーに追加する</text>
+  <text x="470" y="186" class="learn">（コードはエイリアスで探すだけ）</text>
+
+  <!-- ============ 4章 ============ -->
+  <rect x="450" y="240" width="360" height="190" rx="10" fill="#f1ecfb" stroke="#7a4cc4" stroke-width="2"/>
+  <text x="470" y="272" class="h purple">4章 HTTP Serverを動かす</text>
+  <text x="470" y="294" class="mono">http_server</text>
+  <text x="470" y="326" class="see">▶ ブラウザからLEDを緑に点灯</text>
+  <text x="470" y="356" class="learn">パス（/uptime など）ごとに</text>
+  <text x="470" y="376" class="learn">ハンドラ関数が値を返す</text>
+  <text x="470" y="396" class="learn">（ネットワーク機能はKconfigで有効に）</text>
+
+  <!-- 3章 / 4章 → 5章 -->
+  <path d="M810,125 H850 V200 H888" fill="none" stroke="#5f6670" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M810,335 H850 V260 H888" fill="none" stroke="#5f6670" stroke-width="2" marker-end="url(#a)"/>
+  <text x="824" y="114" class="learn">センサー</text>
+  <text x="824" y="356" class="learn">ハンドラ</text>
+
+  <!-- ============ 5章 ============ -->
+  <rect x="890" y="120" width="340" height="220" rx="10" fill="#fdf3e7" stroke="#dd8526" stroke-width="2"/>
+  <text x="910" y="152" class="h orange">5章 温度をブラウザで見る</text>
+  <text x="910" y="174" class="mono">handson_http_server_temp</text>
+  <text x="910" y="206" class="see">▶ ブラウザに温度が出て，</text>
+  <text x="910" y="228" class="see">　1秒ごとに更新される</text>
+  <text x="910" y="260" class="learn">3章のセンサーの読み取りと，</text>
+  <text x="910" y="280" class="learn">4章のハンドラ関数を組み合わせる</text>
+  <text x="910" y="308" class="learn">新しく書いたのは，ハンドラ2つと</text>
+  <text x="910" y="328" class="learn">それを登録する2行だけ</text>
+
+</svg>
+</body>
+</html>
