@@ -168,27 +168,6 @@ if (-not $ttExe) {
 if ($ttExe) { Add-Result 'OK' 'Tera Term' $ttExe }
 else { Add-Result 'NG' 'Tera Term' '見つかりません' }
 
-$ttIni = @(
-    "$env:APPDATA\teraterm5\TERATERM.INI",
-    "$env:APPDATA\teraterm\TERATERM.INI"
-)
-if ($ttExe) { $ttIni += (Join-Path (Split-Path $ttExe -Parent) 'TERATERM.INI') }
-$ttIni = $ttIni | Where-Object { Test-Path $_ } | Select-Object -First 1
-if ($ttIni) {
-    $ini = Get-Content $ttIni
-    $baud = ($ini | Where-Object { $_ -match '^\s*BaudRate\s*=' } | Select-Object -First 1)
-    $kanji = ($ini | Where-Object { $_ -match '^\s*KanjiReceive\s*=' } | Select-Object -First 1)
-    $baudOk = $baud -match '=\s*115200\s*$'
-    $kanjiOk = $kanji -match '=\s*UTF-?8'
-    if ($baudOk -and $kanjiOk) {
-        Add-Result 'OK' 'Tera Termの保存設定' "$ttIni （$baud, $kanji）"
-    } else {
-        Add-Result '注意' 'Tera Termの保存設定' "$ttIni （$baud, $kanji）．115200 / UTF-8 を設定して「設定の保存」をしてください（実機での目視確認を推奨）"
-    }
-} else {
-    Add-Result '注意' 'Tera Termの保存設定' 'TERATERM.INI が見つかりません（実機で 115200 / UTF-8 を目視確認）'
-}
-
 # ---------------------------------------------------------------- ネットワーク
 $prefix = ($BoardIp -replace '\.\d+$', '.')
 $ips = @(Get-NetIPAddress -AddressFamily IPv4 -ErrorAction SilentlyContinue)

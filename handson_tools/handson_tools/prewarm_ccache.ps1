@@ -12,8 +12,9 @@
     2.2節  ~\handson\hello_world                -b frdm_mcxn947/mcxn947/cpu0
     2.3節  ~\handson\blinky                     -b frdm_mcxn947//cpu0
     3.1節  ~\handson\thermometer                -b frdm_mcxn947//cpu0
-    4.1節  ~\handson\http_server（元の prj.conf のまま／IPアドレスとゲートウェイを書き換えた後の2通り．
-           書き換えを保存し忘れてビルドした受講者のビルドも速くするため）
+    4.1節  ~\handson\http_server（元の prj.conf のまま／IPアドレスだけ書き換えた後／
+           IPアドレスとゲートウェイを書き換えた後の3通り．記事ではゲートウェイの書き換えは任意で，
+           書き換えを保存し忘れてビルドする受講者もいるため．ccache は prj.conf の内容が違うと効かない）
     5.2節  ~\handson\handson_http_server_temp（seed があればそこから，なければ git clone）
 
   次の場合は，もう一度実行してください:
@@ -132,20 +133,25 @@ try {
     # (1) 元の prj.conf のまま（書き換えを保存し忘れてビルドした場合）
     Invoke-HandsonBuild 'http_server' 'frdm_mcxn947//cpu0' 'http_server（元の設定）'
 
-    # (2) 記事どおりに prj.conf の2行を書き換えてから（同じフォルダで，受講者と同じく -p auto）
+    # prj.conf の指定した行の値を書き換える（同じフォルダで，受講者と同じく -p auto でビルドし直す）
     $conf = Join-Path $http 'prj.conf'
-    $text = [System.IO.File]::ReadAllText($conf)
-    $pairs = @{
-        'CONFIG_NET_CONFIG_MY_IPV4_ADDR' = $BoardIp
-        'CONFIG_NET_CONFIG_MY_IPV4_GW'   = $BoardGw
+    function Set-PrjConf([hashtable]$Pairs) {
+        $text = [System.IO.File]::ReadAllText($conf)
+        foreach ($key in $Pairs.Keys) {
+            $pattern = '(?m)^' + [regex]::Escape($key) + '=.*$'
+            if (-not [regex]::IsMatch($text, $pattern)) { throw "prj.conf に $key の行がありません（サンプルの内容が記事と違います）" }
+            $text = [regex]::Replace($text, $pattern, ('{0}="{1}"' -f $key, $Pairs[$key]))
+        }
+        [System.IO.File]::WriteAllText($conf, $text, (New-Object System.Text.UTF8Encoding($false)))
     }
-    foreach ($key in $pairs.Keys) {
-        $pattern = '(?m)^' + [regex]::Escape($key) + '=.*$'
-        if (-not [regex]::IsMatch($text, $pattern)) { throw "prj.conf に $key の行がありません（サンプルの内容が記事と違います）" }
-        $text = [regex]::Replace($text, $pattern, ('{0}="{1}"' -f $key, $pairs[$key]))
-    }
-    [System.IO.File]::WriteAllText($conf, $text, (New-Object System.Text.UTF8Encoding($false)))
-    Invoke-HandsonBuild 'http_server' 'frdm_mcxn947//cpu0' 'http_server（IP書き換え後）'
+
+    # (2) 記事どおりに IPアドレスの行だけを書き換えてから
+    Set-PrjConf @{ 'CONFIG_NET_CONFIG_MY_IPV4_ADDR' = $BoardIp }
+    Invoke-HandsonBuild 'http_server' 'frdm_mcxn947//cpu0' 'http_server（IPのみ書き換え）'
+
+    # (3) ゲートウェイの行も書き換えてから（記事では任意）
+    Set-PrjConf @{ 'CONFIG_NET_CONFIG_MY_IPV4_GW' = $BoardGw }
+    Invoke-HandsonBuild 'http_server' 'frdm_mcxn947//cpu0' 'http_server（IP・GW書き換え）'
 
     # 5.2節 改変版リポジトリ
     $repoName = 'handson_http_server_temp'

@@ -41,7 +41,6 @@ powershell -ExecutionPolicy Bypass -File .\setup_venue.ps1
 - Defenderの除外設定のところで，管理者の確認画面が出ます．「はい」を押してください
 - キャッシュの作成に，数分〜十数分かかります
 - 最後に「まとめ」と「手作業で行ってください」の一覧が出ます．手作業の項目（固定IP，電源モードなど）は，下のチェック項目に沿って行います
-- Tera Termの設定ファイルをコピーするので，実行前にTera Termを閉じておきます
 
 以下は，`setup_venue.ps1`が行う内容も含めた，個別のチェック項目です．
 
@@ -78,10 +77,9 @@ powershell -ExecutionPolicy Bypass -File .\setup_venue.ps1
   powershell -ExecutionPolicy Bypass -File .\install_zinit.ps1
   ```
   新しいPowerShellを開いて`zinit`と打ち，`west --version`と`west topdir`が表示されることを確認する．VSCodeのターミナルでも同じく使えることを確認する．
-- [ ] Tera Termの設定ファイルをコピーした（`setup_venue.ps1`が，同じフォルダの`TERATERM.INI`を`%APPDATA%\teraterm5\TERATERM.INI`にコピーする．既存のファイルは`.bak-日時`を付けてバックアップされる）
-  - コピーの前にTera Termを閉じておく
-  - Tera Termを起動し，「設定」→「シリアルポート」が`115200`，「設定」→「端末」の漢字（受信）が`UTF-8`になっていることを確認する．なっていなければ，そのPCのTera Termが別の場所の設定ファイルを読んでいる（「ヘルプ」→「バージョン情報」などで設定ファイルの場所を確認）
-  - この`TERATERM.INI`はCOMポートが`COM3`で保存されている．PCによってMCU-LinkのCOM番号が違う場合は，受講者が「新しい接続」の画面でポートを選び直す（記事2.2節の手順どおり）
+- [ ] Tera Termを起動し，MCU-LinkのCOMポートに`115200`で接続できること，`°C`が文字化けしないことを確認した
+  - Tera Termの設定ファイル（`TERATERM.INI`）は配らない．会場PCで読まれなかったため，`setup_venue.ps1`のコピーをやめた
+  - 会場PCのTera Term 5は，初期状態のままで`°C`が正しく表示されることを確認済み．ボーレートは受講者が記事2.2節の手順3で設定する
 - [ ] PCのEthernetアダプタを固定IPにした
   - IPアドレス: `192.168.1.10`など（**`192.168.1.100`はボードが使うので避ける**）
   - サブネットマスク: `255.255.255.0`
@@ -194,7 +192,7 @@ powershell -ExecutionPolicy Bypass -File .\setup_venue.ps1
 | ビルドが他の席より明らかに遅い | その席で`venue_check.ps1`を実行し，ccache・ACアダプタを確認 | A.3 |
 | `west flash`でプローブが見つからない | USBが①に挿さっているか，他のツールが使っていないか | A.4 |
 | Tera Termに何も出ない | タイトルバーにCOMポートが出ているか → RESETボタン（②） | A.5 |
-| `°C`が文字化けする | Tera Termの「設定」→「端末」で受信をUTF-8に | A.5 |
+| `°C`が文字化けする | 記事2.2節の手順4のとおり，受信の文字コードをUTF-8に | 2.2，A.5 |
 | pingが通らない | `prj.conf`を保存したか → ビルドし直したか → ケーブル | 4.1，A.6 |
 | ブラウザで開けない | アドレスが`http://`になっているか | 4.2，A.6 |
 | 手順がぐちゃぐちゃになった | その節のサンプルフォルダを消して最初から | A.7 |

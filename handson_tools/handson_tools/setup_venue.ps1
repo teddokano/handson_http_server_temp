@@ -10,8 +10,6 @@
     3. zinit をプロファイルに登録する（install_zinit.ps1）
     4. LinkServer に PATH を通す（C:\NXP\LinkServer_* のうち新しいもの）
     5. ccache をインストールする（winget）
-    5b. Tera Term の設定ファイル（同じフォルダの TERATERM.INI）をコピーする
-        （115200 / UTF-8 などを設定済みのもの．既存のファイルはバックアップしてから置き換える）
     6. Microsoft Defender の除外設定（管理者権限が必要なので，確認画面が出ます）
        対象: ~\zephyrproject，~\handson，Zephyr SDK，ccache のキャッシュフォルダ
        他社製のウイルス対策ソフトが入っている場合は警告を出します（そのソフト側での設定が必要）
@@ -159,31 +157,6 @@ if (Get-Command ccache -ErrorAction SilentlyContinue) {
     }
 }
 
-# ---------------------------------------------------------------- 5b. Tera Term の設定ファイル
-Write-Step '5b. Tera Term の設定ファイル'
-$srcIni = Join-Path $here 'TERATERM.INI'
-# Tera Term 5 は，ユーザーごとの設定を %APPDATA%\teraterm5 に保存する
-$dstDir = Join-Path $env:APPDATA 'teraterm5'
-$dstIni = Join-Path $dstDir 'TERATERM.INI'
-if (-not (Test-Path $srcIni)) {
-    Add-Summary 'NG' 'Tera Term の設定' "コピー元がありません: $srcIni"
-} elseif (Get-Process ttermpro -ErrorAction SilentlyContinue) {
-    Add-Summary 'NG' 'Tera Term の設定' 'Tera Term が起動しています．閉じてから再実行してください（起動中に置き換えると，終了時に上書きされることがあります）'
-} else {
-    New-Item -ItemType Directory -Force $dstDir | Out-Null
-    if ((Test-Path $dstIni) -and ((Get-FileHash $dstIni).Hash -eq (Get-FileHash $srcIni).Hash)) {
-        Add-Summary 'OK' 'Tera Term の設定' "コピー済み: $dstIni"
-    } else {
-        if (Test-Path $dstIni) {
-            $bak = "$dstIni.bak-" + (Get-Date -Format 'yyyyMMddHHmmss')
-            Copy-Item $dstIni $bak
-            Write-Host "既存の設定をバックアップしました: $bak"
-        }
-        Copy-Item $srcIni $dstIni -Force
-        Add-Summary 'OK' 'Tera Term の設定' "コピーしました: $dstIni"
-    }
-}
-
 # ---------------------------------------------------------------- 6. Defender
 Write-Step '6. ウイルス対策ソフトの除外設定（Microsoft Defender）'
 
@@ -320,7 +293,7 @@ foreach ($s in $summary) {
 
 Write-Host ''
 Write-Host '##### 手作業で行ってください #####' -ForegroundColor Cyan
-Write-Host '  - Tera Term を起動し，「設定」→「シリアルポート」が 115200，「設定」→「端末」の漢字（受信）が UTF-8 になっていることを確認'
+Write-Host '  - Tera Term を起動し，MCU-Link の COM ポートに 115200 で接続できること，°C が文字化けしないことを確認（設定ファイルは配らない．ボーレートは受講者が記事2.2節の手順で設定する）'
 Write-Host '  - Ethernet を固定IPに（例: 192.168.1.10 / 255.255.255.0，ゲートウェイは空欄．192.168.1.100 は使わない）'
 Write-Host '  - ノートPCは AC アダプタをつなぎ，電源モードを「最適なパフォーマンス」に．スリープまでの時間を長めに'
 Write-Host '  - Wi-Fi が 192.168.1.x のネットワークにつながっていないか確認'

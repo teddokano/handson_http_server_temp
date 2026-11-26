@@ -24,9 +24,10 @@
 | 6 | `hello_world.png` | 挿入済み．2.2節の末尾のプレースホルダは削除した |
 | C1 | `led_red.jpg` | 挿入済み（2.3節） |
 | 3.2節 | `temperature.png` | 挿入済み |
+| C8 | `fig_c8_blinky_devicetree.png` | 挿入済み（2.4節）．blinkyでの，アプリ・デバイスツリー・Kconfig・GPIOドライバの関係．C5と同じ配色．元のファイルは`docs/img/src/fig_c8_blinky_devicetree.html`（作り直し方はファイル冒頭のコメント） |
 | C5 | `fig_c5_devicetree_kconfig.png` | 挿入済み（3.3節） |
 | 7 | `pc_and_board_connection.png` | 挿入済み（4章冒頭） |
-| C4 | `prj_conf_edit.png` | 挿入済み．**撮り直しが必要**: `MY_IPV4_ADDR`しか書き換えておらず，`MY_IPV4_GW`が`192.0.2.2`のまま．2行とも書き換えて保存した状態で撮る |
+| C4 | `prj_conf_edit.png` | 挿入済み．`MY_IPV4_ADDR`だけを書き換え，`MY_IPV4_GW`は`192.0.2.2`のままの画面．直結ではGatewayは不要なので，「GWの編集を省略した例」として本文で説明し，撮り直さない |
 | C3 | `ether_connected.jpg` | 挿入済み（4.1節） |
 | 4.1節 | `ping.png` | 挿入済み |
 | 8 | `page_view.png` | 挿入済み．背景にTera TermとPowerShellが写っているので，必要ならトリミング |
