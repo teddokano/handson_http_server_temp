@@ -16,9 +16,16 @@ docs/html_format_sample/sample.html の書き方に合わせる:
 このスクリプトでは「【画像を挿入：img/…】」という目印を出す．エディタで目印の位置に画像を入れること．
 --preview を付けると，画像を <img> で表示する確認用のHTMLも作る（ブラウザで見た目を確かめる用）．
 
+ブログの本文は100,000文字までなので，2つの記事に分ける:
+  - 本編   … 0〜6章と付録A（docs/blog/article_blog_main.html）
+  - 付録編 … 付録B〜G（docs/blog/article_blog_appendix.html）
+記事の元のファイルは1つのまま（会場ではこのMarkdownをVS Codeで読む）．
+もう一方の記事へのリンクは，その記事のURLが決まるまで「【本編のURL】」「【付録編のURL】」という目印になる．
+URLが決まったら --main-url と --appendix-url で指定して作り直す．
+
 使い方:
-  python3 tools/md2nxp_html.py            # docs/blog/article_blog.html を作る
-  python3 tools/md2nxp_html.py --preview  # 確認用の docs/blog/article_blog_preview.html も作る
+  python3 tools/md2nxp_html.py --preview
+  python3 tools/md2nxp_html.py --main-url https://… --appendix-url https://…
 """
 import html
 import re
@@ -47,9 +54,23 @@ def idx(anchor: str) -> str:
     return 'idx' + anchor
 
 
+SPLIT_AT = 'appendixB'   # この章から後ろを付録編にする
+POST_NAME = {'main': '本編', 'appx': '付録編'}
+
+
 class Conv:
-    def __init__(self, preview: bool):
+    def __init__(self, preview: bool, urls: dict):
         self.preview = preview
+        self.urls = urls          # {'main': URL, 'appx': URL}
+        self.anchor_post = {}     # 記事の <a id> → 'main' / 'appx'
+        self.cur_post = 'main'
+
+    def href(self, anchor: str):
+        """ページ内リンクの <a ...> の開始タグ．もう一方の記事なら，その記事のURLへのリンクにする．"""
+        post = self.anchor_post.get(anchor, self.cur_post)
+        if post == self.cur_post:
+            return f'<a class="smoothScroll" href="#{idx(anchor)}" target="_self">'
+        return f'<a href="{html.escape(self.urls[post])}#{idx(anchor)}" target="_blank" rel="noopener">'
 
     # ------------------------------------------------------------ inline
     def inline(self, text: str) -> str:
@@ -68,7 +89,7 @@ class Conv:
         def link(m):
             label, url = m.group(1), m.group(2)
             if url.startswith('#'):
-                return keep(f'<a class="smoothScroll" href="#{idx(url[1:])}" target="_self">') + label + keep('</a>')
+                return keep(self.href(url[1:])) + label + keep('</a>')
             return keep(f'<a href="{html.escape(url)}" target="_blank" rel="noopener">') + label + keep('</a>')
 
         text = re.sub(r'\[((?:[^\[\]]|\[[^\]]*\])+)\]\(([^)\s]+)\)', link, text)
@@ -291,7 +312,7 @@ class Conv:
         return '\n'.join(out)
 
     # ------------------------------------------------------------ document
-    def convert(self, md: str) -> str:
+    def convert(self, md: str) -> dict:
         md = re.sub(r'<!--.*?-->', '', md, flags=re.S)
         lines = md.split('\n')
 
@@ -336,18 +357,24 @@ class Conv:
                 continue
             (cur[3] if cur else pre).append(l)
 
-        out = []
-        out.append(self.blocks(pre))
+        # 本編と付録編に分ける
+        post = 'main'
+        for sec in sections:
+            if sec[0] == 2 and sec[1] == SPLIT_AT:
+                post = 'appx'
+            sec.append(post)
+            if sec[1]:
+                self.anchor_post[sec[1]] = post
+        return {p: self.render(p, pre if p == 'main' else [], [x for x in sections if x[4] == p], sections)
+                for p in ('main', 'appx')}
 
-        # 目次
-        out += [BLANK, '<div id="idxtoc" class="pt1">',
-                '<h1><a target="_blank" name="idxtoc"></a>目次</h1>', '</div>', BLANK]
+    def toc_html(self, items):
         toc = ['<ul>']
         open_sub = False
-        for level, anchor, title, _ in sections:
+        for level, anchor, title, _, _ in items:
             if not anchor:
                 continue
-            link = f'<a class="smoothScroll" href="#{idx(anchor)}" target="_self">{self.inline(title)}</a>'
+            link = f'{self.href(anchor)}{self.inline(title)}</a>'
             if level == 2:
                 if open_sub:
                     toc.append('</ul>')
@@ -361,12 +388,35 @@ class Conv:
         if open_sub:
             toc.append('</ul>')
         toc.append('</ul>')
-        out.append('\n'.join(toc))
+        return '\n'.join(toc)
+
+    def render(self, post, pre, sections, all_sections):
+        self.cur_post = post
+        other = 'appx' if post == 'main' else 'main'
+        other_url = html.escape(self.urls[other])
+        out = []
+        if pre:
+            out.append(self.blocks(pre))
+
+        # 2つの記事に分けていることの案内
+        if post == 'main':
+            out.append(f'<p>この記事は，本編（0〜6章と付録A）と<a href="{other_url}" target="_blank" rel="noopener">付録編（付録B〜G）</a>の2つに分けて掲載しています．付録編には，コマンド例の一覧（PowerShell／bash・zsh），早く終わった方向けの課題，他のFRDMボードで試す方法，用語集，よくある質問などがあります．</p>')
+        else:
+            out.append(f'<p>この記事は，「Zephyrデビュー会 〜FRDM-MCXN947でつまずかず動かす90分〜」の<strong>付録編</strong>です．手順の本文（0〜6章）と，うまくいかないときの対処（付録A）は，<a href="{other_url}" target="_blank" rel="noopener">本編</a>にあります．</p>')
+
+        # 目次（もう一方の記事の章も，その記事へのリンクとして載せる）
+        out += [BLANK, '<div id="idxtoc" class="pt1">',
+                '<h1><a target="_blank" name="idxtoc"></a>目次</h1>', '</div>', BLANK]
+        out.append(self.toc_html(sections))
+        others = [x for x in all_sections if x[4] != post and x[0] == 2]
+        if others:
+            out.append(f'<p>{POST_NAME[other]}（別の記事）:</p>')
+            out.append(self.toc_html(others))
 
         back = '<p class="lia-align-right"><a class="smoothScroll" href="#idxtoc" target="_self">▲ 目次に戻る</a></p>'
-        for level, anchor, title, body in sections:
+        for n, (level, anchor, title, body, _) in enumerate(sections):
             tag = 'h1' if level == 2 else 'h2'
-            if level == 2:
+            if level == 2 and n > 0:
                 out.append(back)
             if anchor:
                 a = idx(anchor)
@@ -393,17 +443,27 @@ code{background:#f0f0f0;padding:0 3px}
 '''
 
 
+def arg(name, default):
+    if name in sys.argv:
+        return sys.argv[sys.argv.index(name) + 1]
+    return default
+
+
 def main():
     preview = '--preview' in sys.argv
+    urls = {'main': arg('--main-url', '【本編のURL】'), 'appx': arg('--appendix-url', '【付録編のURL】')}
     md = SRC.read_text(encoding='utf-8')
     OUTDIR.mkdir(exist_ok=True)
-    body = Conv(preview=False).convert(md)
-    (OUTDIR / 'article_blog.html').write_text(body, encoding='utf-8')
-    print('wrote', OUTDIR / 'article_blog.html')
+    names = {'main': 'article_blog_main', 'appx': 'article_blog_appendix'}
+    for p, body in Conv(preview=False, urls=urls).convert(md).items():
+        f = OUTDIR / f'{names[p]}.html'
+        f.write_text(body, encoding='utf-8')
+        print(f'wrote {f}  ({len(body):,} 文字)')
     if preview:
-        pv = Conv(preview=True).convert(md)
-        (OUTDIR / 'article_blog_preview.html').write_text(PREVIEW_HEAD + pv + '</body></html>\n', encoding='utf-8')
-        print('wrote', OUTDIR / 'article_blog_preview.html')
+        for p, body in Conv(preview=True, urls=urls).convert(md).items():
+            f = OUTDIR / f'{names[p]}_preview.html'
+            f.write_text(PREVIEW_HEAD + body + '</body></html>\n', encoding='utf-8')
+            print('wrote', f)
 
 
 if __name__ == '__main__':
